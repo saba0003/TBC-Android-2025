@@ -1,0 +1,6 @@
+<resources>
+    <string name="number_input">შეიყვანეთ რიცხვი (1–1000)</string>
+    <string name="translate_button">თარგმნა</string>
+    <string name="translated_text">თარგმანი გამოჩნდება აქ</string>
+    <string name="invalid_input">აპლიკაცია ამ კონკრეტული რიცხვისთვის არ მუშაობს!</string>
+</resources>

@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">TBC-Android-2025</string>
+    <string name="app_name" translatable="false">TBC-Android-2025</string>
     <string name="number_input">Enter a number (1–1000)</string>
     <string name="translate_button">Translate</string>
     <string name="translated_text">Translation will appear here</string>
-    <string name="language_switcher">ქართული / English</string>
+    <string name="language_switcher" translatable="false">ქართული / English</string>
     <string name="invalid_input">Input number not supported!</string>
 </resources>
