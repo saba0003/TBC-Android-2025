@@ -48,16 +48,13 @@ class MainActivity : ComponentActivity() {
 
     private fun translateNumberToGeorgian(number: Int): String {
         return when {
-            // simple cases
             base.containsKey(key = number) -> base[number]!!
 
-            // 20s, 40s, 60s, 80s
             number in 21..39 -> "ოცდა" + base[number - 20]
             number in 41..59 -> "ორმოცდა" + base[number - 40]
             number in 61..79 -> "სამოცდა" + base[number - 60]
             number in 81..99 -> "ოთხმოცდა" + base[number - 80]
 
-            // Hundreds
             number in 101..199 -> "ას " + translateNumberToGeorgian(number = number - 100)
             number in 201..299 -> "ორას " + translateNumberToGeorgian(number = number - 200)
             number in 301..399 -> "სამას " + translateNumberToGeorgian(number = number - 300)
