@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/numberInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/number_input"
+        android:importantForAutofill="no"
+        android:inputType="number"
+        android:maxLength="4" />
+
+    <Button
+        android:id="@+id/translateButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/translate_button" />
+
+    <TextView
+        android:id="@+id/translatedText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/translated_text"
+        android:textSize="18sp" />
+
+    <Switch
+        android:id="@+id/languageToggle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/language_switcher"
+        android:layout_marginTop="16dp"/>
+</LinearLayout>
