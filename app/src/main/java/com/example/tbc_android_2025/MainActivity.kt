@@ -11,13 +11,13 @@ import com.example.tbc_android_2025.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private var cachedEmail = ""
-    private var cachedUsername = ""
-    private var cachedFirstName = ""
-    private var cachedLastName = ""
-    private var cachedAge = ""
-    private var cachedPhoneNumber = ""
-    private var cachedAddress = ""
+    private lateinit var cachedEmail: String
+    private lateinit var cachedUsername: String
+    private lateinit var cachedFirstName: String
+    private lateinit var cachedLastName: String
+    private lateinit var cachedAge: String
+    private lateinit var cachedPhoneNumber: String
+    private lateinit var cachedAddress: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,8 +48,15 @@ class MainActivity : AppCompatActivity() {
         val phoneNumberStr = binding.phoneInput.text.toString().trim()
         val address = binding.addressInput.text.toString().trim()
 
-        val error =
-            validateInputs(email, username, firstName, lastName, ageStr, phoneNumberStr, address)
+        val error = validateInputs(
+                email = email,
+                username = username,
+                firstName = firstName,
+                lastName = lastName,
+                ageStr = ageStr,
+                phoneNumberStr = phoneNumberStr,
+                address = address
+            )
 
         if (error != null) {
             showTempMessage(message = error)
