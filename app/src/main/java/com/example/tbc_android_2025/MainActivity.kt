@@ -9,36 +9,31 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    private val words = mutableListOf<String>()
+    private val words = mutableSetOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.saveButton.setOnClickListener {
-            val word = binding.inputEditText.text.toString().trim()
-            if (word.isNotEmpty()) {
-                words.add(word)
-                binding.inputEditText.text.clear()
-                Toast.makeText(this, "Saved: $word", Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(this, "Please enter a word", Toast.LENGTH_SHORT).show()
-            }
-        }
+        binding.saveButton.setOnClickListener { save() }
+        binding.outputButton.setOnClickListener { showAnagramGroups() }
+        binding.clearButton.setOnClickListener { clear() }
+    }
 
-        binding.outputButton.setOnClickListener {
-            showAnagramGroups()
-        }
-
-        binding.clearButton.setOnClickListener {
-            words.clear()
-            binding.inputEditText.text.clear()
-            binding.outputTextView.text = getString(R.string.anagrams_label)
-            Toast.makeText(this, "Cleared!", Toast.LENGTH_SHORT).show()
+    /** Not case-sensitive */
+    private fun save() {
+        val word = binding.anagramInput.text.toString().trim()
+        if (word.isNotEmpty()) {
+            words.add(word)
+            binding.anagramInput.text.clear()
+            Toast.makeText(this, "Saved: $word", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(this, "Please enter a word dumbass", Toast.LENGTH_SHORT).show()
         }
     }
 
+    /** Not case-sensitive */
     private fun showAnagramGroups() {
         val grouped = words.groupBy { it.lowercase().toCharArray().sorted().joinToString("") }
         val builder = StringBuilder()
@@ -46,11 +41,18 @@ class MainActivity : AppCompatActivity() {
         grouped.values.forEachIndexed { index, group ->
             builder.append("Group ${index + 1}: ")
             builder.append(group.joinToString(", "))
-            builder.append("\n")
+            builder.append("\n\n")
         }
 
         builder.append("\nNumber of anagram groups: ${grouped.size}")
 
-        binding.outputTextView.text = builder.toString()
+        binding.anagramOutput.text = builder.toString()
+    }
+
+    private fun clear() {
+        words.clear()
+        binding.anagramInput.text.clear()
+        binding.anagramOutput.text = getString(R.string.anagrams_label)
+        Toast.makeText(this, "Cleared!", Toast.LENGTH_SHORT).show()
     }
 }

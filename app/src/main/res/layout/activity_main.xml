@@ -14,7 +14,7 @@
         android:padding="20dp">
 
         <EditText
-            android:id="@+id/inputEditText"
+            android:id="@+id/anagramInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/input_label"
@@ -24,7 +24,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -59,16 +59,17 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:backgroundTint="@color/light_green"
-            android:text="@string/ble_button_label" />
+            android:text="@string/connect_button_label" />
 
         <TextView
-            android:id="@+id/outputTextView"
+            android:id="@+id/anagramOutput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="16dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
             android:text="@string/anagrams_label"
             android:textAppearance="@style/Widget.AppCompat.Spinner.Underlined"
-            android:textSize="16sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
     </LinearLayout>
