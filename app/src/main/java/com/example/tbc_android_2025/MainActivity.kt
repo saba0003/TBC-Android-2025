@@ -13,9 +13,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        init()
+    }
+
+    private fun init() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         binding.saveButton.setOnClickListener { save() }
         binding.outputButton.setOnClickListener { showAnagramGroups() }
         binding.clearButton.setOnClickListener { clear() }
@@ -27,9 +30,10 @@ class MainActivity : AppCompatActivity() {
         if (word.isNotEmpty()) {
             anagrams.add(word)
             binding.anagramInput.text.clear()
-            Toast.makeText(this, "Saved: $word", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.save_button_message, word), Toast.LENGTH_SHORT)
+                .show()
         } else {
-            Toast.makeText(this, "Please enter a word dumbass", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, R.string.empty_input_exception_message, Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -54,6 +58,6 @@ class MainActivity : AppCompatActivity() {
         anagrams.clear()
         binding.anagramInput.text.clear()
         binding.anagramOutput.text = getString(R.string.anagrams_label)
-        Toast.makeText(this, "Cleared!", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, R.string.clear_button_message, Toast.LENGTH_SHORT).show()
     }
 }

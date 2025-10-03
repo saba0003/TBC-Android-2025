@@ -6,4 +6,7 @@
     <string name="input_label">Enter Anagram</string>
     <string name="clear_label">Clear</string>
     <string name="connect_button_label">Connect and Transfer</string>
+    <string name="empty_input_exception_message">Please enter a word you dumbass</string>
+    <string name="save_button_message">Saved %s</string>
+    <string name="clear_button_message">Cleared!</string>
 </resources>
