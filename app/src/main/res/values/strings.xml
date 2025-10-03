@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">TBC-Android-2025</string>
+    <string name="anagrams_label">Anagrams</string>
+    <string name="output_label">Output</string>
+    <string name="save_label">Save</string>
+    <string name="input_label">Enter Anagram</string>
+    <string name="clear_label">Clear</string>
+    <string name="ble_button_label">Connect and Transfer</string>
 </resources>
