@@ -9,7 +9,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    private val words = mutableSetOf<String>()
+    private val anagrams = mutableSetOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
     private fun save() {
         val word = binding.anagramInput.text.toString().trim()
         if (word.isNotEmpty()) {
-            words.add(word)
+            anagrams.add(word)
             binding.anagramInput.text.clear()
             Toast.makeText(this, "Saved: $word", Toast.LENGTH_SHORT).show()
         } else {
@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
     /** Not case-sensitive */
     private fun showAnagramGroups() {
         val grouped: Map<String, List<String>> =
-            words.groupBy { it.lowercase().toCharArray().sorted().joinToString("") }
+            anagrams.groupBy { it.lowercase().toCharArray().sorted().joinToString("") }
         val builder = StringBuilder()
 
         grouped.values.forEachIndexed { index, group ->
@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun clear() {
-        words.clear()
+        anagrams.clear()
         binding.anagramInput.text.clear()
         binding.anagramOutput.text = getString(R.string.anagrams_label)
         Toast.makeText(this, "Cleared!", Toast.LENGTH_SHORT).show()
