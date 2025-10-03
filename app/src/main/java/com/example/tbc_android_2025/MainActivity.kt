@@ -35,7 +35,8 @@ class MainActivity : AppCompatActivity() {
 
     /** Not case-sensitive */
     private fun showAnagramGroups() {
-        val grouped = words.groupBy { it.lowercase().toCharArray().sorted().joinToString("") }
+        val grouped: Map<String, List<String>> =
+            words.groupBy { it.lowercase().toCharArray().sorted().joinToString("") }
         val builder = StringBuilder()
 
         grouped.values.forEachIndexed { index, group ->
