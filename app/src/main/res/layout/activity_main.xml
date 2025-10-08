@@ -25,31 +25,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <!-- 1️⃣ Background Image -->
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
                     android:src="@drawable/landscape_image" />
 
-                <!-- 2️⃣ Foreground overlay (buttons, text, etc.) -->
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:padding="20dp">
 
-                    <!-- Back Button -->
                     <ImageButton
-                        android:id="@+id/backButton"
                         android:layout_width="44dp"
                         android:layout_height="44dp"
                         android:background="@drawable/rounded_button_bg"
                         android:src="@drawable/ic_arrow_left"
                         app:tint="@android:color/white" />
 
-                    <!-- Bookmark Button -->
                     <ImageButton
-                        android:id="@+id/bookmarkButton"
                         android:layout_width="44dp"
                         android:layout_height="44dp"
                         android:layout_gravity="end"
@@ -57,20 +51,17 @@
                         android:src="@drawable/ic_bookmark"
                         app:tint="@android:color/white" />
 
-                    <!-- Text Container -->
                     <FrameLayout
                         android:layout_width="match_parent"
                         android:layout_height="104dp"
                         android:layout_gravity="bottom">
 
-                        <!-- Background Image -->
                         <ImageView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:scaleType="fitXY"
                             android:src="@drawable/landscape_info_container" />
 
-                        <!-- Title -->
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -81,7 +72,6 @@
                             android:textSize="18sp"
                             android:textStyle="bold" />
 
-                        <!-- Location row: marker + region name -->
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -92,7 +82,6 @@
                             android:orientation="horizontal">
 
                             <ImageButton
-                                android:id="@+id/locationButton"
                                 android:layout_width="22dp"
                                 android:layout_height="22dp"
                                 android:background="@drawable/rounded_button_bg"
@@ -109,7 +98,6 @@
 
                         </LinearLayout>
 
-                        <!-- Price labels -->
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -122,6 +110,7 @@
                             android:textStyle="bold" />
 
                         <TextView
+                            android:id="@+id/priceTag"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="bottom|end"
@@ -167,6 +156,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="30dp"
+            android:baselineAligned="false"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -177,7 +167,6 @@
                 android:orientation="horizontal">
 
                 <ImageButton
-                    android:id="@+id/clockButton"
                     android:layout_width="44dp"
                     android:layout_height="44dp"
                     android:layout_marginEnd="10dp"
@@ -185,6 +174,7 @@
                     android:src="@drawable/ic_clock" />
 
                 <TextView
+                    android:id="@+id/time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/time_label"
@@ -201,7 +191,6 @@
                 android:orientation="horizontal">
 
                 <ImageButton
-                    android:id="@+id/cloudButton"
                     android:layout_width="44dp"
                     android:layout_height="44dp"
                     android:layout_marginEnd="10dp"
@@ -209,9 +198,10 @@
                     android:src="@drawable/ic_cloud" />
 
                 <TextView
+                    android:id="@+id/temperature"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/degree_celsius_label"
+                    android:text="@string/temperature_celsius_label"
                     android:textSize="15sp"
                     android:textStyle="bold" />
 
@@ -225,7 +215,6 @@
                 android:orientation="horizontal">
 
                 <ImageButton
-                    android:id="@+id/starButton"
                     android:layout_width="44dp"
                     android:layout_height="44dp"
                     android:layout_marginEnd="10dp"
@@ -233,6 +222,7 @@
                     android:src="@drawable/ic_star" />
 
                 <TextView
+                    android:id="@+id/rating"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/rating_label"
@@ -244,31 +234,32 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/landscapeInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="60dp"
-            android:text="@string/landscape_info"
+            android:text="@string/landscape_info_label"
             android:textSize="18sp"
             android:textStyle="bold" />
 
         <com.google.android.material.button.MaterialButton
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingStart="16dp"
+            android:paddingTop="12dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="12dp"
             android:text="@string/book_now_label"
             android:textAllCaps="false"
-            android:textSize="20sp"
             android:textColor="@color/white"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:paddingTop="12dp"
-            android:paddingBottom="12dp"
-            android:gravity="center"
+            android:textSize="20sp"
+            app:backgroundTint="@color/black"
+            app:cornerRadius="20dp"
             app:icon="@drawable/ic_paper_plane"
             app:iconGravity="textEnd"
             app:iconPadding="10dp"
-            app:iconTint="@color/white"
-            app:backgroundTint="@color/black"
-            app:cornerRadius="20dp" />
+            app:iconTint="@color/white" />
 
     </LinearLayout>
 

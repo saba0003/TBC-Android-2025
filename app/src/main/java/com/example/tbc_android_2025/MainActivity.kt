@@ -1,7 +1,6 @@
 package com.example.tbc_android_2025
 
 import android.os.Bundle
-import android.util.Log.d
 import androidx.appcompat.app.AppCompatActivity
 import com.example.tbc_android_2025.databinding.ActivityMainBinding
 
@@ -10,38 +9,22 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+        super.onCreate(savedInstanceState = savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        populateUI()
     }
 
-    override fun onStart() {
-        super.onStart()
-        d("method", "onStart")
-    }
-
-    override fun onResume() {
-        super.onResume()
-        d("method", "onResume")
-    }
-
-    override fun onPause() {
-        super.onPause()
-        d("method", "onPause")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        d("method", "onStop")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        d("method", "onDestroy")
-    }
-
-    override fun onRestart() {
-        super.onRestart()
-        d("method", "onRestart")
+    private fun populateUI() {
+        val landscapeInfo = """
+            This vast mountain range is renowned for its remarkable diversity in terms of
+            topography and climate. It features towering peaks, active volcanoes, deep canyons,
+            expansive plateaus, and lush valleys. The Andes are also home to
+        """.trimIndent().replace(oldValue = "\n", newValue = " ")
+        binding.priceTag.text = String.format(getString(R.string.price_tag), 230)
+        binding.time.text = String.format(getString(R.string.time_label), 8)
+        binding.temperature.text = String.format(getString(R.string.temperature_celsius_label), 16)
+        binding.rating.text = String.format(getString(R.string.rating_label), 4.5f)
+        binding.landscapeInfo.text = String.format(getString(R.string.landscape_info_label), landscapeInfo)
     }
 }
