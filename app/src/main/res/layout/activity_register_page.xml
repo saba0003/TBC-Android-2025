@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="16dp"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:src="@drawable/ic_back" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="33dp"
+            android:fontFamily="@font/comfortaa_bold"
+            android:text="@string/register_label"
+            android:textColor="@color/black"
+            android:textSize="36sp" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/emailEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/edit_text_border"
+            android:hint="@string/email_label"
+            android:inputType="textEmailAddress"
+            android:paddingVertical="17dp"
+            android:paddingStart="17dp" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/passwordEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/edit_text_border"
+            android:hint="@string/password_label"
+            android:inputType="textPassword"
+            android:paddingVertical="17dp"
+            android:paddingStart="17dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/nextButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@color/black"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:paddingVertical="19dp"
+            android:text="@string/next_label"
+            android:textColor="@color/white"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            app:cornerRadius="6dp"
+            app:strokeWidth="2dp" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</androidx.core.widget.NestedScrollView>

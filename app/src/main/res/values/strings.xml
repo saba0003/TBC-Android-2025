@@ -1,3 +1,21 @@
 <resources>
+
+    <!--  xml labels  -->
     <string name="app_name">TBC-Android-2025</string>
+    <string name="username_label">Pawel Czerwinski</string>
+    <string name="user_email_label">\@pawel_czerwinski</string>
+    <string name="login_label">Log in</string>
+    <string name="register_label">Register</string>
+    <string name="email_label">Email</string>
+    <string name="password_label">Password</string>
+    <string name="next_label">Next</string>
+
+    <!--  exception labels  -->
+    <string name="empty_email_input_label">Email field must be filled in!</string>
+    <string name="incorrect_email_input_format_label">Incorrect email format!</string>
+    <string name="insufficient_password_input_length_label">Password length must be at least 8 characters long!</string>
+
+    <!--  registration output labels  -->
+    <string name="successful_registration_label">Registration successful!</string>
+    <string name="unsuccessful_registration_label">Registration failed!</string>
 </resources>
