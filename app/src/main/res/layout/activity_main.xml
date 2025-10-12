@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#CCCDC5"
+    android:background="@color/gray_matching_background"
     tools:context="MainActivity">
 
     <androidx.appcompat.widget.AppCompatImageView
@@ -14,8 +14,8 @@
         android:layout_height="match_parent"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
-        android:translationY="200dp"
         android:src="@drawable/funny_phone_background"
+        android:translationY="200dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

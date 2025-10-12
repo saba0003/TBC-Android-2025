@@ -10,6 +10,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var users: MutableSet<User>
+
     private var activeUsersCounter = 0
     private var deletedUsersCounter = 0
     private var userToUpdate: User? = null
@@ -23,89 +24,60 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(binding.root)
 
-        binding.firstNameEditText.setText("saba")
-        binding.lastNameEditText.setText("sm")
-        binding.ageEditText.setText("20")
-        binding.emailEditText.setText("saba@gmail.com")
+        with(receiver = binding) {
+            addButton.setOnClickListener {
+                if (!allFieldsAreFilledIn())
+                    return@setOnClickListener
 
-        binding.addButton.setOnClickListener {
-            if (allFieldsAreFilledIn()) {
-                val firstName = binding.firstNameEditText.text.toString().trim()
-                val lastName = binding.lastNameEditText.text.toString().trim()
-                val age = binding.ageEditText.text.toString().trim().toInt()
-                val email = binding.emailEditText.text.toString().trim()
+                val user = getUserFromInput()
 
-                if (validateEmail(view = binding.emailEditText, email = email)) {
-                    users.add(
-                        User(
-                            firstName = firstName,
-                            lastName = lastName,
-                            age = age,
-                            email = email
-                        )
-                    )
-                    binding.addButton.popMessage(resId = R.string.user_added_successfully_label)
-                    clearFields()
-                    updateCounters(counter = CounterType.ACTIVE, increment = true)
-                }
+                if (!validateEmail(email = user.email))
+                    return@setOnClickListener
+
+                addUser(user = user)
             }
-        }
 
-        binding.removeButton.setOnClickListener {
-            val email = binding.emailEditText.text.toString().trim()
-            if (validateEmail(view = binding.emailEditText, email = email)) {
-                val removed = users.removeIf { it.email == email }
-                if (removed) {
-                    clearFields()
-                    binding.removeButton.popMessage(resId = R.string.user_deleted_successfully_label)
-                    updateCounters(counter = CounterType.DELETED, increment = true)
-                } else {
-                    binding.removeButton.popMessage(resId = R.string.user_does_not_exist_label)
-                }
-            }
-        }
+            updateButton.setOnClickListener {
+                val email = emailEditText.text.toString().trim()
 
-        binding.updateButton.setOnClickListener {
-            val email = binding.emailEditText.text.toString().trim()
-            val firstName = binding.firstNameEditText.text.toString().trim()
-            val lastName = binding.lastNameEditText.text.toString().trim()
-            val age = binding.ageEditText.text.toString().trim().toIntOrNull()
+                if (userToUpdate == null) {
+                    if (!validateEmail(email = email)) {
+                        updateButton.popMessage(resId = R.string.enter_email_to_search_label)
+                        return@setOnClickListener
+                    }
 
-            if (userToUpdate == null) {
-                if (!validateEmail(view = binding.emailEditText, email = email)) {
-                    binding.updateButton.popMessage(resId = R.string.enter_email_to_search_label)
+                    users.find { it.email == email }?.let {
+                        userToUpdate = it
+                        clearFields()
+                        updateButton.popMessage(resId = R.string.user_found_update_fields_label)
+                    } ?: updateButton.popMessage(resId = R.string.user_does_not_exist_label)
+
                     return@setOnClickListener
                 }
 
-                val existingUser = users.find { it.email == email }
+                if (!allFieldsAreFilledIn())
+                    return@setOnClickListener
 
-                if (existingUser != null) {
-                    userToUpdate = existingUser
-                    binding.root.popMessage(resId = R.string.user_found_update_fields_label)
-                    clearFields()
-                } else {
-                    binding.root.popMessage(resId = R.string.user_does_not_exist_label)
+                getUserFromInput().also { updatedUser ->
+                    updateUser(user = updatedUser)
                 }
-
-                return@setOnClickListener
             }
 
-            if (!allFieldsAreFilledIn())
-                return@setOnClickListener
+            removeButton.setOnClickListener {
+                val email = emailEditText.text.toString().trim()
+                if (!validateEmail(email = email))
+                    return@setOnClickListener
 
-            val updatedUser = User(
-                firstName = firstName,
-                lastName = lastName,
-                age = age!!,
-                email = email
-            )
+                val messageResId = if (users.removeIf { it.email == email }) {
+                    clearFields()
+                    updateCounters(counter = CounterType.DELETED, increment = true)
+                    R.string.user_deleted_successfully_label
+                } else {
+                    R.string.user_does_not_exist_label
+                }
 
-            users.remove(element = userToUpdate)
-            users.add(element = updatedUser)
-
-            binding.updateButton.popMessage(resId = R.string.user_updated_successfully_label)
-            clearFields()
-            userToUpdate = null
+                removeButton.popMessage(resId = messageResId)
+            }
         }
     }
 
@@ -129,15 +101,15 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-    private fun validateEmail(view: View, email: String): Boolean {
+    private fun validateEmail(email: String): Boolean = with(receiver = binding.emailEditText) {
         return when {
             email.isBlank() -> {
-                view.popMessage(resId = R.string.empty_email_input_label)
+                popMessage(resId = R.string.empty_email_input_label)
                 false
             }
 
             !Patterns.EMAIL_ADDRESS.matcher(email).matches() -> {
-                view.popMessage(resId = R.string.incorrect_email_input_format_label)
+                popMessage(resId = R.string.incorrect_email_input_format_label)
                 false
             }
 
@@ -158,7 +130,54 @@ class MainActivity : AppCompatActivity() {
         val fields = listOf(firstNameEditText, lastNameEditText, ageEditText, emailEditText)
         val allFilled = fields.none { it.text.isNullOrBlank() }
         if (!allFilled)
-            root.popMessage(R.string.all_fields_must_be_filled_in_label)
+            root.popMessage(resId = R.string.all_fields_must_be_filled_in_label)
         allFilled
+    }
+
+    private fun getUserFromInput(): User = with(receiver = binding) {
+        User(
+            firstName = firstNameEditText.text.toString().trim(),
+            lastName = lastNameEditText.text.toString().trim(),
+            age = ageEditText.text.toString().trim().toInt(),
+            email = emailEditText.text.toString().trim()
+        )
+    }
+
+    private fun saveUser(
+        user: User,
+        operation: (User) -> Unit,
+        button: View,
+        messageRes: Int,
+        updateCounter: Boolean = false
+    ) {
+        operation(user)
+        clearFields()
+        button.popMessage(resId = messageRes)
+        if (updateCounter)
+            updateCounters(counter = CounterType.ACTIVE, increment = true)
+    }
+
+
+    private fun addUser(user: User) {
+        saveUser(
+            user = user,
+            operation = { users.add(it) },
+            button = binding.addButton,
+            messageRes = R.string.user_added_successfully_label,
+            updateCounter = true
+        )
+    }
+
+    private fun updateUser(user: User) {
+        saveUser(
+            user = user,
+            operation = {
+                users.remove(element = userToUpdate)
+                users.add(element = it)
+                userToUpdate = null
+            },
+            button = binding.updateButton,
+            messageRes = R.string.user_updated_successfully_label
+        )
     }
 }
