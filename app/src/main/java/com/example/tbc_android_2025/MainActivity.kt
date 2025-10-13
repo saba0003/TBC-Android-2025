@@ -22,9 +22,10 @@ class MainActivity : AppCompatActivity() {
 
         updateCounters()
 
-        setContentView(binding.root)
-
         with(receiver = binding) {
+
+            setContentView(root)
+
             addButton.setOnClickListener {
                 if (!allFieldsAreFilledIn())
                     return@setOnClickListener
