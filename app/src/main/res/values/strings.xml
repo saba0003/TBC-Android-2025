@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">TBC-Android-2025</string>
+    <string name="enter_first_name_label">Enter First Name</string>
+    <string name="enter_last_name_label">Enter Last Name</string>
+    <string name="enter_birthday_label">Enter Birthday (dd/MMM/yyyy)</string>
+    <string name="enter_email_label">Enter Email</string>
+    <string name="enter_address_label">Enter Address</string>
+    <string name="add_new_user_label">Add New User</string>
+    <string name="search_user_type_any_field_label">Search user (type any field)</string>
+    <string name="suggestion_will_appear_here_label">Suggestion will appear here</string>
 </resources>
