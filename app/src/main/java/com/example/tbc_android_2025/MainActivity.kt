@@ -18,7 +18,6 @@ class MainActivity : AppCompatActivity() {
     private var activeUsersCounter = 0
     private var deletedUsersCounter = 0
 
-    // register for result
     private val updateLauncher =
         registerForActivityResult(contract = ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode != RESULT_OK || result.data == null)
@@ -32,13 +31,11 @@ class MainActivity : AppCompatActivity() {
 
             when (action) {
                 IntentKeys.ACTION_UPDATED -> {
-                    // replace old user (match by email) and add updated
                     val removed =
-                        users.removeIf { it.email == user.email } // remove old by same email
+                        users.removeIf { it.email == user.email }
                     users.add(user)
                     val msgRes =
                         if (removed) R.string.user_updated_successfully_label else R.string.user_added_successfully_label
-                    // If old user was present we consider it an update, otherwise add
                     updateCounters()
                     binding.root.popMessage(msgRes, R.color.viridian)
                 }
@@ -96,23 +93,18 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    // This opens UpdateActivity when user wants to update an existing user
     private fun setListenerOnOpenUpdatePage() = binding.run {
         updateButton.setOnClickListener {
-            // 1) if users set is empty -> show message
             if (users.isEmpty()) {
-                // user-facing message: no users to update
                 updateButton.popMessage(
-                    resId = R.string.no_users_available_label,  // add this string in strings.xml
-                    color = R.color.amaranth,
+                    resId = R.string.no_users_available_label,
+                    color = R.color.amaranth
                 )
                 return@setOnClickListener
             }
 
-            // 2) pick random user from set
             val randomUser = users.random()
 
-            // 3) Start UpdateActivity carrying this user (Parcelable)
             val intent = Intent(this@MainActivity, UpdateActivity::class.java).apply {
                 putExtra(EXTRA_USER, randomUser)
                 putExtra(EXTRA_ACTIVE_COUNT, activeUsersCounter)
@@ -123,7 +115,6 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    // UI helper methods (you can keep them in helper object if you like)
     private fun updateCounters() = binding.run {
         activeUsers.text = getString(R.string.active_users_label, activeUsersCounter)
         deletedUsers.text = getString(R.string.deleted_users_label, deletedUsersCounter)

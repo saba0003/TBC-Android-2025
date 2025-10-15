@@ -15,34 +15,26 @@ class UpdateActivity : AppCompatActivity() {
         binding = ActivityUpdateBinding.inflate(layoutInflater)
         setContentView(view = binding.root)
 
-        // read counters passed from MainActivity
         val active = intent.getIntExtra(IntentKeys.EXTRA_ACTIVE_COUNT, 0)
         val deleted = intent.getIntExtra(IntentKeys.EXTRA_DELETED_COUNT, 0)
 
-        // fill in user fields
         originalUser = intent.getParcelableExtra(IntentKeys.EXTRA_USER) ?: run { finish(); return }
         bindUserToFields(originalUser)
 
-        // show counters on the update page
         updateCounters(active = active, deleted = deleted)
 
-        // receive user
         originalUser = intent.getParcelableExtra(IntentKeys.EXTRA_USER) ?: run {
-            // nothing to edit — just finish
             finish()
             return
         }
 
-        // prefill fields
         bindUserToFields(originalUser)
 
-        // Back button - just finish without result
         binding.backButton.setOnClickListener {
             setResult(RESULT_CANCELED)
             finish()
         }
 
-        // Update button - validate, return updated user
         binding.updateButton.setOnClickListener {
             if (!allFieldsAreFilledIn()) return@setOnClickListener
 
@@ -57,9 +49,7 @@ class UpdateActivity : AppCompatActivity() {
             finish()
         }
 
-        // Remove button - confirm then return removed action
         binding.removeButton.setOnClickListener {
-            // optional: show a confirmation dialog here
             val data = intent.apply {
                 putExtra(IntentKeys.EXTRA_USER, originalUser)
                 putExtra(IntentKeys.RESULT_ACTION, IntentKeys.ACTION_REMOVED)
