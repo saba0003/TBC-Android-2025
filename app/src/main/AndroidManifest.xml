@@ -12,12 +12,14 @@
         android:theme="@style/Theme.TBCAndroid2025">
 
         <activity
-            android:name="MainActivity"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".UpdateActivity" android:exported="true" />
     </application>
 </manifest>

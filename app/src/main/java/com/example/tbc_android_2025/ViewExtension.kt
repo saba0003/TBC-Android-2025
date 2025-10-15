@@ -15,4 +15,3 @@ fun View.popMessage(text: String, color: Int? = null) {
     color?.let { snackbar.setBackgroundTint(ContextCompat.getColor(context, it)) }
     snackbar.show()
 }
-

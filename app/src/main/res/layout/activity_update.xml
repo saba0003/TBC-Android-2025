@@ -41,12 +41,22 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/backButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:src="@drawable/ic_back"
+        app:layout_constraintBottom_toTopOf="@id/firstNameEditText"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/activeUsers" />
+
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/firstNameEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="5dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="150dp"
         android:background="@drawable/edit_text_border"
         android:hint="@string/first_name_input_label"
         android:inputType="text"
@@ -95,19 +105,6 @@
         app:layout_constraintTop_toBottomOf="@+id/ageEditText" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/addButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:backgroundTint="#536878"
-        android:text="@string/add_user_label"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/updateButton"
-        app:layout_constraintTop_toBottomOf="@+id/emailEditText" />
-
-    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/updateButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -116,7 +113,20 @@
         android:text="@string/update_user_label"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        app:layout_constraintLeft_toRightOf="@+id/addButton"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/removeButton"
+        app:layout_constraintTop_toBottomOf="@+id/emailEditText" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/removeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="#536878"
+        android:text="@string/remove_user_label"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        app:layout_constraintLeft_toRightOf="@+id/updateButton"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/emailEditText" />
 

@@ -20,4 +20,6 @@
     <string name="all_fields_must_be_filled_in_label">All fields must be filled in!</string>
     <string name="user_found_update_fields_label">User found, update desired fields</string>
     <string name="enter_email_to_search_label">Enter email to start search</string>
+    <string name="user_with_email_already_exists_label">User with this email already exists!</string>
+    <string name="no_users_available_label">No user in database to update!</string>
 </resources>
