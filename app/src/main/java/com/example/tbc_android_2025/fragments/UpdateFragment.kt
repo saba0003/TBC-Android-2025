@@ -1,15 +1,27 @@
-package com.example.tbc_android_2025
+package com.example.tbc_android_2025.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import com.example.tbc_android_2025.EmailValidator.validateEmail
+import com.example.tbc_android_2025.R
+import com.example.tbc_android_2025.models.User
+import com.example.tbc_android_2025.models.UserViewModel
+import com.example.tbc_android_2025.utils.EmailValidator.validateEmail
+import com.example.tbc_android_2025.utils.FragmentKeys.ACTION_KEY
+import com.example.tbc_android_2025.utils.FragmentKeys.COLOR_RES_KEY
+import com.example.tbc_android_2025.utils.FragmentKeys.MESSAGE_RES_KEY
+import com.example.tbc_android_2025.utils.FragmentKeys.RESULT_KEY
+import com.example.tbc_android_2025.utils.IntentKeys.ACTION_REMOVED
+import com.example.tbc_android_2025.utils.IntentKeys.ACTION_UPDATED
 import com.example.tbc_android_2025.databinding.FragmentUpdateBinding
+import com.example.tbc_android_2025.utils.IntentKeys
+import com.example.tbc_android_2025.utils.popMessage
 
 class UpdateFragment : Fragment() {
     private var _binding: FragmentUpdateBinding? = null
@@ -22,8 +34,11 @@ class UpdateFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ) =
-        FragmentUpdateBinding.inflate(inflater, container, false).also { _binding = it }.root
+    ): ConstraintLayout =
+        FragmentUpdateBinding
+            .inflate(inflater, container, false)
+            .also { _binding = it }
+            .root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -31,12 +46,14 @@ class UpdateFragment : Fragment() {
     }
 
     private fun setup() {
+        // my SDK is too low to resolve deprecation warning (mine - 24, requires - 33)
         originalUser = requireArguments().getParcelable(IntentKeys.EXTRA_USER)!!
         val active = requireArguments().getInt(IntentKeys.EXTRA_ACTIVE_COUNT, 0)
         val deleted = requireArguments().getInt(IntentKeys.EXTRA_DELETED_COUNT, 0)
 
-        bindUserToFields(originalUser)
-        // disable email editing
+        bindUserToFields(user = originalUser)
+
+        // disables email editing
         binding.emailEditText.apply {
             setText(originalUser.email)
             isEnabled = false
@@ -69,23 +86,12 @@ class UpdateFragment : Fragment() {
             val replacedExisting =
                 userViewModel.updateUser(oldEmail = originalUser.email, newUser = updatedUser)
 
-            // Prepare result for MainFragment (messageRes and color)
             val (messageRes, colorRes) = if (replacedExisting)
                 R.string.user_updated_successfully_label to R.color.viridian
             else
                 R.string.user_added_successfully_label to R.color.viridian
 
-            // Notify MainFragment via FragmentResult
-            parentFragmentManager.setFragmentResult(
-                "updateResult",
-                bundleOf(
-                    "action" to IntentKeys.ACTION_UPDATED,
-                    "messageRes" to messageRes,
-                    "colorRes" to colorRes
-                )
-            )
-
-            findNavController().popBackStack()
+            sendResultAndNavigateBack(action = ACTION_UPDATED, messageRes = messageRes, colorRes = colorRes)
         }
     }
 
@@ -96,23 +102,30 @@ class UpdateFragment : Fragment() {
                 R.string.user_deleted_successfully_label to R.color.viridian
             else
                 R.string.user_does_not_exist_label to R.color.amaranth
-            parentFragmentManager.setFragmentResult(
-                "updateResult",
-                bundleOf(
-                    "action" to IntentKeys.ACTION_REMOVED,
-                    "messageRes" to messageRes,
-                    "colorRes" to colorRes
-                )
-            )
-            findNavController().popBackStack()
+
+            sendResultAndNavigateBack(action = ACTION_REMOVED, messageRes = messageRes, colorRes = colorRes)
         }
     }
 
+    private fun sendResultAndNavigateBack(action: String, messageRes: Int, colorRes: Int) = apply {
+        parentFragmentManager.setFragmentResult(
+            RESULT_KEY,
+            bundleOf(
+                ACTION_KEY to action,
+                MESSAGE_RES_KEY to messageRes,
+                COLOR_RES_KEY to colorRes
+            )
+        )
+        findNavController().popBackStack()
+    }
+
     private fun bindUserToFields(user: User) = binding.apply {
-        firstNameEditText.setText(user.firstName)
-        lastNameEditText.setText(user.lastName)
-        ageEditText.setText(user.age.toString())
-        emailEditText.setText(user.email)
+        with(receiver = user) {
+            firstNameEditText.setText(firstName)
+            lastNameEditText.setText(lastName)
+            ageEditText.setText(age.toString())
+            emailEditText.setText(email)
+        }
     }
 
     private fun getUserFromInput(): User = binding.run {

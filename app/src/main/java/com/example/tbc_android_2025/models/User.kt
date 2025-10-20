@@ -1,4 +1,4 @@
-package com.example.tbc_android_2025
+package com.example.tbc_android_2025.models
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
@@ -10,6 +10,7 @@ data class User(
     val age: Int,
     val email: String
 ) : Parcelable {
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is User) return false

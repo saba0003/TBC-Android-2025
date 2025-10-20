@@ -1,4 +1,4 @@
-package com.example.tbc_android_2025
+package com.example.tbc_android_2025.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,15 +9,24 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import com.example.tbc_android_2025.EmailValidator.validateEmail
+import com.example.tbc_android_2025.R
+import com.example.tbc_android_2025.models.User
+import com.example.tbc_android_2025.models.UserViewModel
+import com.example.tbc_android_2025.utils.EmailValidator.validateEmail
+import com.example.tbc_android_2025.utils.FragmentKeys.ACTION_KEY
+import com.example.tbc_android_2025.utils.FragmentKeys.COLOR_RES_KEY
+import com.example.tbc_android_2025.utils.FragmentKeys.MESSAGE_RES_KEY
+import com.example.tbc_android_2025.utils.FragmentKeys.RESULT_KEY
 import com.example.tbc_android_2025.databinding.FragmentMainBinding
+import com.example.tbc_android_2025.utils.IntentKeys
+import com.example.tbc_android_2025.utils.popMessage
 
 class MainFragment : Fragment() {
 
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
 
-    private val vm: UserViewModel by activityViewModels()
+    private val userViewModel: UserViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,12 +50,12 @@ class MainFragment : Fragment() {
 
         // listen for results from UpdateFragment
         parentFragmentManager.setFragmentResultListener(
-            "updateResult",
+            RESULT_KEY,
             viewLifecycleOwner
         ) { _, bundle ->
-            bundle.getString("action") ?: return@setFragmentResultListener
-            val messageRes = bundle.getInt("messageRes", 0)
-            val colorRes = bundle.getInt("colorRes", R.color.amaranth)
+            bundle.getString(ACTION_KEY) ?: return@setFragmentResultListener
+            val messageRes = bundle.getInt(MESSAGE_RES_KEY, 0)
+            val colorRes = bundle.getInt(COLOR_RES_KEY, R.color.amaranth)
 
             updateCounters()
             if (messageRes != 0)
@@ -62,7 +71,7 @@ class MainFragment : Fragment() {
             if (!validateEmail(binding = this, email = user.email))
                 return@setOnClickListener
 
-            val added = vm.addUser(user = user)
+            val added = userViewModel.addUser(user = user)
             with(receiver = addButton) {
                 if (added) {
                     updateCounters()
@@ -83,27 +92,30 @@ class MainFragment : Fragment() {
 
     private fun setListenerOnOpenUpdatePage() = binding.run {
         updateButton.setOnClickListener {
-            if (vm.isEmpty()) {
+            if (userViewModel.isEmpty()) {
                 root.popMessage(
                     resId = R.string.no_users_available_label,
                     color = R.color.amaranth
                 )
                 return@setOnClickListener
             }
-            val randomUser = vm.getRandomUser()
-            // Pass user as Parcelable
+            val randomUser = userViewModel.getRandomUser()
+
+            // pass user as Parcelable
             val bundle = bundleOf(
                 IntentKeys.EXTRA_USER to randomUser,
-                IntentKeys.EXTRA_ACTIVE_COUNT to vm.activeUsersCounter,
-                IntentKeys.EXTRA_DELETED_COUNT to vm.deletedUsersCounter
+                IntentKeys.EXTRA_ACTIVE_COUNT to userViewModel.activeUsersCounter,
+                IntentKeys.EXTRA_DELETED_COUNT to userViewModel.deletedUsersCounter
             )
             findNavController().navigate(R.id.action_mainFragment_to_updateFragment, bundle)
         }
     }
 
     private fun updateCounters() = binding.run {
-        activeUsers.text = getString(R.string.active_users_label, vm.activeUsersCounter)
-        deletedUsers.text = getString(R.string.deleted_users_label, vm.deletedUsersCounter)
+        activeUsers.text =
+            getString(R.string.active_users_label, userViewModel.activeUsersCounter)
+        deletedUsers.text =
+            getString(R.string.deleted_users_label, userViewModel.deletedUsersCounter)
     }
 
     private fun clearFields() = binding.run {

@@ -1,6 +1,7 @@
-package com.example.tbc_android_2025
+package com.example.tbc_android_2025.utils
 
 import android.util.Patterns
+import com.example.tbc_android_2025.R
 import com.example.tbc_android_2025.databinding.FragmentMainBinding
 import com.example.tbc_android_2025.databinding.FragmentUpdateBinding
 

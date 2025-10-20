@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gray_matching_background"
-    tools:context=".UpdateFragment">
+    tools:context=".fragments.UpdateFragment">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/backgroundImage"

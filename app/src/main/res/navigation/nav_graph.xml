@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.example.tbc_android_2025.MainFragment"
+        android:name="com.example.tbc_android_2025.fragments.MainFragment"
         android:label="Main">
         <action
             android:id="@+id/action_mainFragment_to_updateFragment"
@@ -15,7 +15,7 @@
 
     <fragment
         android:id="@+id/updateFragment"
-        android:name="com.example.tbc_android_2025.UpdateFragment"
+        android:name="com.example.tbc_android_2025.fragments.UpdateFragment"
         android:label="Update" />
 
 </navigation>

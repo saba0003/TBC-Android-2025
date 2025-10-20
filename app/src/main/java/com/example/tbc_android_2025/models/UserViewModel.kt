@@ -1,8 +1,9 @@
-package com.example.tbc_android_2025
+package com.example.tbc_android_2025.models
 
 import androidx.lifecycle.ViewModel
 
 class UserViewModel : ViewModel() {
+
     private val _users = mutableSetOf<User>()
 
     val users: Set<User> get() = _users
@@ -20,10 +21,6 @@ class UserViewModel : ViewModel() {
         return true
     }
 
-    /**
-     * Returns true if we replaced an existing user (i.e. update), false if treated as add.
-     * oldEmail : original user's email (to identify which one to replace)
-     */
     fun updateUser(oldEmail: String, newUser: User): Boolean {
         val removed = _users.removeIf { it.email.equals(other = oldEmail, ignoreCase = true) }
         _users.add(element = newUser)
