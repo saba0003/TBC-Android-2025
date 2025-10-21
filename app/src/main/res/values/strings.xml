@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">TBC-Android-2025</string>
+    <string name="user_added_successfully_label">User added successfully!</string>
+    <string name="user_adding_unsuccessful_label">User adding unsuccessful!</string>
+    <string name="user_deleted_successfully_label">User deleted successfully!</string>
+    <string name="user_does_not_exist_label">User does not exist!</string>
+    <string name="user_updated_successfully_label">User updated successfully!</string>
+    <string name="user_unsuccessful_removal_label">User removal unsuccessful!</string>
+    <string name="empty_email_input_label">Email field must be filled in!</string>
+    <string name="incorrect_email_input_format_label">Incorrect email format!</string>
+    <string name="all_fields_must_be_filled_in_label">All fields must be filled in!</string>
+    <string name="user_with_email_already_exists_label">User with this email already exists!</string>
 </resources>
