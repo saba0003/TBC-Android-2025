@@ -30,7 +30,7 @@ class AddUserFragment : BaseFragment<FragmentAddUserBinding>(inflater = Fragment
         setListenerOnAddButton()
         setListenerOnUpdateUserButton()
         setListenerOnViewUserButton()
-        setListenerOnFragmentResult() // setFragmentResultListener()
+        setListenerOnFragmentResult()
     }
 
     private fun setListenerOnAddButton() = binding.run {
@@ -71,7 +71,6 @@ class AddUserFragment : BaseFragment<FragmentAddUserBinding>(inflater = Fragment
             }
             val randomUser = uvm.getRandomUser()
 
-            // pass user as Parcelable
             val bundle = bundleOf(
                 IntentKeys.EXTRA_USER to randomUser,
                 IntentKeys.EXTRA_ACTIVE_COUNT to uvm.activeUsersCounter,
