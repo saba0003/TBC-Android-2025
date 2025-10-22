@@ -22,4 +22,10 @@
     <string name="enter_email_to_search_label">Enter email to start search</string>
     <string name="user_with_email_already_exists_label">User with this email already exists!</string>
     <string name="no_users_available_label">No user in database to update!</string>
+    <string name="no_users_label">No users</string>
+    <string name="view_users_label">View Users</string>
+    <string name="user_label">User %d:</string>
+    <string name="full_name_label">Full Name: %s</string>
+    <string name="age_label">Age: %d</string>
+    <string name="email_label">Email: %s</string>
 </resources>

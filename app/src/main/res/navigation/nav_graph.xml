@@ -2,20 +2,34 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/mainFragment">
+    app:startDestination="@id/addUserFragment">
 
     <fragment
-        android:id="@+id/mainFragment"
-        android:name="com.example.tbc_android_2025.fragments.MainFragment"
-        android:label="Main">
+        android:id="@+id/addUserFragment"
+        android:name="com.example.tbc_android_2025.fragments.AddUserFragment"
+        android:label="Add">
+
         <action
-            android:id="@+id/action_mainFragment_to_updateFragment"
-            app:destination="@id/updateFragment" />
+            android:id="@+id/action_addUserFragment_to_updateUserFragment"
+            app:destination="@id/updateUserFragment" />
+        <action
+            android:id="@+id/action_addUserFragment_to_viewUsersFragment"
+            app:destination="@id/viewUsersFragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/updateFragment"
-        android:name="com.example.tbc_android_2025.fragments.UpdateFragment"
+        android:id="@+id/updateUserFragment"
+        android:name="com.example.tbc_android_2025.fragments.UpdateUserFragment"
         android:label="Update" />
+
+    <fragment
+        android:id="@+id/viewUsersFragment"
+        android:name="com.example.tbc_android_2025.fragments.ViewUsersFragment"
+        android:label="Users" >
+
+        <action
+            android:id="@+id/action_viewUsersFragment_to_addUserFragment"
+            app:destination="@id/addUserFragment" />
+    </fragment>
 
 </navigation>

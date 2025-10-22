@@ -1,4 +1,4 @@
-package com.example.tbc_android_2025.models
+package com.example.tbc_android_2025.user
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

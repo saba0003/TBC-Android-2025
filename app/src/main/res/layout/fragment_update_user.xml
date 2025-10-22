@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/update_fragment_root"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gray_matching_background"
-    tools:context=".fragments.UpdateFragment">
+    tools:context=".fragments.UpdateUserFragment">
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/backgroundImage"
+        android:id="@+id/backgroundImageView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:adjustViewBounds="true"
@@ -22,7 +23,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/activeUsers"
+        android:id="@+id/activeUsersTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -32,7 +33,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/deletedUsers"
+        android:id="@+id/deletedUsersTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -43,13 +44,13 @@
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/backButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:layout_marginStart="10dp"
         android:src="@drawable/ic_back"
         app:layout_constraintBottom_toTopOf="@id/firstNameEditText"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/activeUsers" />
+        app:layout_constraintTop_toBottomOf="@id/activeUsersTextView" />
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/firstNameEditText"

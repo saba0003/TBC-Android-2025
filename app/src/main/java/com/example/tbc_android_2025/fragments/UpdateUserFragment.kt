@@ -1,17 +1,13 @@
 package com.example.tbc_android_2025.fragments
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.os.bundleOf
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import com.example.tbc_android_2025.R
-import com.example.tbc_android_2025.models.User
-import com.example.tbc_android_2025.models.UserViewModel
+import com.example.tbc_android_2025.commons.BaseFragment
+import com.example.tbc_android_2025.commons.Colors
+import com.example.tbc_android_2025.commons.Strings
+import com.example.tbc_android_2025.user.User
+import com.example.tbc_android_2025.user.UserViewModel
 import com.example.tbc_android_2025.utils.EmailValidator.validateEmail
 import com.example.tbc_android_2025.utils.FragmentKeys.ACTION_KEY
 import com.example.tbc_android_2025.utils.FragmentKeys.COLOR_RES_KEY
@@ -19,33 +15,16 @@ import com.example.tbc_android_2025.utils.FragmentKeys.MESSAGE_RES_KEY
 import com.example.tbc_android_2025.utils.FragmentKeys.RESULT_KEY
 import com.example.tbc_android_2025.utils.IntentKeys.ACTION_REMOVED
 import com.example.tbc_android_2025.utils.IntentKeys.ACTION_UPDATED
-import com.example.tbc_android_2025.databinding.FragmentUpdateBinding
+import com.example.tbc_android_2025.databinding.FragmentUpdateUserBinding
 import com.example.tbc_android_2025.utils.IntentKeys
 import com.example.tbc_android_2025.utils.popMessage
 
-class UpdateFragment : Fragment() {
-    private var _binding: FragmentUpdateBinding? = null
-    private val binding get() = _binding!!
+class UpdateUserFragment : BaseFragment<FragmentUpdateUserBinding>(inflater = FragmentUpdateUserBinding::inflate) {
 
     private val userViewModel: UserViewModel by activityViewModels()
     private lateinit var originalUser: User
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): ConstraintLayout =
-        FragmentUpdateBinding
-            .inflate(inflater, container, false)
-            .also { _binding = it }
-            .root
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        setup()
-    }
-
-    private fun setup() {
+    override fun bind() {
         // my SDK is too low to resolve deprecation warning (mine - 24, requires - 33)
         originalUser = requireArguments().getParcelable(IntentKeys.EXTRA_USER)!!
         val active = requireArguments().getInt(IntentKeys.EXTRA_ACTIVE_COUNT, 0)
@@ -62,7 +41,9 @@ class UpdateFragment : Fragment() {
             alpha = 0.8f
         }
         updateCounters(active = active, deleted = deleted)
+    }
 
+    override fun listeners() {
         setListenerOnBackButton()
         setListenerOnUpdateButton()
         setListenerOnRemoveButton()
@@ -74,12 +55,13 @@ class UpdateFragment : Fragment() {
 
     private fun setListenerOnUpdateButton() = binding.run {
         updateButton.setOnClickListener {
-            if (!allFieldsAreFilledIn()) return@setOnClickListener
+            if (!allFieldsAreFilledIn())
+                return@setOnClickListener
 
             val updatedUser = getUserFromInput().copy(email = originalUser.email) // keep email
             if (!validateEmail(
-                    binding = binding,
-                    email = updatedUser.email
+                    emailEditText = emailEditText,
+                    emailInput = updatedUser.email
                 )
             ) return@setOnClickListener
 
@@ -87,9 +69,9 @@ class UpdateFragment : Fragment() {
                 userViewModel.updateUser(oldEmail = originalUser.email, newUser = updatedUser)
 
             val (messageRes, colorRes) = if (replacedExisting)
-                R.string.user_updated_successfully_label to R.color.viridian
+                Strings.user_updated_successfully_label to Colors.viridian
             else
-                R.string.user_added_successfully_label to R.color.viridian
+                Strings.user_added_successfully_label to Colors.viridian
 
             sendResultAndNavigateBack(action = ACTION_UPDATED, messageRes = messageRes, colorRes = colorRes)
         }
@@ -99,9 +81,9 @@ class UpdateFragment : Fragment() {
         binding.removeButton.setOnClickListener {
             val removed = userViewModel.removeUser(email = originalUser.email)
             val (messageRes, colorRes) = if (removed)
-                R.string.user_deleted_successfully_label to R.color.viridian
+                Strings.user_deleted_successfully_label to Colors.viridian
             else
-                R.string.user_does_not_exist_label to R.color.amaranth
+                Strings.user_does_not_exist_label to Colors.amaranth
 
             sendResultAndNavigateBack(action = ACTION_REMOVED, messageRes = messageRes, colorRes = colorRes)
         }
@@ -141,19 +123,14 @@ class UpdateFragment : Fragment() {
         val fields = listOf(firstNameEditText, lastNameEditText, ageEditText, emailEditText)
         val allFilled = fields.none { it.text.isNullOrBlank() }
         if (!allFilled) root.popMessage(
-            resId = R.string.all_fields_must_be_filled_in_label,
-            color = R.color.amaranth
+            resId = Strings.all_fields_must_be_filled_in_label,
+            color = Colors.amaranth
         )
         return allFilled
     }
 
     private fun updateCounters(active: Int, deleted: Int) = binding.run {
-        activeUsers.text = getString(R.string.active_users_label, active)
-        deletedUsers.text = getString(R.string.deleted_users_label, deleted)
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+        activeUsersTextView.text = getString(Strings.active_users_label, active)
+        deletedUsersTextView.text = getString(Strings.deleted_users_label, deleted)
     }
 }

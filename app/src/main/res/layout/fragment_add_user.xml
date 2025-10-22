@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_fragment_root"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gray_matching_background"
-    tools:context=".fragments.MainFragment">
+    tools:context=".fragments.AddUserFragment">
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/backgroundImage"
+        android:id="@+id/backgroundImageView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:adjustViewBounds="true"
@@ -22,7 +23,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/activeUsers"
+        android:id="@+id/activeUsersTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -32,7 +33,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/deletedUsers"
+        android:id="@+id/deletedUsersTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -95,7 +96,7 @@
         app:layout_constraintTop_toBottomOf="@+id/ageEditText" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/addButton"
+        android:id="@+id/addUserButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -116,7 +117,20 @@
         android:text="@string/update_user_label"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        app:layout_constraintLeft_toRightOf="@+id/addButton"
+        app:layout_constraintLeft_toRightOf="@+id/addUserButton"
+        app:layout_constraintRight_toRightOf="@id/viewUsersButton"
+        app:layout_constraintTop_toBottomOf="@+id/emailEditText" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/viewUsersButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="#536878"
+        android:text="@string/view_users_label"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        app:layout_constraintLeft_toRightOf="@+id/updateButton"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/emailEditText" />
 
