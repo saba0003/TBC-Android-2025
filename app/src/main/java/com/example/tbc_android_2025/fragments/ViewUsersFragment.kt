@@ -3,7 +3,6 @@ package com.example.tbc_android_2025.fragments
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tbc_android_2025.commons.BaseFragment
@@ -11,9 +10,9 @@ import com.example.tbc_android_2025.commons.Ids
 import com.example.tbc_android_2025.databinding.FragmentViewUsersBinding
 import com.example.tbc_android_2025.user.UserAdapter
 import com.example.tbc_android_2025.user.UserViewModel
-import com.example.tbc_android_2025.utils.IntentKeys
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
+import com.example.tbc_android_2025.utils.IntentKeys.EXTRA_ACTIVE_COUNT
+import com.example.tbc_android_2025.utils.IntentKeys.EXTRA_DELETED_COUNT
+import com.example.tbc_android_2025.utils.IntentKeys.EXTRA_USER
 
 typealias ViewUsersBindingFragment = BaseFragment<FragmentViewUsersBinding>
 
@@ -25,9 +24,9 @@ class ViewUsersFragment : ViewUsersBindingFragment(inflater = FragmentViewUsersB
     override fun bind() {
         adapter = UserAdapter(onLongClick = { user ->
             val bundle = bundleOf(
-                IntentKeys.EXTRA_USER to user,
-                IntentKeys.EXTRA_ACTIVE_COUNT to uvm.activeUsersCounter,
-                IntentKeys.EXTRA_DELETED_COUNT to uvm.deletedUsersCounter
+                EXTRA_USER to user,
+                EXTRA_ACTIVE_COUNT to uvm.activeUsersCounter,
+                EXTRA_DELETED_COUNT to uvm.deletedUsersCounter
             )
             findNavController().navigate(
                 resId = Ids.action_viewUsersFragment_to_addUserFragment,

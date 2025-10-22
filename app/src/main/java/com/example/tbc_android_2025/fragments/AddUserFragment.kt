@@ -15,7 +15,9 @@ import com.example.tbc_android_2025.utils.FragmentKeys.ACTION_KEY
 import com.example.tbc_android_2025.utils.FragmentKeys.COLOR_RES_KEY
 import com.example.tbc_android_2025.utils.FragmentKeys.MESSAGE_RES_KEY
 import com.example.tbc_android_2025.utils.FragmentKeys.RESULT_KEY
-import com.example.tbc_android_2025.utils.IntentKeys
+import com.example.tbc_android_2025.utils.IntentKeys.EXTRA_ACTIVE_COUNT
+import com.example.tbc_android_2025.utils.IntentKeys.EXTRA_DELETED_COUNT
+import com.example.tbc_android_2025.utils.IntentKeys.EXTRA_USER
 import com.example.tbc_android_2025.utils.popMessage
 
 class AddUserFragment : BaseFragment<FragmentAddUserBinding>(inflater = FragmentAddUserBinding::inflate) {
@@ -72,9 +74,9 @@ class AddUserFragment : BaseFragment<FragmentAddUserBinding>(inflater = Fragment
             val randomUser = uvm.getRandomUser()
 
             val bundle = bundleOf(
-                IntentKeys.EXTRA_USER to randomUser,
-                IntentKeys.EXTRA_ACTIVE_COUNT to uvm.activeUsersCounter,
-                IntentKeys.EXTRA_DELETED_COUNT to uvm.deletedUsersCounter
+                EXTRA_USER to randomUser,
+                EXTRA_ACTIVE_COUNT to uvm.activeUsersCounter,
+                EXTRA_DELETED_COUNT to uvm.deletedUsersCounter
             )
             findNavController().navigate(resId = Ids.action_addUserFragment_to_updateUserFragment, args = bundle)
         }

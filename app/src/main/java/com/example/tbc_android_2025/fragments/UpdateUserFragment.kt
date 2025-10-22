@@ -16,7 +16,9 @@ import com.example.tbc_android_2025.utils.FragmentKeys.RESULT_KEY
 import com.example.tbc_android_2025.utils.IntentKeys.ACTION_REMOVED
 import com.example.tbc_android_2025.utils.IntentKeys.ACTION_UPDATED
 import com.example.tbc_android_2025.databinding.FragmentUpdateUserBinding
-import com.example.tbc_android_2025.utils.IntentKeys
+import com.example.tbc_android_2025.utils.IntentKeys.EXTRA_ACTIVE_COUNT
+import com.example.tbc_android_2025.utils.IntentKeys.EXTRA_DELETED_COUNT
+import com.example.tbc_android_2025.utils.IntentKeys.EXTRA_USER
 import com.example.tbc_android_2025.utils.popMessage
 
 class UpdateUserFragment : BaseFragment<FragmentUpdateUserBinding>(inflater = FragmentUpdateUserBinding::inflate) {
@@ -26,9 +28,9 @@ class UpdateUserFragment : BaseFragment<FragmentUpdateUserBinding>(inflater = Fr
 
     override fun bind() {
         // my SDK is too low to resolve deprecation warning (mine - 24, requires - 33)
-        originalUser = requireArguments().getParcelable(IntentKeys.EXTRA_USER)!!
-        val active = requireArguments().getInt(IntentKeys.EXTRA_ACTIVE_COUNT, 0)
-        val deleted = requireArguments().getInt(IntentKeys.EXTRA_DELETED_COUNT, 0)
+        originalUser = requireArguments().getParcelable(EXTRA_USER)!!
+        val active = requireArguments().getInt(EXTRA_ACTIVE_COUNT, 0)
+        val deleted = requireArguments().getInt(EXTRA_DELETED_COUNT, 0)
 
         bindUserToFields(user = originalUser)
 
