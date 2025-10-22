@@ -7,9 +7,9 @@ import com.example.tbc_android_2025.extensions.popMessage
 
 object EmailValidator {
 
-    fun validateEmail(emailEditText: AppCompatEditText, email: String): Boolean {
+    fun validateEmail(emailEditText: AppCompatEditText, emailInput: String): Boolean {
         return when {
-            email.isBlank() -> {
+            emailInput.isBlank() -> {
                 emailEditText.popMessage(
                     resId = R.string.empty_email_input_label,
                     color = R.color.amaranth
@@ -17,7 +17,7 @@ object EmailValidator {
                 false
             }
 
-            !Patterns.EMAIL_ADDRESS.matcher(email).matches() -> {
+            !Patterns.EMAIL_ADDRESS.matcher(emailInput).matches() -> {
                 emailEditText.popMessage(
                     resId = R.string.incorrect_email_input_format_label,
                     color = R.color.amaranth

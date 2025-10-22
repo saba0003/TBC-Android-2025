@@ -6,8 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
+import com.example.tbc_android_2025.R
 
-abstract class BaseFragment<VB : ViewBinding>(private val inflate: (LayoutInflater, ViewGroup?, Boolean) -> VB) : Fragment() {
+typealias Ids = R.id
+typealias Strings = R.string
+typealias Colors = R.color
+
+abstract class BaseFragment<VB : ViewBinding>(private val inflater: (LayoutInflater, ViewGroup?, Boolean) -> VB) : Fragment() {
 
     private var _binding: VB? = null
     protected val binding get() = _binding!!
@@ -17,7 +22,7 @@ abstract class BaseFragment<VB : ViewBinding>(private val inflate: (LayoutInflat
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = inflate.invoke(inflater, container, false)
+        _binding = this.inflater.invoke(inflater, container, false)
         return binding.root
     }
 
@@ -26,13 +31,13 @@ abstract class BaseFragment<VB : ViewBinding>(private val inflate: (LayoutInflat
         bind()
     }
 
+    /** setup */
+    protected abstract fun bind()
+
+    protected abstract fun listeners()
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-
-    // setup
-    abstract fun bind()
-
-    abstract fun listeners()
 }
