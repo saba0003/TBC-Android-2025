@@ -10,4 +10,10 @@
     <string name="incorrect_email_input_format_label">Incorrect email format!</string>
     <string name="all_fields_must_be_filled_in_label">All fields must be filled in!</string>
     <string name="user_with_email_already_exists_label">User with this email already exists!</string>
+    <string name="store_gallery_label">Store Gallery</string>
+    <string name="all_label">All</string>
+    <string name="party_label">Party</string>
+    <string name="party_emoji">🎉</string>
+    <string name="camping_label">Camping</string>
+    <string name="camping_emoji">🏕</string>
 </resources>

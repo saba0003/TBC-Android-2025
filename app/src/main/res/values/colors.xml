@@ -10,4 +10,10 @@
     <color name="light_green">#70ED63</color>
     <color name="amaranth">#E52B50</color>
     <color name="viridian">#40826D</color>
+    <color name="navbar_selected_icon">#3DD598</color>
+    <color name="selected_category">#3ED598</color>
+    <color name="category_and_navbar_default_bg_colors">#30444E</color>
+    <color name="default_text_color">#96A7AF</color>
+    <color name="outfit_card_background_color">#EDF1FA</color>
+    <color name="heart_color">#FF565E</color>
 </resources>
