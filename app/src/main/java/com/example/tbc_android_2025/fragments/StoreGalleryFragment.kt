@@ -64,35 +64,30 @@ class StoreGalleryFragment : StoreGalleryFragmentBinding(inflater = Binding::inf
         setListenerOnStarButton()
     }
 
-    // --- Heart Button ---
     private fun setListenerOnHeartButton() = binding.run {
         heartButton.setOnClickListener {
             updateNavbarSelection(newSelectedButton = heartButton)
         }
     }
 
-    // --- Home Button ---
     private fun setListenerOnHomeButton() = binding.run {
         homeButton.setOnClickListener {
             updateNavbarSelection(newSelectedButton = homeButton)
         }
     }
 
-    // --- Chat Button ---
     private fun setListenerOnChatButton() = binding.run {
         chatButton.setOnClickListener {
             updateNavbarSelection(newSelectedButton = chatButton)
         }
     }
 
-    // --- Bell Button ---
     private fun setListenerOnBellButton() = binding.run {
         bellButton.setOnClickListener {
             updateNavbarSelection(newSelectedButton = bellButton)
         }
     }
 
-    // --- Star Button ---
     private fun setListenerOnStarButton() = binding.run {
         starButton.setOnClickListener {
             updateNavbarSelection(newSelectedButton = starButton)
@@ -104,15 +99,12 @@ class StoreGalleryFragment : StoreGalleryFragmentBinding(inflater = Binding::inf
         val defaultColor =
             ContextCompat.getColor(requireContext(), Colors.category_and_navbar_default_bg_colors)
 
-        // Reset previous button tint (if any)
         selectedButton?.let { previous ->
             ImageViewCompat.setImageTintList(previous, ColorStateList.valueOf(defaultColor))
         }
 
-        // Apply tint to the new selected button
         ImageViewCompat.setImageTintList(newSelectedButton, ColorStateList.valueOf(selectedColor))
 
-        // Save reference
         selectedButton = newSelectedButton
     }
 }

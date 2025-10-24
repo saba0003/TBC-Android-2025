@@ -5,7 +5,6 @@
     android:layout_height="wrap_content"
     android:textSize="14sp">
 
-    <!-- Outfit card (background container) -->
     <androidx.cardview.widget.CardView
         android:id="@+id/outfitCard"
         android:layout_width="150dp"
@@ -13,13 +12,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <!-- Stack outfit image and heart button inside -->
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/outfit_card">
 
-            <!-- Outfit image -->
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/outfitImage"
                 android:layout_width="90dp"

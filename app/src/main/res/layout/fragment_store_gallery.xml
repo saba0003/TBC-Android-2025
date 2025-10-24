@@ -19,7 +19,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <!-- LinearLayout to hold the category buttons -->
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/categoryContainer"
             android:layout_width="wrap_content"
