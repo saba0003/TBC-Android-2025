@@ -16,4 +16,5 @@
     <string name="party_emoji">🎉</string>
     <string name="camping_label">Camping</string>
     <string name="camping_emoji">🏕</string>
+    <string name="price_label">$%d</string>
 </resources>

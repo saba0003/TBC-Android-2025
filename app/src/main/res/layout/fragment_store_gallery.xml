@@ -32,25 +32,25 @@
                 android:layout_height="match_parent"
                 android:layout_marginEnd="10dp"
                 android:background="@drawable/btn_category"
-                android:backgroundTint="@color/selected_category"
+                android:backgroundTint="@color/category_and_navbar_selected_icon_color"
                 android:text="@string/all_label"
                 android:textAllCaps="false"
                 android:textColor="@android:color/white"
                 android:textStyle="bold" />
 
-            <LinearLayout
+            <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/partyCategoryButton"
                 android:layout_width="116dp"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="12dp"
                 android:background="@drawable/btn_category"
-                android:backgroundTint="@color/category_and_navbar_default_bg_colors"
+                android:backgroundTint="@color/category_and_navbar_default_icon_color"
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="center"
                 android:orientation="horizontal">
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/partyEmoji"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -58,7 +58,7 @@
                     android:gravity="center"
                     android:text="@string/party_emoji" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/partyText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -67,20 +67,20 @@
                     android:text="@string/party_label"
                     android:textColor="@color/default_text_color" />
 
-            </LinearLayout>
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
-            <LinearLayout
+            <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/campingCategoryButton"
                 android:layout_width="139dp"
                 android:layout_height="match_parent"
                 android:background="@drawable/btn_category"
-                android:backgroundTint="@color/category_and_navbar_default_bg_colors"
+                android:backgroundTint="@color/category_and_navbar_default_icon_color"
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="center"
                 android:orientation="horizontal">
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/campingEmoji"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -88,7 +88,7 @@
                     android:gravity="center"
                     android:text="@string/camping_emoji" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/campingText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -97,7 +97,7 @@
                     android:text="@string/camping_label"
                     android:textColor="@color/default_text_color" />
 
-            </LinearLayout>
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -140,7 +140,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="26dp"
             android:background="@drawable/navbar_ic_home"
-            android:backgroundTint="@color/navbar_selected_icon"
+            android:backgroundTint="@color/category_and_navbar_selected_icon_color"
             app:layout_constraintEnd_toStartOf="@id/chatButton"
             app:layout_constraintStart_toEndOf="@id/heartButton"
             app:layout_constraintTop_toTopOf="parent" />
