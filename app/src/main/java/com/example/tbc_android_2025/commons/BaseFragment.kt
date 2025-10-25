@@ -12,7 +12,9 @@ typealias Ids = Resources.id
 typealias Strings = Resources.string
 typealias Colors = Resources.color
 
-abstract class BaseFragment<VB : ViewBinding>(private val inflater: (LayoutInflater, Container?, Boolean) -> VB) : Fragment() {
+private typealias ViewBindingInflater<VB> = (LayoutInflater, Container?, Boolean) -> VB
+
+abstract class BaseFragment<VB : ViewBinding>(private val inflater: ViewBindingInflater<VB>) : Fragment() {
 
     private var _binding: VB? = null
     protected val binding get() = _binding!!
