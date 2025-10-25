@@ -20,7 +20,7 @@ abstract class BaseFragment<VB : ViewBinding>(private val inflater: (LayoutInfla
     override fun onCreateView(
         inflater: LayoutInflater,
         container: Container?,
-        savedInstanceState: Bundle?
+        ignored: Bundle?
     ): View? {
         _binding = this.inflater.invoke(inflater, container, false)
         return binding.root
