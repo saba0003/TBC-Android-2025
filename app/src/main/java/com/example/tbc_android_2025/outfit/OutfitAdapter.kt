@@ -6,8 +6,10 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.tbc_android_2025.commons.Strings
 import com.example.tbc_android_2025.databinding.ItemGirlOutfitBinding
+import com.example.tbc_android_2025.utils.UsefulStrings.SUPPRESS_COMPILER_WARNING
 
-typealias OutfitListAdapter = ListAdapter<Outfit, OutfitAdapter.OutfitViewHolder>
+@Suppress(SUPPRESS_COMPILER_WARNING)
+private typealias OutfitListAdapter = ListAdapter<Outfit, OutfitAdapter.OutfitViewHolder>
 
 class OutfitAdapter : OutfitListAdapter(OutfitDiffCallback) {
 

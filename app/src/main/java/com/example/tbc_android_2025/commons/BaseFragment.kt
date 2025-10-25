@@ -12,7 +12,9 @@ typealias Strings = Resources.string
 typealias Colors = Resources.color
 typealias Outfits = Resources.mipmap
 
-abstract class BaseFragment<VB : ViewBinding>(private val inflater: (LayoutInflater, Container?, Boolean) -> VB) : Fragment() {
+private typealias BindingInflater<VB> = (LayoutInflater, Container?, Boolean) -> VB
+
+abstract class BaseFragment<VB : ViewBinding>(private val inflater: BindingInflater<VB>) : Fragment() {
 
     private var _binding: VB? = null
     protected val binding get() = _binding!!
