@@ -7,7 +7,5 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="light_green">#70ED63</color>
-    <color name="amaranth">#E52B50</color>
-    <color name="viridian">#40826D</color>
+    <color name="back_button_color">#1E3354</color>
 </resources>
