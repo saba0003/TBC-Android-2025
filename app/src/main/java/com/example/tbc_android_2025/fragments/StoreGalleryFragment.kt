@@ -15,6 +15,7 @@ import com.example.tbc_android_2025.commons.BaseFragment
 import com.example.tbc_android_2025.commons.Colors
 import com.example.tbc_android_2025.commons.Outfits
 import com.example.tbc_android_2025.databinding.FragmentStoreGalleryBinding
+import com.example.tbc_android_2025.utils.CategoryType
 import com.example.tbc_android_2025.utils.CategoryType.*
 
 typealias Binding = FragmentStoreGalleryBinding
@@ -22,9 +23,10 @@ typealias StoreGalleryFragmentBinding = BaseFragment<Binding>
 
 class StoreGalleryFragment : StoreGalleryFragmentBinding(inflater = Binding::inflate) {
 
+    private val adapter: OutfitAdapter by lazy { OutfitAdapter() }
+    private val outfitList by lazy { seed() }
     private var selectedCategoryButton: View? = null
     private var selectedNavbarButton: AppCompatImageButton? = null
-    private val outfitList by lazy { seed() }
 
 
     override fun bind() = setup()
@@ -43,15 +45,24 @@ class StoreGalleryFragment : StoreGalleryFragmentBinding(inflater = Binding::inf
 
     /************************* Category buttons' listeners ****************************************/
     private fun setListenerOnAllCategoryButton() = binding.allCategoryButton.run {
-        setOnClickListener { updateCategorySelection(newSelectedButton = this) }
+        setOnClickListener {
+            updateCategorySelection(newSelectedButton = this)
+            showOutfitsByCategory()
+        }
     }
 
     private fun setListenerOnPartyCategoryButton() = binding.partyCategoryButton.run {
-        setOnClickListener { updateCategorySelection(newSelectedButton = this) }
+        setOnClickListener {
+            updateCategorySelection(newSelectedButton = this)
+            showOutfitsByCategory(category = PARTY)
+        }
     }
 
     private fun setListenerOnCampingCategoryButton() = binding.campingCategoryButton.run {
-        setOnClickListener { updateCategorySelection(newSelectedButton = this) }
+        setOnClickListener {
+            updateCategorySelection(newSelectedButton = this)
+            showOutfitsByCategory(category = CAMPING)
+        }
     }
     /**********************************************************************************************/
 
@@ -83,9 +94,10 @@ class StoreGalleryFragment : StoreGalleryFragmentBinding(inflater = Binding::inf
         val recyclerView = recyclerView
         recyclerView.apply {
             layoutManager = GridLayoutManager(requireContext(), 2)
-            adapter = OutfitAdapter(outfits = outfitList)
+            adapter = this@StoreGalleryFragment.adapter
         }
         updateCategorySelection(newSelectedButton = allCategoryButton)
+        showOutfitsByCategory()
         updateNavbarSelection(newSelectedButton = homeButton)
     }
 
@@ -136,33 +148,37 @@ class StoreGalleryFragment : StoreGalleryFragmentBinding(inflater = Binding::inf
         }
     }
 
-    private fun seed(): List<Outfit> {
-        return listOf(
-            Outfit(
-                image = Outfits.outfit_girl_1,
-                label = "Belt suit blazer",
-                price = 120,
-                category = ANY
-            ),
-            Outfit(
-                image = Outfits.outfit_girl_2,
-                label = "Belt suit blazer",
-                price = 120,
-                category = PARTY
-            ),
-            Outfit(
-                image = Outfits.outfit_girl_3,
-                label = "Belt suit blazer",
-                price = 120,
-                category = CAMPING
-            ),
-            Outfit(
-                image = Outfits.outfit_girl_4,
-                label = "Belt suit blazer",
-                price = 120,
-                category = ANY
-            )
-        )
+    private fun showOutfitsByCategory(category: CategoryType = ANY) {
+        val filtered = if (category == ANY)
+            outfitList
+        else
+            outfitList.filter { it.category == category }
+        adapter.submitList(filtered)
     }
+
+    private fun seed(): List<Outfit> = listOf(
+        Outfit(
+            image = Outfits.outfit_girl_1,
+            label = "Belt suit blazer",
+            price = 120
+        ),
+        Outfit(
+            image = Outfits.outfit_girl_2,
+            label = "Belt suit blazer",
+            price = 120,
+            category = PARTY
+        ),
+        Outfit(
+            image = Outfits.outfit_girl_3,
+            label = "Belt suit blazer",
+            price = 120,
+            category = CAMPING
+        ),
+        Outfit(
+            image = Outfits.outfit_girl_4,
+            label = "Belt suit blazer",
+            price = 120
+        )
+    )
     /**********************************************************************************************/
 }
