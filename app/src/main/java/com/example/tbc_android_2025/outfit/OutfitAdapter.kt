@@ -11,7 +11,7 @@ typealias OutfitListAdapter = ListAdapter<Outfit, OutfitAdapter.OutfitViewHolder
 
 class OutfitAdapter : OutfitListAdapter(OutfitDiffCallback) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OutfitViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, ignored: Int): OutfitViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = ItemGirlOutfitBinding.inflate(inflater, parent, false)
         return OutfitViewHolder(binding = binding)
