@@ -10,7 +10,7 @@ import com.example.tbc_android_2025.R
 
 typealias Strings = R.string
 typealias Colors = R.color
-typealias Images = R.mipmap
+typealias Outfits = R.mipmap
 
 abstract class BaseFragment<VB : ViewBinding>(private val inflater: (LayoutInflater, ViewGroup?, Boolean) -> VB) : Fragment() {
 

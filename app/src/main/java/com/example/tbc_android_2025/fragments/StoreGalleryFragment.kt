@@ -13,7 +13,7 @@ import com.example.tbc_android_2025.Outfit
 import com.example.tbc_android_2025.OutfitAdapter
 import com.example.tbc_android_2025.commons.BaseFragment
 import com.example.tbc_android_2025.commons.Colors
-import com.example.tbc_android_2025.commons.Images
+import com.example.tbc_android_2025.commons.Outfits
 import com.example.tbc_android_2025.databinding.FragmentStoreGalleryBinding
 import com.example.tbc_android_2025.utils.CategoryType.*
 
@@ -24,33 +24,8 @@ class StoreGalleryFragment : StoreGalleryFragmentBinding(inflater = Binding::inf
 
     private var selectedCategoryButton: View? = null
     private var selectedNavbarButton: AppCompatImageButton? = null
+    private val outfitList by lazy { seed() }
 
-    private val outfitList = listOf(
-        Outfit(
-            image = Images.outfit_girl_1,
-            label = "Belt suit blazer",
-            price = 120,
-            category = ANY
-        ),
-        Outfit(
-            image = Images.outfit_girl_2,
-            label = "Belt suit blazer",
-            price = 120,
-            category = PARTY
-        ),
-        Outfit(
-            image = Images.outfit_girl_3,
-            label = "Belt suit blazer",
-            price = 120,
-            category = CAMPING
-        ),
-        Outfit(
-            image = Images.outfit_girl_4,
-            label = "Belt suit blazer",
-            price = 120,
-            category = ANY
-        )
-    )
 
     override fun bind() = setup()
 
@@ -159,6 +134,35 @@ class StoreGalleryFragment : StoreGalleryFragmentBinding(inflater = Binding::inf
             categoryText.setTextColor(selectedTextColor)
             categoryText.setTypeface(null, BOLD)
         }
+    }
+
+    private fun seed(): List<Outfit> {
+        return listOf(
+            Outfit(
+                image = Outfits.outfit_girl_1,
+                label = "Belt suit blazer",
+                price = 120,
+                category = ANY
+            ),
+            Outfit(
+                image = Outfits.outfit_girl_2,
+                label = "Belt suit blazer",
+                price = 120,
+                category = PARTY
+            ),
+            Outfit(
+                image = Outfits.outfit_girl_3,
+                label = "Belt suit blazer",
+                price = 120,
+                category = CAMPING
+            ),
+            Outfit(
+                image = Outfits.outfit_girl_4,
+                label = "Belt suit blazer",
+                price = 120,
+                category = ANY
+            )
+        )
     }
     /**********************************************************************************************/
 }
