@@ -5,9 +5,7 @@ import android.graphics.Typeface.NORMAL
 import android.graphics.Typeface.BOLD
 import android.view.View
 import android.widget.TextView
-import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatImageButton
-import androidx.appcompat.widget.AppCompatTextView
 import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
@@ -15,7 +13,7 @@ import com.example.tbc_android_2025.Outfit
 import com.example.tbc_android_2025.OutfitAdapter
 import com.example.tbc_android_2025.commons.BaseFragment
 import com.example.tbc_android_2025.commons.Colors
-import com.example.tbc_android_2025.commons.Drawables
+import com.example.tbc_android_2025.commons.Images
 import com.example.tbc_android_2025.databinding.FragmentStoreGalleryBinding
 import com.example.tbc_android_2025.utils.CategoryType.*
 
@@ -29,40 +27,32 @@ class StoreGalleryFragment : StoreGalleryFragmentBinding(inflater = Binding::inf
 
     private val outfitList = listOf(
         Outfit(
-            image = Drawables.outfit_girl_1,
+            image = Images.outfit_girl_1,
             label = "Belt suit blazer",
             price = 120,
             category = ANY
         ),
         Outfit(
-            image = Drawables.outfit_girl_2,
+            image = Images.outfit_girl_2,
             label = "Belt suit blazer",
             price = 120,
             category = PARTY
         ),
         Outfit(
-            image = Drawables.outfit_girl_3,
+            image = Images.outfit_girl_3,
             label = "Belt suit blazer",
             price = 120,
             category = CAMPING
         ),
         Outfit(
-            image = Drawables.outfit_girl_4,
+            image = Images.outfit_girl_4,
             label = "Belt suit blazer",
             price = 120,
             category = ANY
         )
     )
 
-    override fun bind() = binding.run {
-        val recyclerView = recyclerView
-        recyclerView.apply {
-            layoutManager = GridLayoutManager(requireContext(), 2)
-            adapter = OutfitAdapter(outfits = outfitList)
-        }
-        updateCategorySelection(newSelectedButton = allCategoryButton)
-        updateNavbarSelection(newSelectedButton = homeButton)
-    }
+    override fun bind() = setup()
 
     override fun listeners() {
         setListenerOnAllCategoryButton()
@@ -111,10 +101,19 @@ class StoreGalleryFragment : StoreGalleryFragmentBinding(inflater = Binding::inf
     private fun setListenerOnStarNavbarButton() = binding.starButton.run {
         setOnClickListener { updateNavbarSelection(newSelectedButton = this) }
     }
-    /**********************************************************************************************/
 
 
-    /** AUX */
+    /************************************* AUX ****************************************************/
+    private fun setup() = binding.run {
+        val recyclerView = recyclerView
+        recyclerView.apply {
+            layoutManager = GridLayoutManager(requireContext(), 2)
+            adapter = OutfitAdapter(outfits = outfitList)
+        }
+        updateCategorySelection(newSelectedButton = allCategoryButton)
+        updateNavbarSelection(newSelectedButton = homeButton)
+    }
+
     private fun updateCategorySelection(newSelectedButton: View) {
         selectedCategoryButton?.let { previous ->
             updateCategoryButtonState(categoryButton = previous, selected = false)
@@ -123,7 +122,6 @@ class StoreGalleryFragment : StoreGalleryFragmentBinding(inflater = Binding::inf
         selectedCategoryButton = newSelectedButton
     }
 
-    /** AUX */
     private fun updateNavbarSelection(newSelectedButton: AppCompatImageButton) {
         val selectedColor =
             ContextCompat.getColor(requireContext(), Colors.category_and_navbar_selected_icon_color)
@@ -132,27 +130,24 @@ class StoreGalleryFragment : StoreGalleryFragmentBinding(inflater = Binding::inf
         selectedNavbarButton = newSelectedButton
     }
 
-    /** AUX */
     private fun updateCategoryButtonState(categoryButton: View, selected: Boolean) {
         val colorRes = if (selected)
             Colors.category_and_navbar_selected_icon_color
         else
             Colors.category_and_navbar_default_icon_color
         val tintColor = ContextCompat.getColor(requireContext(), colorRes)
+        val textViews = when (categoryButton) {
+            is LinearLayoutCompat -> (0 until categoryButton.childCount)
+                .mapNotNull { categoryButton.getChildAt(it) as? TextView }
+
+            is TextView -> listOf(element = categoryButton)
+            else -> emptyList()
+        }
 
         categoryButton.backgroundTintList = ColorStateList.valueOf(tintColor)
-        if (categoryButton is LinearLayoutCompat) {
-            for (i in 0 until categoryButton.childCount) {
-                val child = categoryButton.getChildAt(i)
-                if (child is AppCompatTextView)
-                    updateTextStyleAndColor(categoryText = child, selected = selected)
-            }
-        } else if (categoryButton is AppCompatButton) {
-            updateTextStyleAndColor(categoryText = categoryButton, selected = selected)
-        }
+        textViews.forEach { updateTextStyleAndColor(categoryText = it, selected = selected) }
     }
 
-    /** AUX */
     private fun updateTextStyleAndColor(categoryText: TextView, selected: Boolean) {
         val defaultTextColor = ContextCompat.getColor(requireContext(), Colors.default_text_color)
         val selectedTextColor = ContextCompat.getColor(requireContext(), Colors.white)
@@ -165,4 +160,5 @@ class StoreGalleryFragment : StoreGalleryFragmentBinding(inflater = Binding::inf
             categoryText.setTypeface(null, BOLD)
         }
     }
+    /**********************************************************************************************/
 }

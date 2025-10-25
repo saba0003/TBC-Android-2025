@@ -8,10 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 import com.example.tbc_android_2025.R
 
-typealias Ids = R.id
 typealias Strings = R.string
 typealias Colors = R.color
-typealias Drawables = R.drawable
+typealias Images = R.mipmap
 
 abstract class BaseFragment<VB : ViewBinding>(private val inflater: (LayoutInflater, ViewGroup?, Boolean) -> VB) : Fragment() {
 
