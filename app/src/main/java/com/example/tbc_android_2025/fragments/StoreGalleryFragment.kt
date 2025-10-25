@@ -9,8 +9,8 @@ import androidx.appcompat.widget.AppCompatImageButton
 import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.tbc_android_2025.Outfit
-import com.example.tbc_android_2025.OutfitAdapter
+import com.example.tbc_android_2025.outfit.Outfit
+import com.example.tbc_android_2025.outfit.OutfitAdapter
 import com.example.tbc_android_2025.commons.BaseFragment
 import com.example.tbc_android_2025.commons.Colors
 import com.example.tbc_android_2025.commons.Outfits

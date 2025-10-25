@@ -1,4 +1,4 @@
-package com.example.tbc_android_2025
+package com.example.tbc_android_2025.outfit
 
 import androidx.recyclerview.widget.DiffUtil.ItemCallback
 

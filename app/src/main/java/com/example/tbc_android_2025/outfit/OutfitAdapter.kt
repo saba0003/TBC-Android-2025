@@ -1,4 +1,4 @@
-package com.example.tbc_android_2025
+package com.example.tbc_android_2025.outfit
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
