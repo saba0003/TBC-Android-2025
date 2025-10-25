@@ -3,23 +3,23 @@ package com.example.tbc_android_2025.commons
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import android.view.ViewGroup as Container
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
-import com.example.tbc_android_2025.R
+import com.example.tbc_android_2025.R as Resources
 
-typealias Strings = R.string
-typealias Colors = R.color
-typealias Outfits = R.mipmap
+typealias Strings = Resources.string
+typealias Colors = Resources.color
+typealias Outfits = Resources.mipmap
 
-abstract class BaseFragment<VB : ViewBinding>(private val inflater: (LayoutInflater, ViewGroup?, Boolean) -> VB) : Fragment() {
+abstract class BaseFragment<VB : ViewBinding>(private val inflater: (LayoutInflater, Container?, Boolean) -> VB) : Fragment() {
 
     private var _binding: VB? = null
     protected val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
-        container: ViewGroup?,
+        container: Container?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = this.inflater.invoke(inflater, container, false)

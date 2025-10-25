@@ -15,11 +15,10 @@ import com.example.tbc_android_2025.commons.BaseFragment
 import com.example.tbc_android_2025.commons.Colors
 import com.example.tbc_android_2025.commons.Outfits
 import com.example.tbc_android_2025.commons.Strings
-import com.example.tbc_android_2025.databinding.FragmentStoreGalleryBinding
+import com.example.tbc_android_2025.databinding.FragmentStoreGalleryBinding as Binding
 import com.example.tbc_android_2025.utils.CategoryType
 import com.example.tbc_android_2025.utils.CategoryType.*
 
-typealias Binding = FragmentStoreGalleryBinding
 typealias StoreGalleryFragmentBinding = BaseFragment<Binding>
 
 class StoreGalleryFragment : StoreGalleryFragmentBinding(inflater = Binding::inflate) {
