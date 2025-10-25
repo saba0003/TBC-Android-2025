@@ -6,9 +6,9 @@ typealias OutfitItemCallback  = ItemCallback<Outfit>
 
 object OutfitDiffCallback : OutfitItemCallback() {
 
-    override fun areItemsTheSame(oldItem: Outfit, newItem: Outfit): Boolean =
-        oldItem.id == newItem.id
+    override fun areItemsTheSame(oldOutfit: Outfit, newOutfit: Outfit): Boolean =
+        oldOutfit.id == newOutfit.id
 
-    override fun areContentsTheSame(oldItem: Outfit, newItem: Outfit): Boolean =
-        oldItem == newItem
+    override fun areContentsTheSame(oldOutfit: Outfit, newOutfit: Outfit): Boolean =
+        oldOutfit == newOutfit
 }
