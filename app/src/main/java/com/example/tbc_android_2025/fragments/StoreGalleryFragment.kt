@@ -14,6 +14,7 @@ import com.example.tbc_android_2025.outfit.OutfitAdapter
 import com.example.tbc_android_2025.commons.BaseFragment
 import com.example.tbc_android_2025.commons.Colors
 import com.example.tbc_android_2025.commons.Outfits
+import com.example.tbc_android_2025.commons.Strings
 import com.example.tbc_android_2025.databinding.FragmentStoreGalleryBinding
 import com.example.tbc_android_2025.utils.CategoryType
 import com.example.tbc_android_2025.utils.CategoryType.*
@@ -159,24 +160,24 @@ class StoreGalleryFragment : StoreGalleryFragmentBinding(inflater = Binding::inf
     private fun seed(): List<Outfit> = listOf(
         Outfit(
             image = Outfits.outfit_girl_1,
-            label = "Belt suit blazer",
+            label = getString(Strings.outfit_1_label),
             price = 120
         ),
         Outfit(
             image = Outfits.outfit_girl_2,
-            label = "Belt suit blazer",
+            label = getString(Strings.outfit_2_label),
             price = 120,
             category = PARTY
         ),
         Outfit(
             image = Outfits.outfit_girl_3,
-            label = "Belt suit blazer",
+            label = getString(Strings.outfit_3_label),
             price = 120,
             category = CAMPING
         ),
         Outfit(
             image = Outfits.outfit_girl_4,
-            label = "Belt suit blazer",
+            label = getString(Strings.outfit_4_label),
             price = 120
         )
     )

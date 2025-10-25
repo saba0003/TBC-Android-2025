@@ -18,4 +18,8 @@
     <string name="camping_emoji">🏕</string>
     <string name="price_label">$%d</string>
     <string name="outfit_label">%s</string>
+    <string name="outfit_1_label">Belt suit blazer</string>
+    <string name="outfit_2_label">Belt suit blazer</string>
+    <string name="outfit_3_label">Belt suit blazer</string>
+    <string name="outfit_4_label">Belt suit blazer</string>
 </resources>
