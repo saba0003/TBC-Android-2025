@@ -24,7 +24,7 @@ typealias StoreGalleryFragmentBinding = BaseFragment<Binding>
 class StoreGalleryFragment : StoreGalleryFragmentBinding(inflater = Binding::inflate) {
 
     private val adapter: OutfitAdapter by lazy { OutfitAdapter() }
-    private val outfitList by lazy { seed() }
+    private val outfitList: List<Outfit> by lazy { seed() }
     private var selectedCategoryButton: View? = null
     private var selectedNavbarButton: AppCompatImageButton? = null
 
