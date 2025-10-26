@@ -1,9 +1,10 @@
 <resources>
     <string name="app_name">TBC-Android-2025</string>
-    <string name="delivery_address">Delivery address</string>
+    <string name="delivery_address_label">Delivery address</string>
     <string name="send_to_label">SEND TO</string>
     <string name="edit_label">Edit</string>
     <string name="sample_address_shortcut_label">My Office</string>
     <string name="sample_address_label">SBI Building, street 3, Software Parking</string>
     <string name="add_new_address_label">Add new address</string>
+    <string name="back">Go back</string>
 </resources>
