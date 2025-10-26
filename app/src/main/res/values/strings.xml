@@ -12,4 +12,12 @@
     <string name="enter_location_label">Enter Location</string>
     <string name="all_fields_must_be_filled_in_label">All fields must be filled in!</string>
     <string name="address_added_successfully_label">Address added successfully!</string>
+    <string name="address_updated_successfully_label">Address updated successfully!</string>
+    <string name="update_address_label">Update address</string>
+    <string name="enter_new_shortcut_label">Enter new shortcut</string>
+    <string name="enter_new_location_label">Enter new location</string>
+    <string name="confirm_delete_title">Delete address</string>
+    <string name="confirm_delete_message">Are you sure you want to delete this address?</string>
+    <string name="delete_label">Delete</string>
+    <string name="cancel_label">Cancel</string>
 </resources>

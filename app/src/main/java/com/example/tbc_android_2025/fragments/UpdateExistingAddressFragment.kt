@@ -2,35 +2,39 @@ package com.example.tbc_android_2025.fragments
 
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.tbc_android_2025.commons.BaseFragment
 import com.example.tbc_android_2025.commons.Colors
 import com.example.tbc_android_2025.commons.Strings
-import com.example.tbc_android_2025.databinding.FragmentAddNewAddressBinding
+import com.example.tbc_android_2025.databinding.FragmentUpdateExistingAddressBinding
 import com.example.tbc_android_2025.extensions.popMessage
+import com.example.tbc_android_2025.utils.UsefulStrings.ADDRESS_ID
 import com.example.tbc_android_2025.utils.UsefulStrings.ADDRESS_LOCATION
-import com.example.tbc_android_2025.utils.UsefulStrings.NEW_ADDRESS_REQUEST_KEY
 import com.example.tbc_android_2025.utils.UsefulStrings.ADDRESS_SHORTCUT
 import com.example.tbc_android_2025.utils.UsefulStrings.SUPPRESS_COMPILER_WARNING
+import com.example.tbc_android_2025.utils.UsefulStrings.UPDATED_ADDRESS_REQUEST_KEY
 
 @Suppress(SUPPRESS_COMPILER_WARNING)
-private typealias AddNewAddressBindingBase = BaseFragment<FragmentAddNewAddressBinding>
+private typealias UpdateExistingAddressBindingBase = BaseFragment<FragmentUpdateExistingAddressBinding>
 
-class AddNewAddressFragment : AddNewAddressBindingBase(inflater = FragmentAddNewAddressBinding::inflate) {
+class UpdateExistingAddressFragment : UpdateExistingAddressBindingBase(inflater = FragmentUpdateExistingAddressBinding::inflate) {
+
+    private val args: UpdateExistingAddressFragmentArgs by navArgs()
 
     override fun bind() = Unit
 
     override fun listeners() {
         setListenerOnBackButton()
-        setListenerOnAddNewAddressButton()
+        setListenerOnUpdateExistingAddressButton()
     }
 
     private fun setListenerOnBackButton() =
         binding.backButton.setOnClickListener { findNavController().popBackStack() }
 
-    private fun setListenerOnAddNewAddressButton() = binding.run {
-        addNewAddressButton.setOnClickListener {
-            val shortcutInput = shortcutEditText.text?.toString()?.trim()
-            val locationInput = locationEditText.text?.toString()?.trim()
+    private fun setListenerOnUpdateExistingAddressButton() = binding.run {
+        updateAddressButton.setOnClickListener {
+            val shortcutInput = newShortcutEditText.text?.toString()?.trim()
+            val locationInput = newLocationEditText.text?.toString()?.trim()
 
             if (shortcutInput.isNullOrEmpty() || locationInput.isNullOrEmpty()) {
                 root.popMessage(
@@ -42,15 +46,16 @@ class AddNewAddressFragment : AddNewAddressBindingBase(inflater = FragmentAddNew
 
             // send result back to the previous fragment
             val resultBundle = bundleOf(
+                ADDRESS_ID to args.addressId,
                 ADDRESS_SHORTCUT to shortcutInput,
                 ADDRESS_LOCATION to locationInput
             )
 
-            parentFragmentManager.setFragmentResult(NEW_ADDRESS_REQUEST_KEY, resultBundle)
+            parentFragmentManager.setFragmentResult(UPDATED_ADDRESS_REQUEST_KEY, resultBundle)
 
             // show success feedback before returning
             root.popMessage(
-                text = getString(Strings.address_added_successfully_label),
+                text = getString(Strings.address_updated_successfully_label),
                 color = Colors.light_green
             )
 

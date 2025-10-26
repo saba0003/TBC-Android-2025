@@ -10,7 +10,10 @@ import com.example.tbc_android_2025.utils.UsefulStrings.SUPPRESS_COMPILER_WARNIN
 @Suppress(SUPPRESS_COMPILER_WARNING)
 private typealias AddressListAdapter = ListAdapter<Address, AddressAdapter.AddressViewHolder>
 
-class AddressAdapter : AddressListAdapter(AddressDiffCallback) {
+class AddressAdapter(
+    private val onEditClicked: (Address) -> Unit,
+    private val onLongPress: (Address) -> Unit
+) : AddressListAdapter(AddressDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, ignored: Int): AddressViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -33,12 +36,13 @@ class AddressAdapter : AddressListAdapter(AddressDiffCallback) {
                 editTextView.alpha = if (isChecked) 1f else 0.5f // optional visual feedback
             }
 
-//            // handle click
-//            editTextView.setOnClickListener {
-//                if (editTextView.isEnabled) {
-//                    Toast.makeText(it.context, "Edit clicked for ${address.shortcut}", Toast.LENGTH_SHORT).show()
-//                }
-//            }
+            // handle click
+            editTextView.setOnClickListener { onEditClicked(address) }
+
+            root.setOnLongClickListener {
+                onLongPress(address)
+                true // true means "event handled"
+            }
         }
     }
 

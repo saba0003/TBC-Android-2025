@@ -2,19 +2,16 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
 
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingTop="30dp"
-    android:paddingBottom="200dp"
-    tools:context=".MainActivity">
+    android:layout_height="match_parent">
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/backButton"
         android:layout_width="32dp"
         android:layout_height="32dp"
-        android:layout_marginStart="36dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
         android:background="@drawable/shape_oval"
         android:contentDescription="@string/back"
         android:elevation="2dp"
@@ -22,44 +19,46 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/deliveryAddressTextView"
-        android:layout_width="wrap_content"
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/newShortcutEditText"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:text="@string/delivery_address_label"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@id/backButton"
+        android:layout_marginTop="150dp"
+        android:background="@drawable/edit_text_border"
+        android:hint="@string/enter_new_shortcut_label"
+        android:inputType="textImeMultiLine"
+        android:padding="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/backButton" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- RecyclerListView -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/addressRecycleView"
-        android:layout_width="wrap_content"
-        android:layout_height="400dp"
-        android:layout_marginTop="25dp"
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/newLocationEditText"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/edit_text_border"
+        android:hint="@string/enter_new_location_label"
+        android:inputType="textImeMultiLine"
+        android:padding="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/deliveryAddressTextView"
-        tools:listitem="@layout/item_address" />
+        app:layout_constraintTop_toBottomOf="@+id/newShortcutEditText" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/addNewAddressButton"
+        android:id="@+id/updateAddressButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/shape_rounded_rectangle_for_add_button"
         android:paddingHorizontal="31dp"
         android:paddingVertical="13dp"
-        android:text="@string/add_new_address_label"
+        android:text="@string/update_address_label"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/addressRecycleView" />
+        app:layout_constraintTop_toBottomOf="@+id/newLocationEditText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
