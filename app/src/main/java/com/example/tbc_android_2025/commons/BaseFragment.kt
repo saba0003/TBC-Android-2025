@@ -8,13 +8,15 @@ import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 import com.example.tbc_android_2025.R as Resources
 
+typealias Ids = Resources.id
 typealias Strings = Resources.string
 typealias Colors = Resources.color
 typealias Drawables = Resources.drawable
 
 private typealias ViewBindingInflater<VB> = (LayoutInflater, Container?, Boolean) -> VB
 
-abstract class BaseFragment<VB : ViewBinding>(private val inflater: ViewBindingInflater<VB>) : Fragment() {
+abstract class BaseFragment<VB : ViewBinding>(private val inflater: ViewBindingInflater<VB>) :
+    Fragment() {
 
     private var _binding: VB? = null
     protected val binding get() = _binding!!
@@ -23,10 +25,7 @@ abstract class BaseFragment<VB : ViewBinding>(private val inflater: ViewBindingI
         inflater: LayoutInflater,
         container: Container?,
         ignored: Bundle?
-    ): View? {
-        _binding = this.inflater.invoke(inflater, container, false)
-        return binding.root
-    }
+    ): View? = this.inflater.invoke(inflater, container, false).also { _binding = it }.root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

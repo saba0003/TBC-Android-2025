@@ -17,8 +17,9 @@
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@id/deliveryAddressTextView">
 
-    <androidx.appcompat.widget.AppCompatRadioButton
-        android:id="@+id/radioButton"
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/radioButtonAsCheckBox"
+        style="@style/Widget.AppCompat.CompoundButton.RadioButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
@@ -27,7 +28,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="72dp"
-        app:layout_constraintStart_toEndOf="@+id/radioButton"
+        app:layout_constraintStart_toEndOf="@+id/radioButtonAsCheckBox"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -65,13 +66,14 @@
             android:id="@+id/editTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:clickable="true"
-            android:focusable="true"
+            android:layout_marginStart="220dp"
+            android:alpha="0.5"
+            android:clickable="false"
+            android:enabled="false"
+            android:focusable="false"
             android:text="@string/edit_label"
             android:textColor="@color/red"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/fullAddressTextView"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatTextView

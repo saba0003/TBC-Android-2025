@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.TBCAndroid2025" parent="Theme.MaterialComponents.Light.NoActionBar" />
+    <style name="Theme.TBCAndroid2025" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorControlActivated">@color/black</item>
+    </style>
 </resources>

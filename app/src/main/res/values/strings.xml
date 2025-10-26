@@ -8,4 +8,8 @@
     <string name="sample_address_label">SBI Building, street 3, Software Parking</string>
     <string name="add_new_address_label">Add new address</string>
     <string name="back">Go back</string>
+    <string name="enter_shortcut_label">Enter Shortcut</string>
+    <string name="enter_location_label">Enter Location</string>
+    <string name="all_fields_must_be_filled_in_label">All fields must be filled in!</string>
+    <string name="address_added_successfully_label">Address added successfully!</string>
 </resources>

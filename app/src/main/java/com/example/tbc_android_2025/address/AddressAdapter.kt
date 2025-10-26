@@ -24,6 +24,21 @@ class AddressAdapter : AddressListAdapter(AddressDiffCallback) {
             shortcutTextView.text = address.shortcut
             fullAddressTextView.text = address.fullLocation
             addressImageView.setImageResource(address.icon)
+
+            // Make "Edit" enabled/disabled depending on checkbox
+            radioButtonAsCheckBox.setOnCheckedChangeListener { _, isChecked ->
+                editTextView.isEnabled = isChecked
+                editTextView.isClickable = isChecked
+                editTextView.isFocusable = isChecked
+                editTextView.alpha = if (isChecked) 1f else 0.5f // optional visual feedback
+            }
+
+//            // handle click
+//            editTextView.setOnClickListener {
+//                if (editTextView.isEnabled) {
+//                    Toast.makeText(it.context, "Edit clicked for ${address.shortcut}", Toast.LENGTH_SHORT).show()
+//                }
+//            }
         }
     }
 
