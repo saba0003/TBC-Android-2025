@@ -22,25 +22,15 @@ private typealias DeliveryAddressBindingBase = BaseFragment<FragmentDeliveryAddr
 
 class DeliveryAddressFragment : DeliveryAddressBindingBase(inflater = FragmentDeliveryAddressBinding::inflate) {
 
-    private val adapter: AddressAdapter by lazy {
-        AddressAdapter(
-            onEditClicked = { address ->
-                val action = DeliveryAddressFragmentDirections
-                    .actionDeliveryAddressFragmentToUpdateExistingAddressFragment(address.id)
-                findNavController().navigate(action)
-            },
-            onLongPress = { address ->
-                showDeleteConfirmationDialog(address)
-            }
-        )
-    }
-    private val addresses: MutableList<Address> by lazy { seed().toMutableList() }
+    private val adapter: AddressAdapter by lazy { createAddressAdapter() }
+    private val addresses = mutableListOf<Address>()
 
 
     override fun bind() {
-        setup()
-        registerResultListener()
+        setupRecycler()
+        registerNewAddressListener()
         registerUpdateListener()
+        loadInitialAddresses()
     }
 
     override fun listeners() {
@@ -48,31 +38,37 @@ class DeliveryAddressFragment : DeliveryAddressBindingBase(inflater = FragmentDe
         setListenerOnAddNewAddressButton()
     }
 
-
-    private fun setup() = binding.run {
-        val recyclerView = addressRecycleView
-        recyclerView.apply {
-            layoutManager = LinearLayoutManager(requireContext())
-            adapter = this@DeliveryAddressFragment.adapter
-//            setHasFixedSize(true)
-        }
-        adapter.submitList(addresses)
-    }
-
-    private fun setListenerOnBackButton() = binding.backButton.setOnClickListener {
+    override fun navigateBack(): Boolean {
         requireActivity().onBackPressedDispatcher.onBackPressed()
+        return true
     }
 
-    // 🔹 Trigger navigation to AddNewAddressFragment
-    private fun setListenerOnAddNewAddressButton() =
-        binding.addNewAddressButton.setOnClickListener {
-            findNavController().navigate(
-                resId = Ids.action_deliveryAddressFragment_to_addNewAddressFragment
-            )
-        }
 
-    // 🔹 Listen for results when user comes back
-    private fun registerResultListener() {
+    private fun setupRecycler() = binding.addressRecycleView.apply {
+        layoutManager = LinearLayoutManager(requireContext())
+        adapter = this@DeliveryAddressFragment.adapter
+    }
+
+    private fun setListenerOnBackButton() = binding.backButton.setOnClickListener { navigateBack() }
+
+    private fun setListenerOnAddNewAddressButton() =
+        binding.addNewAddressButton.setOnClickListener { navigateToAddNewAddress() }
+
+    private fun loadInitialAddresses() {
+        addresses.addAll(elements = seed())
+        adapter.submitList(addresses.toList())
+    }
+
+    private fun navigateToAddNewAddress() =
+        findNavController().navigate(resId = Ids.action_deliveryAddressFragment_to_addNewAddressFragment)
+
+    private fun navigateToUpdateAddress(addressId: Int) {
+        val action = DeliveryAddressFragmentDirections
+            .actionDeliveryAddressFragmentToUpdateExistingAddressFragment(addressId)
+        findNavController().navigate(directions = action)
+    }
+
+    private fun registerNewAddressListener() {
         parentFragmentManager.setFragmentResultListener(
             NEW_ADDRESS_REQUEST_KEY,
             this
@@ -86,14 +82,13 @@ class DeliveryAddressFragment : DeliveryAddressBindingBase(inflater = FragmentDe
                 icon = Drawables.ic_home
             )
 
-            addresses.add(0, newAddress)
+            addresses.add(index = 0, element = newAddress)
             adapter.submitList(addresses.toList()) {
-                binding.addressRecycleView.scrollToPosition(0) // now executes after diff completes
+                binding.addressRecycleView.scrollToPosition(0)
             }
         }
     }
 
-    // 🔹 Listener for updated addresses
     private fun registerUpdateListener() {
         parentFragmentManager.setFragmentResultListener(
             UPDATED_ADDRESS_REQUEST_KEY,
@@ -115,6 +110,25 @@ class DeliveryAddressFragment : DeliveryAddressBindingBase(inflater = FragmentDe
         }
     }
 
+    private fun createAddressAdapter() = AddressAdapter(
+        onEditClicked = { address -> navigateToUpdateAddress(address.id) },
+        onLongPress = { address -> showDeleteConfirmationDialog(address) }
+    )
+
+    private fun showDeleteConfirmationDialog(address: Address) {
+        AlertDialog.Builder(requireContext())
+            .setTitle(getString(Strings.confirm_delete_title))
+            .setMessage(getString(Strings.confirm_delete_message))
+            .setPositiveButton(getString(Strings.delete_label)) { _, _ -> deleteAddress(address) }
+            .setNegativeButton(getString(Strings.cancel_label), null)
+            .show()
+    }
+
+    private fun deleteAddress(address: Address) {
+        addresses.remove(element = address)
+        adapter.submitList(addresses.toList())
+    }
+
     private fun seed(): List<Address> = listOf(
         Address(
             shortcut = getString(Strings.sample_office_address_shortcut_label),
@@ -126,20 +140,4 @@ class DeliveryAddressFragment : DeliveryAddressBindingBase(inflater = FragmentDe
             fullLocation = getString(Strings.sample_address_label)
         )
     )
-
-    private fun showDeleteConfirmationDialog(address: Address) {
-        AlertDialog.Builder(requireContext())
-            .setTitle(getString(Strings.confirm_delete_title))
-            .setMessage(getString(Strings.confirm_delete_message))
-            .setPositiveButton(getString(Strings.delete_label)) { _, _ ->
-                deleteAddress(address)
-            }
-            .setNegativeButton(getString(Strings.cancel_label), null)
-            .show()
-    }
-
-    private fun deleteAddress(address: Address) {
-        addresses.remove(address)
-        adapter.submitList(addresses.toList())
-    }
 }

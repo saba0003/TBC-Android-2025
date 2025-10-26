@@ -1,7 +1,6 @@
 package com.example.tbc_android_2025.fragments
 
 import androidx.core.os.bundleOf
-import androidx.navigation.fragment.findNavController
 import com.example.tbc_android_2025.commons.BaseFragment
 import com.example.tbc_android_2025.commons.Colors
 import com.example.tbc_android_2025.commons.Strings
@@ -24,38 +23,38 @@ class AddNewAddressFragment : AddNewAddressBindingBase(inflater = FragmentAddNew
         setListenerOnAddNewAddressButton()
     }
 
-    private fun setListenerOnBackButton() =
-        binding.backButton.setOnClickListener { findNavController().popBackStack() }
+    private fun setListenerOnBackButton() = binding.backButton.setOnClickListener { navigateBack() }
 
     private fun setListenerOnAddNewAddressButton() = binding.run {
         addNewAddressButton.setOnClickListener {
-            val shortcutInput = shortcutEditText.text?.toString()?.trim()
-            val locationInput = locationEditText.text?.toString()?.trim()
+            val shortcut = shortcutEditText.text?.toString()?.trim()
+            val location = locationEditText.text?.toString()?.trim()
 
-            if (shortcutInput.isNullOrEmpty() || locationInput.isNullOrEmpty()) {
-                root.popMessage(
-                    text = getString(Strings.all_fields_must_be_filled_in_label),
-                    color = Colors.red
-                )
-                return@setOnClickListener
+            when {
+                shortcut.isNullOrEmpty() || location.isNullOrEmpty() -> { showError() }
+                else -> handleAddressAddition(shortcut = shortcut, location = location)
             }
-
-            // send result back to the previous fragment
-            val resultBundle = bundleOf(
-                ADDRESS_SHORTCUT to shortcutInput,
-                ADDRESS_LOCATION to locationInput
-            )
-
-            parentFragmentManager.setFragmentResult(NEW_ADDRESS_REQUEST_KEY, resultBundle)
-
-            // show success feedback before returning
-            root.popMessage(
-                text = getString(Strings.address_added_successfully_label),
-                color = Colors.light_green
-            )
-
-            // navigate back to main fragment
-            findNavController().popBackStack()
         }
     }
+
+    private fun handleAddressAddition(shortcut: String, location: String) {
+        val resultBundle = bundleOf(
+            ADDRESS_SHORTCUT to shortcut,
+            ADDRESS_LOCATION to location
+        )
+
+        parentFragmentManager.setFragmentResult(NEW_ADDRESS_REQUEST_KEY, resultBundle)
+        showSuccess()
+        navigateBack()
+    }
+
+    private fun showError() = binding.root.popMessage(
+        text = getString(Strings.all_fields_must_be_filled_in_label),
+        color = Colors.red
+    )
+
+    private fun showSuccess() = binding.root.popMessage(
+        text = getString(Strings.address_added_successfully_label),
+        color = Colors.light_green
+    )
 }

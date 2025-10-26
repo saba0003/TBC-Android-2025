@@ -23,28 +23,42 @@ class AddressAdapter(
 
     override fun onBindViewHolder(holder: AddressViewHolder, position: Int) {
         val address = getItem(position)
-        with(receiver = holder.binding) {
+        holder.bind(address = address)
+    }
+
+    inner class AddressViewHolder(private val binding: ItemAddressBinding) : ViewHolder(binding.root) {
+
+        fun bind(address: Address) = with(receiver = binding) {
+            bindTextAndIcon(address = address)
+            setupEditButton(address = address)
+            setupLongPress(address = address)
+            setupRadioButtonBehavior()
+        }
+
+        private fun ItemAddressBinding.bindTextAndIcon(address: Address) {
             shortcutTextView.text = address.shortcut
             fullAddressTextView.text = address.fullLocation
             addressImageView.setImageResource(address.icon)
+        }
 
-            // Make "Edit" enabled/disabled depending on checkbox
+        private fun ItemAddressBinding.setupRadioButtonBehavior() {
             radioButtonAsCheckBox.setOnCheckedChangeListener { _, isChecked ->
                 editTextView.isEnabled = isChecked
                 editTextView.isClickable = isChecked
                 editTextView.isFocusable = isChecked
-                editTextView.alpha = if (isChecked) 1f else 0.5f // optional visual feedback
+                editTextView.alpha = if (isChecked) 1f else 0.5f
             }
+        }
 
-            // handle click
-            editTextView.setOnClickListener { onEditClicked(address) }
+        private fun ItemAddressBinding.setupEditButton(address: Address) {
+            editTextView.setOnClickListener { onEditClicked.invoke(address) }
+        }
 
+        private fun ItemAddressBinding.setupLongPress(address: Address) {
             root.setOnLongClickListener {
-                onLongPress(address)
-                true // true means "event handled"
+                onLongPress.invoke(address)
+                true
             }
         }
     }
-
-    inner class AddressViewHolder(val binding: ItemAddressBinding) : ViewHolder(binding.root)
 }
