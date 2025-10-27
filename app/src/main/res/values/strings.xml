@@ -1,23 +1,14 @@
 <resources>
     <string name="app_name">TBC-Android-2025</string>
-    <string name="delivery_address_label">Delivery address</string>
-    <string name="send_to_label">SEND TO</string>
-    <string name="edit_label"><u>Edit</u></string>
-    <string name="sample_office_address_shortcut_label">My Office</string>
-    <string name="sample_home_address_shortcut_label">My Home</string>
-    <string name="sample_address_label">SBI Building, street 3, Software Parking</string>
-    <string name="add_new_address_label">Add new address</string>
-    <string name="back">Go back</string>
-    <string name="enter_shortcut_label">Enter Shortcut</string>
-    <string name="enter_location_label">Enter Location</string>
-    <string name="all_fields_must_be_filled_in_label">All fields must be filled in!</string>
-    <string name="address_added_successfully_label">Address added successfully!</string>
-    <string name="address_updated_successfully_label">Address updated successfully!</string>
-    <string name="update_address_label">Update address</string>
-    <string name="enter_new_shortcut_label">Enter new shortcut</string>
-    <string name="enter_new_location_label">Enter new location</string>
-    <string name="confirm_delete_title">Delete address</string>
-    <string name="confirm_delete_message">Are you sure you want to delete this address?</string>
-    <string name="delete_label">Delete</string>
-    <string name="cancel_label">Cancel</string>
+    <string name="start_game_label">Start Game</string>
+    <string name="_3_by_3_dimension">3 x 3</string>
+    <string name="_4_by_4_dimension">4 x 4</string>
+    <string name="_5_by_5_dimension">5 x 5</string>
+    <string name="choose_grid_dimension_label">Choose Grid Dimension</string>
+    <string name="turn_base_label">X’s turn</string>
+    <string name="player_x">X</string>
+    <string name="player_o">O</string>
+    <string name="determine_player_turn_label">%1$s’s turn</string>
+    <string name="game_ended_in_draw_label">Game ended in draw</string>
+    <string name="player_x_or_o_won_label">Player %1$s won!</string>
 </resources>
