@@ -6,8 +6,8 @@
     <string name="_5_by_5_dimension">5 x 5</string>
     <string name="choose_grid_dimension_label">Choose Grid Dimension</string>
     <string name="turn_base_label">X’s turn</string>
-    <string name="player_x">X</string>
-    <string name="player_o">O</string>
+    <string name="player_X">X</string>
+    <string name="player_O">O</string>
     <string name="determine_player_turn_label">%1$s’s turn</string>
     <string name="game_ended_in_draw_label">Game ended in draw</string>
     <string name="player_x_or_o_won_label">Player %1$s won!</string>

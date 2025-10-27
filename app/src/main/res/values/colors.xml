@@ -11,10 +11,5 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="red">#F80000</color>
-    <color name="transparent_black">#00000000</color>
-    <color name="back_button_color">#1E3354</color>
-    <color name="home_button_color">#777E91</color>
-    <color name="border_color">#353945</color>
-    <color name="add_new_address_bg_color">#343434</color>
-    <color name="radio_button_border_color">#F4F4F4</color>
+    <color name="start_game_bg_color">#343434</color>
 </resources>

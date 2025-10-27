@@ -2,9 +2,13 @@ package com.example.tbc_android_2025.fragments
 
 import androidx.navigation.fragment.findNavController
 import com.example.tbc_android_2025.commons.BaseFragment
-import com.example.tbc_android_2025.databinding.FragmentConfigurationBinding
+import com.example.tbc_android_2025.databinding.FragmentConfigurationBinding as Binding
+import com.example.tbc_android_2025.utils.UsefulStrings.SUPPRESS_COMPILER_WARNING
 
-class ConfigurationFragment : BaseFragment<FragmentConfigurationBinding>(inflater = FragmentConfigurationBinding::inflate) {
+@Suppress(SUPPRESS_COMPILER_WARNING)
+private typealias BindingBase = BaseFragment<Binding>
+
+class ConfigurationFragment : BindingBase(inflater = Binding::inflate) {
 
     override fun bind() = Unit
 
