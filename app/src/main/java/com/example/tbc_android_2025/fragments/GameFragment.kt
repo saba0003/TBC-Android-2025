@@ -96,8 +96,7 @@ class GameFragment : BindingBase(inflater = Binding::inflate) {
     private fun currentSymbol() = if (isXTurn) getString(Strings.player_X) else getString(Strings.player_O)
 
     private fun updateStatusText() {
-        val current = currentSymbol()
-        binding.gameStatusText.text = getString(Strings.determine_player_turn_label, current)
+        binding.gameStatusText.text = getString(Strings.determine_player_turn_label, currentSymbol())
     }
 
     private fun showEndMessage(text: String, color: Int) {
