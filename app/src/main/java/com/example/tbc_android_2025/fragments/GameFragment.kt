@@ -32,6 +32,7 @@ class GameFragment : BindingBase(inflater = Binding::inflate) {
 
     override fun listeners() = Unit
 
+
     private fun createGrid() = binding.gridLayout.run {
         rowCount = gridSize
         columnCount = gridSize
@@ -56,9 +57,9 @@ class GameFragment : BindingBase(inflater = Binding::inflate) {
 
     private fun onCellClicked(button: AppCompatButton, row: Int, col: Int) {
         val symbol = currentSymbol()
-        markCell(button, symbol)
+        markCell(button = button, symbol = symbol)
         board[row, col] = symbol
-        handleGameState(row, col, symbol)
+        handleGameState(row = row, col = col, symbol = symbol)
     }
 
     private fun markCell(button: AppCompatButton, symbol: String) = button.apply {
@@ -74,7 +75,7 @@ class GameFragment : BindingBase(inflater = Binding::inflate) {
 
     private fun handleGameState(row: Int, col: Int, symbol: String) {
         when {
-            board.hasWinner(row, col, symbol) -> showEndMessage(
+            board.hasWinner(row = row, col = col, symbol = symbol) -> showEndMessage(
                 text = getString(Strings.player_x_or_o_won_label, symbol),
                 color = if (symbol == getString(Strings.player_X)) Colors.red else Colors.blue
             )
