@@ -1,29 +1,32 @@
 package com.example.tbc_android_2025.fragments
 
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tbc_android_2025.viewmodels.MyOrdersViewModel
 import com.example.tbc_android_2025.commons.BaseFragment
 import com.example.tbc_android_2025.commons.Colors
 import com.example.tbc_android_2025.databinding.FragmentMyOrdersBinding
 import com.example.tbc_android_2025.order.OrderAdapter
+import com.example.tbc_android_2025.utils.OrderStatus
 import com.example.tbc_android_2025.utils.OrderStatus.ACTIVE
 import com.example.tbc_android_2025.utils.OrderStatus.COMPLETED
+import kotlinx.coroutines.launch
 
 typealias Binding = FragmentMyOrdersBinding
 typealias BaseBinding = BaseFragment<Binding>
 
 class MyOrdersFragment : BaseBinding(inflater = Binding::inflate) {
 
-    // this also can be done by _adapter and overriding onDestroyView() similar to BaseFragment
     private val adapter: OrderAdapter by lazy { OrderAdapter() }
     private val viewModel: MyOrdersViewModel by viewModels()
 
 
     override fun bind() {
         setupRecycler()
-        observeOrders()
-        observeFilterStatus()
+        observeViewModel()
     }
 
     override fun listeners() {
@@ -45,11 +48,14 @@ class MyOrdersFragment : BaseBinding(inflater = Binding::inflate) {
         viewModel.setFilter(status = COMPLETED)
     }
 
-    private fun observeOrders() = viewModel.filteredOrders.observe(viewLifecycleOwner) { orders ->
-        adapter.submitList(orders)
+    private fun observeViewModel() = lifecycleScope.launch {
+        repeatOnLifecycle(state = Lifecycle.State.STARTED) {
+            launch { viewModel.filteredOrders.collect(collector = adapter::submitList) }
+            launch { viewModel.filterStatus.collect(collector = ::setFilter) }
+        }
     }
 
-    private fun observeFilterStatus() = viewModel.filterStatus.observe(viewLifecycleOwner) { status ->
+    private fun setFilter(status: OrderStatus) {
         val isActive = status == ACTIVE
         setSelectedFilter(isActive = isActive)
         underlineSelectedFilter(isActive = isActive)

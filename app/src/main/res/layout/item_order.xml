@@ -81,10 +81,10 @@
         android:layout_marginStart="12dp"
         android:layout_marginTop="20dp"
         android:text="@string/in_delivery"
-        android:visibility="gone"
         android:textAllCaps="false"
         android:textColor="@color/black"
         android:textSize="15sp"
+        android:visibility="gone"
         app:layout_constraintStart_toEndOf="@id/orderImageView"
         app:layout_constraintTop_toBottomOf="@id/orderColorPalletImageView" />
 
@@ -107,10 +107,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="28dp"
+        android:layout_marginBottom="15dp"
         android:text="@string/price_label"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        android:layout_marginBottom="15dp"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
