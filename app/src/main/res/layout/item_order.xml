@@ -110,10 +110,11 @@
         android:text="@string/price_label"
         android:textAllCaps="false"
         android:textColor="@color/white"
+        android:layout_marginBottom="15dp"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@id/orderImageView"
-        app:layout_constraintTop_toBottomOf="@id/orderCompletedStatusButton" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/orderImageView" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/buyAgainButton"

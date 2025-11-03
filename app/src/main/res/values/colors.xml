@@ -9,6 +9,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="brown">#A52A2A</color>
     <color name="light_green">#70ED63</color>
+    <color name="light_gray">#C1C1C1</color>
     <color name="amaranth">#E52B50</color>
     <color name="viridian">#40826D</color>
 </resources>

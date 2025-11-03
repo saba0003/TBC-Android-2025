@@ -16,13 +16,16 @@ typealias BaseBinding = BaseFragment<Binding>
 
 class MyOrdersFragment : BaseBinding(inflater = Binding::inflate) {
 
+    // this also can be done by _adapter and overriding onDestroyView() similar to BaseFragment
     private val adapter: OrderAdapter by lazy { OrderAdapter() }
-    private val orders = mutableListOf<Order>()
+    private val orders: MutableList<Order> by lazy { mutableListOf() }
 
 
     override fun bind() {
         setupRecycler()
         loadInitialOrders()
+        setSelectedFilter(isActive = true)
+        underlineSelectedFilter(isActive = true)
         filterByStatus(status = ACTIVE)
     }
 
@@ -43,10 +46,30 @@ class MyOrdersFragment : BaseBinding(inflater = Binding::inflate) {
     }
 
     private fun setListenerOnActiveButton() =
-        binding.activeTextView.setOnClickListener { filterByStatus(status = ACTIVE) }
+        binding.activeTextView.setOnClickListener {
+            setSelectedFilter(isActive = true)
+            underlineSelectedFilter(isActive = true)
+            filterByStatus(status = ACTIVE)
+        }
 
     private fun setListenerOnCompletedButton() =
-        binding.completedTextView.setOnClickListener { filterByStatus(status = COMPLETED) }
+        binding.completedTextView.setOnClickListener {
+            setSelectedFilter(isActive = false)
+            underlineSelectedFilter(isActive = false)
+            filterByStatus(status = COMPLETED)
+        }
+
+    private fun setSelectedFilter(isActive: Boolean) = with(receiver = binding) {
+        activeTextView.isSelected = isActive
+        completedTextView.isSelected = !isActive
+    }
+
+    private fun underlineSelectedFilter(isActive: Boolean) = with(receiver = binding) {
+        val selected = underlineActiveTextView.context.getColor(Colors.light_green)
+        val unselected = underlineCompletedTextView.context.getColor(Colors.amaranth)
+        underlineActiveTextView.setBackgroundColor(if (isActive) selected else unselected)
+        underlineCompletedTextView.setBackgroundColor(if (isActive) unselected else selected)
+    }
 
     private fun filterByStatus(status: OrderStatus) =
         adapter.submitList(orders.filter { it.status == status })

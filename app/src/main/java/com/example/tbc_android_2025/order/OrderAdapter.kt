@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.tbc_android_2025.commons.Colors
 import com.example.tbc_android_2025.commons.Strings
 import com.example.tbc_android_2025.extensions.toPx
+import com.example.tbc_android_2025.utils.OrderStatus.ACTIVE
 import com.example.tbc_android_2025.databinding.ItemOrderBinding as Binding
 
 typealias OrderListAdapter = ListAdapter<Order, OrderAdapter.OrderViewHolder>
@@ -24,10 +25,8 @@ class OrderAdapter : OrderListAdapter(OrderDiffCallback) {
         return OrderViewHolder(binding = binding)
     }
 
-    override fun onBindViewHolder(holder: OrderViewHolder, position: Int) {
-        val order = getItem(position)
-        holder.bind(order = order)
-    }
+    override fun onBindViewHolder(holder: OrderViewHolder, position: Int) =
+        holder.bind(order = getItem(position))
 
     inner class OrderViewHolder(private val binding: Binding) : ViewHolder(binding.root) {
 
@@ -35,8 +34,9 @@ class OrderAdapter : OrderListAdapter(OrderDiffCallback) {
             setImage(order.imageRes)
             setOrderColor(colorRes = order.colorRes)
             setQuantity(quantity = order.quantity)
-            setListenerOnStatusButton(order = order)
+            setStatus(order = order)
             setPrice(price = order.price)
+            setListenerOnStatusButton(order = order)
         }
 
         private fun setListenerOnStatusButton(order: Order) = with(receiver = binding) {
@@ -49,23 +49,33 @@ class OrderAdapter : OrderListAdapter(OrderDiffCallback) {
             }
         }
 
-        private fun setImage(@DrawableRes imageRes: Int) = with(receiver = binding) {
-            orderImageView.setImageResource(imageRes)
-        }
+        private fun setImage(@DrawableRes imageRes: Int) =
+            binding.orderImageView.setImageResource(imageRes)
 
-        private fun setOrderColor(@ColorRes colorRes: Int) = with(receiver = binding.orderColorPalletImageView) {
-            val drawable = background.mutate() as GradientDrawable
-            val color = context.getColor(colorRes)
-            drawable.setColor(color)
+        private fun setOrderColor(@ColorRes colorRes: Int) =
+            with(receiver = binding.orderColorPalletImageView) {
+                val drawable = background.mutate() as GradientDrawable
+                val color = context.getColor(colorRes)
+                drawable.setColor(color)
 
-            // Determine stroke color based on brightness (luma)
-            val isDark = ColorUtils.calculateLuminance(color) < 0.5
-            val strokeColor = if (isDark) Colors.white else Colors.black
-            drawable.setStroke(2.toPx(context), context.getColor(strokeColor))
-        }
+                // Determine stroke color based on brightness (luma)
+                val isDark = ColorUtils.calculateLuminance(color) < 0.5
+                val strokeColor = if (isDark) Colors.white else Colors.black
+                drawable.setStroke(2.toPx(context), context.getColor(strokeColor))
+            }
 
         private fun setQuantity(quantity: Int) = with(receiver = binding.orderQuantityTextView) {
             text = context.getString(Strings.order_quantity_label, quantity)
+        }
+
+        private fun setStatus(order: Order) = with(receiver = binding) {
+            if (order.status == ACTIVE) {
+                orderActiveStatusButton.visibility = View.VISIBLE
+                orderCompletedStatusButton.visibility = View.GONE
+            } else {
+                orderActiveStatusButton.visibility = View.GONE
+                orderCompletedStatusButton.visibility = View.VISIBLE
+            }
         }
 
         private fun setPrice(price: Int) = with(receiver = binding.orderPriceTextView) {
