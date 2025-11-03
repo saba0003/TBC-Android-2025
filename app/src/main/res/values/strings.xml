@@ -1,13 +1,20 @@
 <resources>
     <string name="app_name">TBC-Android-2025</string>
-    <string name="user_added_successfully_label">User added successfully!</string>
-    <string name="user_adding_unsuccessful_label">User adding unsuccessful!</string>
-    <string name="user_deleted_successfully_label">User deleted successfully!</string>
-    <string name="user_does_not_exist_label">User does not exist!</string>
-    <string name="user_updated_successfully_label">User updated successfully!</string>
-    <string name="user_unsuccessful_removal_label">User removal unsuccessful!</string>
-    <string name="empty_email_input_label">Email field must be filled in!</string>
-    <string name="incorrect_email_input_format_label">Incorrect email format!</string>
-    <string name="all_fields_must_be_filled_in_label">All fields must be filled in!</string>
-    <string name="user_with_email_already_exists_label">User with this email already exists!</string>
+    <string name="my_orders">My Orders</string>
+    <string name="active">Active</string>
+    <string name="completed">Completed</string>
+    <string name="order_label">Modern Wingback</string>
+    <string name="order_color_label">black</string>
+    <string name="order_quantity_label">Quantity: %d</string>
+    <string name="home">home</string>
+    <string name="cart">cart</string>
+    <string name="orders">orders</string>
+    <string name="profile">profile</string>
+    <string name="wallet">wallet</string>
+    <string name="status">Completed</string>
+    <string name="buy_again">Buy Again</string>
+    <string name="price_label">$%d.00</string>
+    <string name="leave_review">Leave Review</string>
+    <string name="vertical_bar">|</string>
+    <string name="in_delivery">In Delivery</string>
 </resources>

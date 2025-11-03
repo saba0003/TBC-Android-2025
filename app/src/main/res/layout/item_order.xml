@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="70dp"
+    android:background="@color/black">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/orderImageView"
+        android:layout_width="100dp"
+        android:layout_height="200dp"
+        android:src="@mipmap/order_1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/orderTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/order_label"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/orderImageView"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/orderColorPalletImageView"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/shape_oval"
+        app:layout_constraintEnd_toStartOf="@id/orderColorTextView"
+        app:layout_constraintStart_toEndOf="@id/orderImageView"
+        app:layout_constraintTop_toBottomOf="@+id/orderTextView" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/orderColorTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/order_color_label"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@id/orderColorPalletImageView"
+        app:layout_constraintEnd_toStartOf="@id/verticalBarTextView"
+        app:layout_constraintStart_toEndOf="@id/orderColorPalletImageView"
+        app:layout_constraintTop_toTopOf="@id/orderColorPalletImageView" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/verticalBarTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/vertical_bar"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@id/orderColorTextView"
+        app:layout_constraintEnd_toStartOf="@id/orderQuantityTextView"
+        app:layout_constraintStart_toEndOf="@id/orderColorTextView"
+        app:layout_constraintTop_toTopOf="@id/orderColorTextView" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/orderQuantityTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/order_quantity_label"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@id/verticalBarTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/verticalBarTextView"
+        app:layout_constraintTop_toTopOf="@id/verticalBarTextView" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/orderActiveStatusButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/in_delivery"
+        android:visibility="gone"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintStart_toEndOf="@id/orderImageView"
+        app:layout_constraintTop_toBottomOf="@id/orderColorPalletImageView" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/orderCompletedStatusButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/status"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintStart_toEndOf="@id/orderImageView"
+        app:layout_constraintTop_toBottomOf="@id/orderColorPalletImageView" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/orderPriceTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="28dp"
+        android:text="@string/price_label"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/orderImageView"
+        app:layout_constraintTop_toBottomOf="@id/orderCompletedStatusButton" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buyAgainButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:text="@string/buy_again"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@id/orderPriceTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/orderPriceTextView" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/leaveReviewButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:text="@string/leave_review"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/orderPriceTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/orderPriceTextView" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
