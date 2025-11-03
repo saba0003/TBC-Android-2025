@@ -35,6 +35,7 @@ class MyOrdersFragment : BaseBinding(inflater = Binding::inflate) {
     }
 
 
+    /** ======================================== AUX ============================================ */
     private fun setupRecycler() = binding.recyclerView.apply {
         layoutManager = LinearLayoutManager(requireContext())
         adapter = this@MyOrdersFragment.adapter
@@ -72,4 +73,5 @@ class MyOrdersFragment : BaseBinding(inflater = Binding::inflate) {
         underlineActiveTextView.setBackgroundColor(if (isActive) selected else unselected)
         underlineCompletedTextView.setBackgroundColor(if (isActive) unselected else selected)
     }
+    /** ========================================================================================= */
 }

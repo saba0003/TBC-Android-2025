@@ -30,15 +30,17 @@ class OrderAdapter : OrderListAdapter(OrderDiffCallback) {
 
     inner class OrderViewHolder(private val binding: Binding) : ViewHolder(binding.root) {
 
-        fun bind(order: Order) = with(receiver = binding) {
-            setImage(order.imageRes)
-            setOrderColor(colorRes = order.colorRes)
-            setQuantity(quantity = order.quantity)
-            setStatus(order = order)
-            setPrice(price = order.price)
-            setListenerOnStatusButton(order = order)
+        fun bind(order: Order) = with(receiver = order) {
+            setImage(imageRes = imageRes)
+            setOrderColor(colorRes = colorRes)
+            setQuantity(quantity = quantity)
+            setStatus(order = this)
+            setPrice(price = price)
+            setListenerOnStatusButton(order = this)
         }
 
+
+        /** ====================================== AUX ========================================== */
         private fun setListenerOnStatusButton(order: Order) = with(receiver = binding) {
             orderCompletedStatusButton.setOnClickListener {
                 order.leaveReviewButtonIsVisible = !order.leaveReviewButtonIsVisible
@@ -81,5 +83,6 @@ class OrderAdapter : OrderListAdapter(OrderDiffCallback) {
         private fun setPrice(price: Int) = with(receiver = binding.orderPriceTextView) {
             text = context.getString(Strings.price_label, price)
         }
+        /** ===================================================================================== */
     }
 }

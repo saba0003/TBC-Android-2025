@@ -40,6 +40,7 @@ class MyOrdersViewModel : ViewModel() {
     fun setFilter(status: OrderStatus) { _filterStatus.value = status }
 
 
+    /** ======================================== AUX ============================================ */
     private fun loadInitialOrders() { _orders.value = seed() }
 
     private fun seed(): List<Order> = listOf(
@@ -100,4 +101,5 @@ class MyOrdersViewModel : ViewModel() {
             price = 110
         )
     )
+    /** ========================================================================================= */
 }
