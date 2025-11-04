@@ -10,9 +10,9 @@ import com.example.tbc_android_2025.commons.BaseFragment
 import com.example.tbc_android_2025.commons.Colors
 import com.example.tbc_android_2025.databinding.FragmentMyOrdersBinding
 import com.example.tbc_android_2025.order.OrderAdapter
-import com.example.tbc_android_2025.utils.OrderStatus
-import com.example.tbc_android_2025.utils.OrderStatus.ACTIVE
-import com.example.tbc_android_2025.utils.OrderStatus.COMPLETED
+import com.example.tbc_android_2025.commons.OrderStatus
+import com.example.tbc_android_2025.commons.OrderStatus.ACTIVE
+import com.example.tbc_android_2025.commons.OrderStatus.COMPLETED
 import kotlinx.coroutines.launch
 
 typealias Binding = FragmentMyOrdersBinding

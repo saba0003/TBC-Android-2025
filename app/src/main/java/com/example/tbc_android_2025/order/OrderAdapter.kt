@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.tbc_android_2025.commons.Colors
 import com.example.tbc_android_2025.commons.Strings
 import com.example.tbc_android_2025.extensions.toPx
-import com.example.tbc_android_2025.utils.OrderStatus.ACTIVE
+import com.example.tbc_android_2025.commons.OrderStatus.ACTIVE
 import com.example.tbc_android_2025.databinding.ItemOrderBinding as Binding
 
 typealias OrderListAdapter = ListAdapter<Order, OrderAdapter.OrderViewHolder>
@@ -28,6 +28,7 @@ class OrderAdapter : OrderListAdapter(OrderDiffCallback) {
     override fun onBindViewHolder(holder: OrderViewHolder, position: Int) =
         holder.bind(order = getItem(position))
 
+
     inner class OrderViewHolder(private val binding: Binding) : ViewHolder(binding.root) {
 
         fun bind(order: Order) = with(receiver = order) {
@@ -36,12 +37,12 @@ class OrderAdapter : OrderListAdapter(OrderDiffCallback) {
             setQuantity(quantity = quantity)
             setStatus(order = this)
             setPrice(price = price)
-            setListenerOnStatusButton(order = this)
+            setListenerOnCompletedButton(order = this)
         }
 
 
         /** ====================================== AUX ========================================== */
-        private fun setListenerOnStatusButton(order: Order) = with(receiver = binding) {
+        private fun setListenerOnCompletedButton(order: Order) = with(receiver = binding) {
             orderCompletedStatusButton.setOnClickListener {
                 order.leaveReviewButtonIsVisible = !order.leaveReviewButtonIsVisible
                 buyAgainButton.visibility =

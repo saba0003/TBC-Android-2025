@@ -2,7 +2,7 @@ package com.example.tbc_android_2025.order
 
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
-import com.example.tbc_android_2025.utils.OrderStatus
+import com.example.tbc_android_2025.commons.OrderStatus
 
 data class Order(
     val id: Long = System.currentTimeMillis(),

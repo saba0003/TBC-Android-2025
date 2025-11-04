@@ -5,9 +5,9 @@ import androidx.lifecycle.viewModelScope
 import com.example.tbc_android_2025.commons.Colors
 import com.example.tbc_android_2025.commons.Images
 import com.example.tbc_android_2025.order.Order
-import com.example.tbc_android_2025.utils.OrderStatus
-import com.example.tbc_android_2025.utils.OrderStatus.ACTIVE
-import com.example.tbc_android_2025.utils.OrderStatus.COMPLETED
+import com.example.tbc_android_2025.commons.OrderStatus
+import com.example.tbc_android_2025.commons.OrderStatus.ACTIVE
+import com.example.tbc_android_2025.commons.OrderStatus.COMPLETED
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
