@@ -4,7 +4,7 @@ import com.example.tbc_android_2025.commons.BaseFragment
 import com.example.tbc_android_2025.databinding.FragmentTemplateBinding
 
 typealias Binding = FragmentTemplateBinding
-typealias BaseBinding = BaseFragment<FragmentTemplateBinding>
+typealias BaseBinding = BaseFragment<Binding>
 
 class TemplateFragment : BaseBinding(inflater = Binding::inflate) {
 
