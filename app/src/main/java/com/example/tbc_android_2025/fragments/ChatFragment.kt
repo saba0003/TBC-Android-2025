@@ -1,12 +1,12 @@
 package com.example.tbc_android_2025.fragments
 
 import com.example.tbc_android_2025.commons.BaseFragment
-import com.example.tbc_android_2025.databinding.FragmentTemplateBinding
+import com.example.tbc_android_2025.databinding.FragmentChatBinding
 
-typealias Binding = FragmentTemplateBinding
-typealias BaseBinding = BaseFragment<FragmentTemplateBinding>
+typealias Binding = FragmentChatBinding
+typealias BaseBinding = BaseFragment<Binding>
 
-class TemplateFragment : BaseBinding(inflater = Binding::inflate) {
+class ChatFragment : BaseBinding(inflater = Binding::inflate) {
 
     override fun bind() {
         TODO(reason = "Not yet implemented")

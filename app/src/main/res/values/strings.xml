@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">TBC-Android-2025</string>
+    <string name="admin">Admin</string>
+    <string name="online">Online</string>
+    <string name="type_your_message_here">Type your message here</string>
+    <string name="back_button_label">Back Button</string>
+    <string name="send_button_label">Send Button</string>
+    <string name="options_button_label">Options Button</string>
+    <string name="profile_button_label">Profile Button</string>
 </resources>
