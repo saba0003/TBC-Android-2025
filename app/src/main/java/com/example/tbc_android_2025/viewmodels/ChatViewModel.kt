@@ -13,7 +13,6 @@ typealias MessagesStateFlow = StateFlow<Messages>
 
 class ChatViewModel : ViewModel() {
 
-    // Backing property: Mutable in VM, immutable for UI
     private val _messages = MutableStateFlow<Messages>(value = emptyList())
     val messages: MessagesStateFlow = _messages
 
