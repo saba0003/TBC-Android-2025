@@ -1,5 +1,6 @@
 package com.example.tbc_android_2025.message
 
+
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -7,12 +8,18 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.tbc_android_2025.commons.DateTimeFormatter.formatDateTime
 import com.example.tbc_android_2025.commons.Drawables
+import com.example.tbc_android_2025.extensions.dpToPx
+import com.example.tbc_android_2025.extensions.isEven
+import com.example.tbc_android_2025.extensions.updateConstraints
 import java.time.LocalDateTime
 import com.example.tbc_android_2025.databinding.ItemMessageBinding as Binding
 
+
 typealias MessageListAdapter = ListAdapter<Message, MessageAdapter.MessageViewHolder>
 
+
 class MessageAdapter : MessageListAdapter(MessageDiffCallBack) {
+
 
     override fun onCreateViewHolder(parent: ViewGroup, ignored: Int): MessageViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -23,14 +30,17 @@ class MessageAdapter : MessageListAdapter(MessageDiffCallBack) {
     override fun onBindViewHolder(holder: MessageViewHolder, position: Int) =
         holder.bind(message = getItem(position), position = position)
 
+
     inner class MessageViewHolder(private val binding: Binding) : ViewHolder(binding.root) {
 
         fun bind(message: Message, position: Int) = with(receiver = message) {
             setMessage(message = this)
             setSentOn(dateTime = sentOn)
-            foo(position = position)
+            applyAlignment(position = position)
         }
 
+
+        /** ==================================== AUX ============================================ */
         private fun setMessage(message: Message) {
             binding.messageTextView.text = message.content
         }
@@ -39,39 +49,42 @@ class MessageAdapter : MessageListAdapter(MessageDiffCallBack) {
             binding.sentDateTimeTextView.text = formatDateTime(dateTime = dateTime)
         }
 
-        private fun foo(position: Int) = with(receiver = binding) {
-            val paramsMessage = messageTextView.layoutParams as ConstraintLayout.LayoutParams
-            val paramsTime = sentDateTimeTextView.layoutParams as ConstraintLayout.LayoutParams
+        private fun applyAlignment(position: Int) {
+            if (position.isEven())
+                alignLeft()
+            else
+                alignRight()
+        }
 
-            if (position % 2 == 0) { // 👈 even → left
-                messageTextView.setBackgroundResource(Drawables.left_participant_message_bubble)
+        private fun alignLeft() = with(receiver = binding) {
+            messageTextView.setBackgroundResource(Drawables.left_participant_message_bubble)
 
-                paramsMessage.apply {
-                    startToStart = ConstraintLayout.LayoutParams.PARENT_ID
-                    endToEnd = ConstraintLayout.LayoutParams.UNSET
-                }
-
-                paramsTime.apply {
-                    startToStart = messageTextView.id
-                    endToEnd = ConstraintLayout.LayoutParams.UNSET
-                }
-
-            } else { // 👈 odd → right
-                messageTextView.setBackgroundResource(Drawables.right_participant_message_bubble)
-
-                paramsMessage.apply {
-                    endToEnd = ConstraintLayout.LayoutParams.PARENT_ID
-                    startToStart = ConstraintLayout.LayoutParams.UNSET
-                }
-
-                paramsTime.apply {
-                    endToEnd = messageTextView.id
-                    startToStart = ConstraintLayout.LayoutParams.UNSET
-                }
+            messageTextView.updateConstraints {
+                startToStart = ConstraintLayout.LayoutParams.PARENT_ID
+                endToEnd = ConstraintLayout.LayoutParams.UNSET
             }
 
-            messageTextView.layoutParams = paramsMessage
-            sentDateTimeTextView.layoutParams = paramsTime
+            sentDateTimeTextView.updateConstraints {
+                startToStart = messageTextView.id
+                endToEnd = ConstraintLayout.LayoutParams.UNSET
+                marginStart = 5.dpToPx()
+            }
         }
+
+        private fun alignRight() = with(receiver = binding) {
+            messageTextView.setBackgroundResource(Drawables.right_participant_message_bubble)
+
+            messageTextView.updateConstraints {
+                startToStart = ConstraintLayout.LayoutParams.UNSET
+                endToEnd = ConstraintLayout.LayoutParams.PARENT_ID
+            }
+
+            sentDateTimeTextView.updateConstraints {
+                startToStart = ConstraintLayout.LayoutParams.UNSET
+                endToEnd = messageTextView.id
+                marginEnd = 5.dpToPx()
+            }
+        }
+        /** ===================================================================================== */
     }
 }

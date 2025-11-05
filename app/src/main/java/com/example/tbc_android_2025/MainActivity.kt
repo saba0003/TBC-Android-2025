@@ -1,8 +1,10 @@
 package com.example.tbc_android_2025
 
+
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.tbc_android_2025.databinding.ActivityMainBinding
+
 
 class MainActivity : AppCompatActivity() {
 
