@@ -7,4 +7,6 @@
     <string name="send_button_label">Send Button</string>
     <string name="options_button_label">Options Button</string>
     <string name="profile_button_label">Profile Button</string>
+    <string name="sample_message">Hello! Can I help you?</string>
+    <string name="sample_sent_date_time">Today, 7:02pm</string>
 </resources>

@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup as Container
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import com.example.tbc_android_2025.R as Resources
 
@@ -36,7 +35,7 @@ abstract class BaseFragment<VB : ViewBinding>(private val inflater: ViewBindingI
         listeners()
     }
 
-    protected open fun navigateBack() = findNavController().popBackStack()
+    protected open fun navigateBack() = requireActivity().moveTaskToBack(true)
 
     /** setup */
     protected abstract fun bind()
