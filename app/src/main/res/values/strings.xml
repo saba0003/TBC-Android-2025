@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">TBC-Android-2025</string>
+    <string name="back_button_label">Back Button</string>
+    <string name="payment">Payment</string>
+    <string name="card_management">Card Management</string>
+    <string name="add_new">Add new+</string>
+    <string name="list_of_cards_label">List of Cards</string>
+    <string name="or_check_out_with">or check out with</string>
+    <string name="payment_methods_label">Payment Methods</string>
+    <string name="paypal_label">PayPal</string>
+    <string name="visa_label">Visa</string>
+    <string name="american_express_label">American Express</string>
+    <string name="mastercard_label">Mastercard</string>
+    <string name="alipay_label">Alipay</string>
+    <string name="credit_card_number_mask">**** **** **** %1$s</string>
 </resources>
