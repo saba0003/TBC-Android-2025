@@ -33,6 +33,27 @@ object CreditCardUtils {
         }
     }
 
+    /**
+     * Mask for display (e.g., **** **** **** 1234)
+     *
+     * @throws CreditCardValidationException if number is invalid
+     */
+    fun maskNumberRaw(number: String): String {
+        validateNumber(number = number)
+        return number.takeLast(n = 4)
+    }
+
+    fun validateNumber(number: String) {
+        if (!number.all { it.isDigit() })
+            throw InvalidCardCharactersException()
+
+        if (!CARD_NUMBER_REGEX.matches(input = number))
+            throw InvalidCardLengthException()
+
+        if (!passesLuhn(number))
+            throw InvalidCardChecksumException()
+    }
+
     fun validateAnnotatedFields(target: Any) {
         val clazz = target::class
         val props = clazz.members
@@ -44,17 +65,6 @@ object CreditCardUtils {
                 }
             }
         }
-    }
-
-    private fun validateNumber(number: String) {
-        if (!number.all { it.isDigit() })
-            throw InvalidCardCharactersException()
-
-        if (!CARD_NUMBER_REGEX.matches(input = number))
-            throw InvalidCardLengthException()
-
-        if (!passesLuhn(number))
-            throw InvalidCardChecksumException()
     }
 
     /** Luhn Algorithm */
@@ -71,15 +81,5 @@ object CreditCardUtils {
         }.sum()
 
         return sum % 10 == 0
-    }
-
-    /**
-     * Mask for display (e.g., **** **** **** 1234)
-     *
-     * @throws CreditCardValidationException if number is invalid
-     */
-    fun maskNumberRaw(number: String): String {
-        validateNumber(number = number)
-        return number.takeLast(n = 4)
     }
 }

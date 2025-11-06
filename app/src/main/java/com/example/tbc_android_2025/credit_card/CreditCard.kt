@@ -1,18 +1,16 @@
 package com.example.tbc_android_2025.credit_card
 
 import com.example.tbc_android_2025.commons.CreditCardType
-import com.example.tbc_android_2025.commons.CreditCardUtils
+import com.example.tbc_android_2025.commons.StringUtils.DEFAULT_CREDIT_CARD_NUMBER
 import com.example.tbc_android_2025.commons.annotations.CreditCardNumber
-import java.time.LocalDateTime
+import java.time.LocalDate
 
 data class CreditCard(
     val type: CreditCardType,
     val name: String,
-    @CreditCardNumber val number: String, // Custom Exceptions can be thrown at runtime
     val cvv: String,
-    val expiry: LocalDateTime
+    val expiry: LocalDate
 ) {
-    init {
-        CreditCardUtils.validateAnnotatedFields(target = this)
-    }
+    @CreditCardNumber
+    var number: String by CreditCardNumberDelegate(initialValue = DEFAULT_CREDIT_CARD_NUMBER)
 }
