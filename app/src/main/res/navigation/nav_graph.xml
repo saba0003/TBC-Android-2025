@@ -7,6 +7,15 @@
     <fragment
         android:id="@+id/paymentFragment"
         android:name="com.example.tbc_android_2025.fragments.PaymentFragment"
-        android:label="Payment" />
+        android:label="Payment">
+        <action
+            android:id="@+id/action_paymentFragment_to_addNewCreditCardFragment"
+            app:destination="@id/addNewCreditCardFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/addNewCreditCardFragment"
+        android:name="com.example.tbc_android_2025.fragments.AddNewCreditCardFragment"
+        android:label="Add New Credit Card" />
 
 </navigation>

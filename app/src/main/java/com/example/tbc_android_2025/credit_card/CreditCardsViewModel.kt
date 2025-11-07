@@ -4,15 +4,15 @@ import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
-typealias CreditCards = Set<CreditCard>
+typealias CreditCards = List<CreditCard>
 typealias CreditCardsStateFlow = StateFlow<CreditCards>
 
 class CreditCardsViewModel : ViewModel() {
 
-    private val _creditCards = MutableStateFlow<CreditCards>(value = emptySet())
+    private val _creditCards = MutableStateFlow<CreditCards>(value = emptyList())
     val creditCards: CreditCardsStateFlow = _creditCards
 
     fun seed(cards: List<CreditCard>) {
-        _creditCards.value = cards.toSet()
+        _creditCards.value = cards
     }
 }

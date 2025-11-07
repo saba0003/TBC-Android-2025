@@ -38,15 +38,12 @@ class CreditCardAdapter : CreditCardListAdapter(CreditCardDiffCallback) {
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(creditCard: CreditCard) = with(receiver = binding) {
-            // 1️⃣ Load card background based on MII (first digit of the number)
             Glide.with(root.context)
                 .load(getCardBackgroundResource(creditCard = creditCard))
                 .into(creditCardImageView)
 
-            // 2️⃣ Display the masked credit card number
 //            numberTextView.text = CreditCardUtils.maskNumber(creditCard = creditCard)
 
-            // 3️⃣ Display cardholder name
             nameTextView.text = creditCard.name
 
             val month: String = creditCard.expiry.monthValue.toString().padStart(2, '0')
