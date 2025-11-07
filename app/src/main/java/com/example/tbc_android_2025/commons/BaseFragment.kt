@@ -1,22 +1,22 @@
 package com.example.tbc_android_2025.commons
 
 import android.os.Bundle
-import android.view.LayoutInflater
+import android.view.LayoutInflater as Inflater
 import android.view.View
 import android.view.ViewGroup as Container
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import androidx.viewbinding.ViewBinding
+import androidx.viewbinding.ViewBinding as Binding
 
-typealias ViewBindingInflater<VB> = (LayoutInflater, Container?, Boolean) -> VB
+typealias ViewBindingInflater<VB> = (Inflater, Container?, Boolean) -> VB
 
-abstract class BaseFragment<VB : ViewBinding>(private val inflater: ViewBindingInflater<VB>) : Fragment() {
+abstract class BaseFragment<VB : Binding>(private val inflater: ViewBindingInflater<VB>) : Fragment() {
 
     private var _binding: VB? = null
     protected val binding get() = _binding!!
 
     override fun onCreateView(
-        inflater: LayoutInflater,
+        inflater: Inflater,
         container: Container?,
         ignored: Bundle?
     ): View? {
@@ -30,12 +30,12 @@ abstract class BaseFragment<VB : ViewBinding>(private val inflater: ViewBindingI
         listeners()
     }
 
-    protected open fun navigateBack() = findNavController().popBackStack()
-
     /** setup */
     protected abstract fun bind()
 
     protected abstract fun listeners()
+
+    protected open fun navigateBack() = findNavController().popBackStack()
 
     override fun onDestroyView() {
         super.onDestroyView()
