@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/creditCardImageView"
+        android:layout_width="350dp"
+        android:layout_height="250dp"
+        android:background="@mipmap/ic_visa_background"
+        android:contentDescription="@string/visa_card_label"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/numberTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="monospace"
+        android:letterSpacing="0.2"
+        android:text="@string/credit_card_number_complete_mask"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@id/creditCardImageView"
+        app:layout_constraintEnd_toEndOf="@id/creditCardImageView"
+        app:layout_constraintStart_toStartOf="@id/creditCardImageView"
+        app:layout_constraintTop_toTopOf="@id/creditCardImageView" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/cardHolderNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:text="@string/card_holder_name"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/numberTextView"
+        app:layout_constraintTop_toBottomOf="@id/numberTextView" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/nameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="@string/credit_card_holder_full_name_sample"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@id/cardHolderNameTextView"
+        app:layout_constraintTop_toBottomOf="@id/cardHolderNameTextView" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/validThruTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/valid_thru"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/cardHolderNameTextView"
+        app:layout_constraintEnd_toEndOf="@id/numberTextView"
+        app:layout_constraintTop_toTopOf="@id/cardHolderNameTextView" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/expiryTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/credit_card_expiration_date_sample"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/nameTextView"
+        app:layout_constraintEnd_toEndOf="@id/validThruTextView"
+        app:layout_constraintTop_toTopOf="@id/nameTextView" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,5 @@
 package com.example.tbc_android_2025.credit_card
 
-import com.example.tbc_android_2025.commons.CreditCardUtils
 import kotlin.reflect.KProperty
 
 class CreditCardNumberDelegate(initialValue: String) {

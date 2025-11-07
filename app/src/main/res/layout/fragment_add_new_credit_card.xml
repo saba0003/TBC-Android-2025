@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/backButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/shape_oval"
+        android:contentDescription="@string/back_button_label"
+        android:elevation="2dp"
+        android:minWidth="32dp"
+        android:minHeight="32dp"
+        android:src="@drawable/ic_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/addNewCardTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add_new_card"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/backButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/backButton" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/creditCardFragmentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintBottom_toTopOf="@id/cardHolderNameTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/addNewCardTextView" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/cardHolderNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="30dp"
+        android:text="@string/card_holder_name"
+        app:layout_constraintBottom_toTopOf="@id/nameEditText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/creditCardFragmentContainer" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/nameEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/edit_text_border"
+        android:hint="@string/enter_your_name"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="10dp"
+        app:layout_constraintBottom_toTopOf="@id/cardNumberTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/cardHolderNameTextView"
+        app:layout_constraintTop_toBottomOf="@id/cardHolderNameTextView" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/cardNumberTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/card_number"
+        app:layout_constraintBottom_toTopOf="@id/numberEditText"
+        app:layout_constraintStart_toStartOf="@id/cardHolderNameTextView"
+        app:layout_constraintTop_toBottomOf="@id/nameEditText" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/numberEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/edit_text_border"
+        android:hint="@string/enter_card_number"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="10dp"
+        app:layout_constraintBottom_toTopOf="@id/expiresTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@id/cardNumberTextView"
+        app:layout_constraintTop_toBottomOf="@id/cardNumberTextView" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/expiresTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/expires"
+        app:layout_constraintBottom_toTopOf="@id/expiryEditText"
+        app:layout_constraintEnd_toEndOf="@id/expiryEditText"
+        app:layout_constraintStart_toStartOf="@id/expiryEditText"
+        app:layout_constraintTop_toBottomOf="@id/numberEditText" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/expiryEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edit_text_border"
+        android:hint="@string/enter_expiration_date"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="10dp"
+        app:layout_constraintBottom_toTopOf="@id/addCardButton"
+        app:layout_constraintEnd_toStartOf="@id/cvvEditText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/expiresTextView" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/cvvTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/cvv"
+        app:layout_constraintBottom_toTopOf="@id/cvvEditText"
+        app:layout_constraintEnd_toEndOf="@id/cvvEditText"
+        app:layout_constraintStart_toEndOf="@id/expiryEditText"
+        app:layout_constraintTop_toBottomOf="@id/numberEditText" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/cvvEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edit_text_border"
+        android:hint="@string/enter_cvv"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="10dp"
+        app:layout_constraintBottom_toTopOf="@id/addCardButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/expiryEditText"
+        app:layout_constraintTop_toBottomOf="@id/cvvTextView" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/addCardButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_rounded_rectangle"
+        android:text="@string/add_card"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/expiryEditText"
+        app:layout_constraintWidth_percent="0.5" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

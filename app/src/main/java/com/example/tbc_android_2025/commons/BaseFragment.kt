@@ -30,12 +30,12 @@ abstract class BaseFragment<VB : ViewBinding>(private val inflater: ViewBindingI
         listeners()
     }
 
-    protected open fun navigateBack() = findNavController().popBackStack()
-
     /** setup */
     protected abstract fun bind()
 
     protected abstract fun listeners()
+
+    protected open fun navigateBack() = findNavController().popBackStack()
 
     override fun onDestroyView() {
         super.onDestroyView()
