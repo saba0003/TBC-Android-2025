@@ -6,4 +6,7 @@ object StringUtils {
     const val ERR_CARD_NUMERIC_ONLY = "Credit card number must contain only numeric characters!"
     const val ERR_CARD_LUHN = "Invalid card number! (Luhn check failed)"
     const val ERR_CARD_TYPE = "Unsupported card type: %s"
+    const val ERR_CARD_NUMBER = "Unsupported card number: %s"
+    const val DESERIALIZATION_DELIMITER = "/"
+    const val DESERIALIZATION_PREFIX = "20%s"
 }

@@ -3,6 +3,7 @@ package com.example.tbc_android_2025.credit_card
 import com.example.tbc_android_2025.commons.StringUtils.ERR_CARD_LENGTH
 import com.example.tbc_android_2025.commons.StringUtils.ERR_CARD_NUMERIC_ONLY
 import com.example.tbc_android_2025.commons.StringUtils.ERR_CARD_LUHN
+import com.example.tbc_android_2025.commons.StringUtils.ERR_CARD_NUMBER
 import com.example.tbc_android_2025.commons.StringUtils.ERR_CARD_TYPE
 
 sealed class CreditCardValidationException(message: String) : IllegalArgumentException(message)
@@ -18,3 +19,6 @@ class InvalidCardChecksumException(message: String = ERR_CARD_LUHN) :
 
 class UnsupportedCardTypeException(type: CreditCardType) :
     CreditCardValidationException(message = ERR_CARD_TYPE.format(type))
+
+class UnsupportedCardNumberException(number: String) :
+    CreditCardValidationException(message = ERR_CARD_NUMBER.format(number))

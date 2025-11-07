@@ -24,11 +24,7 @@ object CreditCardUtils {
             throw InvalidCardChecksumException()
     }
 
-    /**
-     * Mask for display (e.g., **** **** **** 1234)
-     *
-     * @throws CreditCardValidationException if number is invalid
-     */
+    /** Mask for display (e.g., **** **** **** 1234) */
     fun maskNumberRaw(number: String): String {
         validateNumber(number = number)
         return number.takeLast(n = 4)

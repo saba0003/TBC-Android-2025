@@ -1,5 +1,7 @@
 package com.example.tbc_android_2025.credit_card
 
+import com.example.tbc_android_2025.commons.StringUtils.DESERIALIZATION_DELIMITER
+import com.example.tbc_android_2025.commons.StringUtils.DESERIALIZATION_PREFIX
 import java.time.LocalDate
 
 data class CreditCardDto(
@@ -10,11 +12,11 @@ data class CreditCardDto(
     val expiry: String
 ) {
     fun toDomain(): CreditCard {
-        val (month, year) = expiry.split("/")
-        val expiryDate = LocalDate.of("20$year".toInt(), month.toInt(), 1)
+        val (month, year) = expiry.split(DESERIALIZATION_DELIMITER)
+        val expiryDate = LocalDate.of(DESERIALIZATION_PREFIX.format(year).toInt(), month.toInt(), 1)
 
         return CreditCard(
-            type = CreditCardType.valueOf(value = type), // you likely have this enum
+            type = CreditCardType.valueOf(value = type),
             name = name,
             cvv = cvv,
             expiry = expiryDate,

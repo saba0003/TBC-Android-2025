@@ -1,6 +1,6 @@
 package com.example.tbc_android_2025.credit_card
 
-enum class CreditCardType(mii: Int) {
+enum class CreditCardType(val mii: Int) {
 
     VISA(mii = 4),
     MASTERCARD(mii = 5);
