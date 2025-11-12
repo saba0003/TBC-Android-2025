@@ -9,4 +9,10 @@
     <string name="required_registration_email">eve.holt@reqres.in</string>
     <string name="login_button_label">Login Button</string>
     <string name="register_button_label">Register Button</string>
+    <string name="login_successful_welcome">Login Successful! Welcome %1$s</string>
+    <string name="unknown_login_error">Unknown login error</string>
+    <string name="an_unexpected_error_occurred">An unexpected error occurred: %1$s</string>
+    <string name="unknown_registration_error">Unknown registration error</string>
+    <string name="registered_successfully_token">Registered successfully! Token: %1$s</string>
+    <string name="unknown_error">Unknown error</string>
 </resources>

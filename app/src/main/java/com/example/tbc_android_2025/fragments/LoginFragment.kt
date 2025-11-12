@@ -2,9 +2,11 @@ package com.example.tbc_android_2025.fragments
 
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.example.tbc_android_2025.api.exceptions.LoginException
 import com.example.tbc_android_2025.commons.BaseFragment
 import com.example.tbc_android_2025.commons.Colors
 import com.example.tbc_android_2025.commons.Ids
+import com.example.tbc_android_2025.commons.Strings
 import com.example.tbc_android_2025.extensions.popMessage
 import com.example.tbc_android_2025.user.UserViewModel
 import kotlin.getValue
@@ -22,43 +24,33 @@ class LoginFragment : BaseFragment<Binding>(inflater = Binding::inflate) {
     private fun setListenerOnLoginButton() = with(receiver = binding) {
         loginButton.setOnClickListener { view ->
 
-            val email = usernameEditText.text.toString().trim()
+            val username = usernameEditText.text.toString().trim()
             val password = passwordEditText.text.toString().trim()
 
-            if (email.isEmpty() || password.isEmpty()) {
+            try {
+                if (username.isEmpty() || password.isEmpty())
+                    throw LoginException.EmptyFields()
+
+                val localUser = userViewModel.getUser(username = username, password = password)
+                    ?: throw LoginException.UserNotFound()
+
                 view.popMessage(
-                    text = "Please fill all fields!",
+                    text = getString(Strings.login_successful_welcome, localUser.username),
+                    color = Colors.viridian
+                )
+
+                findNavController().navigate(resId = Ids.action_loginFragment_to_welcomeFragment)
+
+            } catch (e: LoginException) {
+                view.popMessage(
+                    text = e.message ?: getString(Strings.unknown_login_error),
                     color = Colors.amaranth
                 )
-                return@setOnClickListener
-            }
-
-            userViewModel.loginUserRemote(email = email, password = password) { result ->
-                result.onSuccess { res ->
-
-                    val localUser = userViewModel.getUser(username = email, password = password)
-
-                    if (localUser != null) {
-                        view.popMessage(
-                            text = "Login Successful! Welcome ${localUser.username}",
-                            color = Colors.light_green
-                        )
-                    } else {
-                        view.popMessage(
-                            text = "Login Successful!",
-                            color = Colors.light_green
-                        )
-                    }
-
-                    findNavController().navigate(resId = Ids.action_loginFragment_to_welcomeFragment)
-                }
-
-                result.onFailure { e ->
-                    view.popMessage(
-                        text = "Login failed: ${e.message}",
-                        color = Colors.amaranth
-                    )
-                }
+            } catch (e: Exception) {
+                view.popMessage(
+                    text = getString(Strings.an_unexpected_error_occurred, e.message),
+                    color = Colors.amaranth
+                )
             }
         }
     }
