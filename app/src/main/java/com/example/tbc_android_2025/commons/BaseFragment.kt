@@ -15,6 +15,7 @@ abstract class BaseFragment<VB : Binding>(private val inflater: ViewBindingInfla
     private var _binding: VB? = null
     protected val binding get() = _binding!!
 
+
     override fun onCreateView(
         inflater: Inflater,
         container: Container?,
@@ -26,16 +27,14 @@ abstract class BaseFragment<VB : Binding>(private val inflater: ViewBindingInfla
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        bind()
         listeners()
     }
 
-    /** setup */
-    protected abstract fun bind()
 
     protected abstract fun listeners()
 
     protected open fun navigateBack() = findNavController().popBackStack()
+
 
     override fun onDestroyView() {
         super.onDestroyView()
