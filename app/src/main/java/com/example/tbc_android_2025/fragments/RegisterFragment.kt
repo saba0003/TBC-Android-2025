@@ -1,5 +1,6 @@
 package com.example.tbc_android_2025.fragments
 
+import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.tbc_android_2025.api.exceptions.RegistrationException
@@ -32,45 +33,16 @@ class RegisterFragment : BaseFragment<Binding>(inflater = Binding::inflate) {
             try {
                 validateFields(email = email, username = username, password = password)
                 validateEmail(email = email)
-
-                userViewModel.registerUserRemote(email = email, password = password) { result ->
-                    result.onSuccess { res ->
-
-                        userViewModel.addUser(
-                            User(
-                                email = email,
-                                username = username,
-                                password = password
-                            )
-                        )
-
-                        view.popMessage(
-                            text = getString(Strings.registered_successfully_token, res.token),
-                            color = Colors.viridian
-                        )
-
-                        findNavController().navigate(resId = Ids.action_registerFragment_to_welcomeFragment)
-                    }
-                    result.onFailure { e ->
-                        val exception = RegistrationException.RemoteRegistrationFailed(
-                            message = e.message ?: getString(Strings.unknown_error)
-                        )
-                        view.popMessage(
-                            text = exception.message!!,
-                            color = Colors.amaranth
-                        )
-                    }
-                }
-
+                registerUser(email = email, username = username, password = password, view = view)
             } catch (e: RegistrationException) {
-                view.popMessage(
-                    text = e.message ?: getString(Strings.unknown_registration_error),
-                    color = Colors.amaranth
+                showError(
+                    view = view,
+                    message = e.message ?: getString(Strings.unknown_registration_error)
                 )
             } catch (e: Exception) {
-                view.popMessage(
-                    text = getString(Strings.an_unexpected_error_occurred, e.message),
-                    color = Colors.amaranth
+                showError(
+                    view = view,
+                    message = getString(Strings.an_unexpected_error_occurred, e.message)
                 )
             }
         }
@@ -85,5 +57,38 @@ class RegisterFragment : BaseFragment<Binding>(inflater = Binding::inflate) {
         if (email.lowercase() != getString(Strings.required_registration_email))
             throw RegistrationException.InvalidEmail()
     }
+
+    private fun registerUser(email: String, username: String, password: String, view: View) =
+        userViewModel.registerUserRemote(email = email, password = password) { result ->
+            result.onSuccess { res ->
+                addUserLocally(email = email, username = username, password = password)
+                showSuccess(view = view, token = res.token!!)
+                navigateToWelcome()
+            }
+            result.onFailure { e ->
+                val exception = RegistrationException.RemoteRegistrationFailed(
+                    message = e.message ?: getString(Strings.unknown_error)
+                )
+                showError(view = view, message = exception.message!!)
+            }
+        }
+
+    private fun addUserLocally(email: String, username: String, password: String) =
+        userViewModel.addUser(User(email = email, username = username, password = password))
+
+    private fun showSuccess(view: View, token: String) =
+        view.popMessage(
+            text = getString(Strings.registered_successfully_token, token),
+            color = Colors.viridian
+        )
+
+    private fun showError(view: View, message: String) =
+        view.popMessage(
+            text = message,
+            color = Colors.amaranth
+        )
+
+    private fun navigateToWelcome() =
+        findNavController().navigate(resId = Ids.action_registerFragment_to_welcomeFragment)
     /** ========================================================================================= */
 }
