@@ -1,17 +1,18 @@
-package com.example.tbc_android_2025.fragments
+package com.example.tbc_android_2025.presentation.fragments
 
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.example.tbc_android_2025.api.exceptions.RegistrationException
-import com.example.tbc_android_2025.commons.BaseFragment
-import com.example.tbc_android_2025.commons.Colors
-import com.example.tbc_android_2025.commons.Ids
-import com.example.tbc_android_2025.commons.Strings
-import com.example.tbc_android_2025.extensions.popMessage
-import com.example.tbc_android_2025.user.User
-import com.example.tbc_android_2025.user.UserViewModel
-import kotlin.getValue
+import com.example.tbc_android_2025.data.auth.exceptions.RegistrationException
+import com.example.tbc_android_2025.presentation.commons.BaseFragment
+import com.example.tbc_android_2025.presentation.commons.Colors
+import com.example.tbc_android_2025.presentation.commons.Ids
+import com.example.tbc_android_2025.presentation.commons.Strings
+import com.example.tbc_android_2025.presentation.extensions.popMessage
+import com.example.tbc_android_2025.presentation.fragments.user.User
+import com.example.tbc_android_2025.presentation.fragments.user.UserViewModel
+import kotlin.onFailure
+import kotlin.onSuccess
 import com.example.tbc_android_2025.databinding.FragmentRegisterBinding as Binding
 
 class RegisterFragment : BaseFragment<Binding>(inflater = Binding::inflate) {
@@ -63,7 +64,7 @@ class RegisterFragment : BaseFragment<Binding>(inflater = Binding::inflate) {
             result.onSuccess { res ->
                 addUserLocally(email = email, username = username, password = password)
                 showSuccess(view = view, token = res.token!!)
-                navigateToWelcome()
+                navigateToWelcomePage()
             }
             result.onFailure { e ->
                 val exception = RegistrationException.RemoteRegistrationFailed(
@@ -88,7 +89,7 @@ class RegisterFragment : BaseFragment<Binding>(inflater = Binding::inflate) {
             color = Colors.amaranth
         )
 
-    private fun navigateToWelcome() =
+    private fun navigateToWelcomePage() =
         findNavController().navigate(resId = Ids.action_registerFragment_to_welcomeFragment)
     /** ========================================================================================= */
 }

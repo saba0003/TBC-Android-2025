@@ -3,16 +3,24 @@
     <string name="welcome">Welcome</string>
     <string name="register">Register</string>
     <string name="login">Login</string>
+    <string name="home">Home</string>
     <string name="password">Password</string>
     <string name="username">Username</string>
     <string name="email">Email</string>
     <string name="required_registration_email">eve.holt@reqres.in</string>
-    <string name="login_button_label">Login Button</string>
+    <string name="login_button_label">Login button</string>
     <string name="register_button_label">Register Button</string>
-    <string name="login_successful_welcome">Login Successful! Welcome %1$s</string>
+    <string name="log_out_button_label">Log out button</string>
+    <string name="login_successful_welcome">Login Successful! Welcome %1$s! Current session: %2$s</string>
     <string name="unknown_login_error">Unknown login error</string>
     <string name="an_unexpected_error_occurred">An unexpected error occurred: %1$s</string>
     <string name="unknown_registration_error">Unknown registration error</string>
     <string name="registered_successfully_token">Registered successfully! Token: %1$s</string>
     <string name="unknown_error">Unknown error</string>
+    <string name="log_out">Log out</string>
+    <string name="id_with_format_specifier">ID: %1$d</string>
+    <string name="email_with_format_specifier">Email: %1$s</string>
+    <string name="username_with_format_specifier">Username: %1$s</string>
+    <string name="password_with_format_specifier">Password: %1$s</string>
+    <string name="token_with_format_specifier">Token: %1$s</string>
 </resources>

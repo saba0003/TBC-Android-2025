@@ -1,8 +1,8 @@
-package com.example.tbc_android_2025.user
+package com.example.tbc_android_2025.presentation.fragments.user
 
-import com.example.tbc_android_2025.api.RetrofitInstance
-import com.example.tbc_android_2025.api.requests.*
-import com.example.tbc_android_2025.api.responses.*
+import com.example.tbc_android_2025.data.HttpClient
+import com.example.tbc_android_2025.data.auth.dtos.requests.*
+import com.example.tbc_android_2025.data.auth.dtos.responses.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -20,12 +20,12 @@ object UserRepository {
     suspend fun registerUserRemote(
         email: String,
         password: String
-    ): Result<RegisterResponse> =
+    ): Result<RegisterResponseDto> =
         withContext(context = Dispatchers.IO) {
             try {
                 val response =
-                    RetrofitInstance.api.register(
-                        request = RegisterRequest(
+                    HttpClient.api.register(
+                        request = RegisterRequestDto(
                             email = email,
                             password = password
                         )
@@ -36,11 +36,11 @@ object UserRepository {
             }
         }
 
-    suspend fun loginUserRemote(email: String, password: String): Result<LoginResponse> =
+    suspend fun loginUserRemote(email: String, password: String): Result<LoginResponseDto> =
         withContext(context = Dispatchers.IO) {
             try {
-                val response = RetrofitInstance.api.login(
-                    request = LoginRequest(
+                val response = HttpClient.api.login(
+                    request = LoginRequestDto(
                         email = email,
                         password = password
                     )

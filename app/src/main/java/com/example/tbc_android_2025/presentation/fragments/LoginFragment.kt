@@ -1,17 +1,15 @@
-package com.example.tbc_android_2025.fragments
+package com.example.tbc_android_2025.presentation.fragments
 
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.example.tbc_android_2025.api.exceptions.LoginException
-import com.example.tbc_android_2025.commons.BaseFragment
-import com.example.tbc_android_2025.commons.Colors
-import com.example.tbc_android_2025.commons.Ids
-import com.example.tbc_android_2025.commons.Strings
-import com.example.tbc_android_2025.extensions.popMessage
-import com.example.tbc_android_2025.user.User
-import com.example.tbc_android_2025.user.UserViewModel
-import kotlin.getValue
+import com.example.tbc_android_2025.data.auth.exceptions.LoginException
+import com.example.tbc_android_2025.presentation.commons.BaseFragment
+import com.example.tbc_android_2025.presentation.commons.Colors
+import com.example.tbc_android_2025.presentation.commons.Strings
+import com.example.tbc_android_2025.presentation.extensions.popMessage
+import com.example.tbc_android_2025.presentation.fragments.user.User
+import com.example.tbc_android_2025.presentation.fragments.user.UserViewModel
 import com.example.tbc_android_2025.databinding.FragmentLoginBinding as Binding
 
 class LoginFragment : BaseFragment<Binding>(inflater = Binding::inflate) {
@@ -32,8 +30,7 @@ class LoginFragment : BaseFragment<Binding>(inflater = Binding::inflate) {
             try {
                 validateLoginFields(username = username, password = password)
                 val localUser = fetchLocalUser(username = username, password = password)
-                showSuccess(view = view, user = localUser)
-                navigateToWelcome()
+                loginUser(user = localUser, view = view)
             } catch (e: LoginException) {
                 showError(
                     view = view,
@@ -57,9 +54,21 @@ class LoginFragment : BaseFragment<Binding>(inflater = Binding::inflate) {
         userViewModel.getUser(username = username, password = password)
             ?: throw LoginException.UserNotFound()
 
-    private fun showSuccess(view: View, user: User) =
+
+    private fun loginUser(user: User, view: View) =
+        userViewModel.loginUserRemote(email = user.email, password = user.password) { result ->
+            result.onSuccess {
+                showSuccess(view = view)
+                navigateToHomePage(user = user)
+            }
+            result.onFailure {
+                showError(view = view, message = getString(Strings.unknown_login_error))
+            }
+        }
+
+    private fun showSuccess(view: View) =
         view.popMessage(
-            text = getString(Strings.login_successful_welcome, user.username),
+            text = getString(Strings.login_successful_welcome),
             color = Colors.viridian
         )
 
@@ -69,7 +78,9 @@ class LoginFragment : BaseFragment<Binding>(inflater = Binding::inflate) {
             color = Colors.amaranth
         )
 
-    private fun navigateToWelcome() =
-        findNavController().navigate(resId = Ids.action_loginFragment_to_welcomeFragment)
+    private fun navigateToHomePage(user: User) {
+        val direction = LoginFragmentDirections.actionLoginFragmentToHomeFragment(user = user)
+        findNavController().navigate(directions = direction)
+    }
     /** ========================================================================================= */
 }

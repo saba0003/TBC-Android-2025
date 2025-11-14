@@ -1,4 +1,4 @@
-package com.example.tbc_android_2025.extensions
+package com.example.tbc_android_2025.presentation.extensions
 
 import android.view.View
 import androidx.core.content.ContextCompat

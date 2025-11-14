@@ -1,9 +1,9 @@
-package com.example.tbc_android_2025.user
+package com.example.tbc_android_2025.presentation.fragments.user
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.tbc_android_2025.api.responses.LoginResponse
-import com.example.tbc_android_2025.api.responses.RegisterResponse
+import com.example.tbc_android_2025.data.auth.SessionManager
+import com.example.tbc_android_2025.data.auth.dtos.responses.*
 import kotlinx.coroutines.launch
 
 class UserViewModel : ViewModel() {
@@ -16,7 +16,7 @@ class UserViewModel : ViewModel() {
     fun registerUserRemote(
         email: String,
         password: String,
-        onResult: (Result<RegisterResponse>) -> Unit
+        onResult: (Result<RegisterResponseDto>) -> Unit
     ) {
         viewModelScope.launch {
             val result = UserRepository.registerUserRemote(email = email, password = password)
@@ -27,10 +27,11 @@ class UserViewModel : ViewModel() {
     fun loginUserRemote(
         email: String,
         password: String,
-        onResult: (Result<LoginResponse>) -> Unit
+        onResult: (Result<LoginResponseDto>) -> Unit
     ) {
         viewModelScope.launch {
             val result = UserRepository.loginUserRemote(email = email, password = password)
+            result.onSuccess { SessionManager.authToken = it.token }
             onResult(result)
         }
     }
