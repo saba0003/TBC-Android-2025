@@ -63,7 +63,7 @@ class RegisterFragment : BaseFragment<Binding>(inflater = Binding::inflate) {
         userViewModel.registerUserRemote(email = email, password = password) { result ->
             result.onSuccess { res ->
                 addUserLocally(email = email, username = username, password = password)
-                showSuccess(view = view, token = res.token!!)
+                showSuccess(view = view)
                 navigateToWelcomePage()
             }
             result.onFailure { e ->
@@ -77,9 +77,9 @@ class RegisterFragment : BaseFragment<Binding>(inflater = Binding::inflate) {
     private fun addUserLocally(email: String, username: String, password: String) =
         userViewModel.addUser(User(email = email, username = username, password = password))
 
-    private fun showSuccess(view: View, token: String) =
+    private fun showSuccess(view: View) =
         view.popMessage(
-            text = getString(Strings.registered_successfully_token, token),
+            text = getString(Strings.registered_successfully),
             color = Colors.viridian
         )
 

@@ -30,7 +30,7 @@ class LoginFragment : BaseFragment<Binding>(inflater = Binding::inflate) {
             try {
                 validateLoginFields(username = username, password = password)
                 val localUser = fetchLocalUser(username = username, password = password)
-                loginUser(user = localUser, view = view)
+                remoteLoginUser(user = localUser, view = view)
             } catch (e: LoginException) {
                 showError(
                     view = view,
@@ -55,20 +55,20 @@ class LoginFragment : BaseFragment<Binding>(inflater = Binding::inflate) {
             ?: throw LoginException.UserNotFound()
 
 
-    private fun loginUser(user: User, view: View) =
+    private fun remoteLoginUser(user: User, view: View) =
         userViewModel.loginUserRemote(email = user.email, password = user.password) { result ->
             result.onSuccess {
-                showSuccess(view = view)
+                showSuccess(view = view, username = user.username, token = it.token!!)
                 navigateToHomePage(user = user)
             }
             result.onFailure {
-                showError(view = view, message = getString(Strings.unknown_login_error))
+                throw LoginException.RemoteLoginFailed(message = getString(Strings.unknown_login_error))
             }
         }
 
-    private fun showSuccess(view: View) =
+    private fun showSuccess(view: View, username: String, token: String) =
         view.popMessage(
-            text = getString(Strings.login_successful_welcome),
+            text = getString(Strings.login_successful_welcome_token, username, token),
             color = Colors.viridian
         )
 
