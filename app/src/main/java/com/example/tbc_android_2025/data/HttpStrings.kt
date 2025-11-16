@@ -8,6 +8,6 @@ object HttpStrings {
     const val REGISTER_ENDPOINT: String = "register"
     const val LOGIN_ENDPOINT: String = "login"
     const val AUTHORIZATION: String = "Authorization"
-    const val BEARER_TOKEN: String = "Bearer "
+    const val BEARER_TOKEN: String = "Bearer %s"
 
 }

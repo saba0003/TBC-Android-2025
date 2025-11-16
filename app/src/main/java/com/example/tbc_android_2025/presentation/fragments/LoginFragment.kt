@@ -59,7 +59,7 @@ class LoginFragment : BaseFragment<Binding>(inflater = Binding::inflate) {
         userViewModel.loginUserRemote(email = user.email, password = user.password) { result ->
             result.onSuccess {
                 showSuccess(view = view, username = user.username, token = it.token!!)
-                navigateToHomePage(user = user)
+                navigateToHomePage(user = user, token = it.token)
             }
             result.onFailure {
                 throw LoginException.RemoteLoginFailed(message = getString(Strings.unknown_login_error))
@@ -78,8 +78,9 @@ class LoginFragment : BaseFragment<Binding>(inflater = Binding::inflate) {
             color = Colors.amaranth
         )
 
-    private fun navigateToHomePage(user: User) {
-        val direction = LoginFragmentDirections.actionLoginFragmentToHomeFragment(user = user)
+    private fun navigateToHomePage(user: User, token: String) {
+        val direction =
+            LoginFragmentDirections.actionLoginFragmentToHomeFragment(user = user, token = token)
         findNavController().navigate(directions = direction)
     }
     /** ========================================================================================= */

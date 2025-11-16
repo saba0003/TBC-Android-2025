@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.tbc_android_2025.data.auth.SessionManager
 import com.example.tbc_android_2025.data.auth.dtos.responses.*
+import com.example.tbc_android_2025.data.repositories.UserRepository
 import kotlinx.coroutines.launch
 
 class UserViewModel : ViewModel() {

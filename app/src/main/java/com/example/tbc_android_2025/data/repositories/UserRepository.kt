@@ -1,8 +1,11 @@
-package com.example.tbc_android_2025.presentation.fragments.user
+package com.example.tbc_android_2025.data.repositories
 
 import com.example.tbc_android_2025.data.HttpClient
-import com.example.tbc_android_2025.data.auth.dtos.requests.*
-import com.example.tbc_android_2025.data.auth.dtos.responses.*
+import com.example.tbc_android_2025.data.auth.dtos.requests.LoginRequestDto
+import com.example.tbc_android_2025.data.auth.dtos.requests.RegisterRequestDto
+import com.example.tbc_android_2025.data.auth.dtos.responses.LoginResponseDto
+import com.example.tbc_android_2025.data.auth.dtos.responses.RegisterResponseDto
+import com.example.tbc_android_2025.presentation.fragments.user.User
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 

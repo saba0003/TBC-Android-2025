@@ -5,7 +5,7 @@ import com.example.tbc_android_2025.data.HttpStrings.BASE_URL
 import com.example.tbc_android_2025.data.HttpStrings.BEARER_TOKEN
 import com.example.tbc_android_2025.data.HttpStrings.HEADER_KEY
 import com.example.tbc_android_2025.data.HttpStrings.HEADER_VALUE
-import com.example.tbc_android_2025.data.auth.HttpMethods
+import com.example.tbc_android_2025.data.auth.UserAuthApi
 import com.example.tbc_android_2025.data.auth.SessionManager
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -23,7 +23,7 @@ object HttpClient {
                 .addHeader(name = HEADER_KEY, value = HEADER_VALUE)
 
             SessionManager.authToken?.let {
-                newRequest.addHeader(name = AUTHORIZATION, value = BEARER_TOKEN + it)
+                newRequest.addHeader(name = AUTHORIZATION, value = String.format(BEARER_TOKEN, it))
             }
 
             chain.proceed(request = newRequest.build())
@@ -31,12 +31,12 @@ object HttpClient {
         .addInterceptor(interceptor = logging)
         .build()
 
-    val api: HttpMethods by lazy {
+    val api: UserAuthApi by lazy {
         Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()
-            .create(HttpMethods::class.java)
+            .create(UserAuthApi::class.java)
     }
 }

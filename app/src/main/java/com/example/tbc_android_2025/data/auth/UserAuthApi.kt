@@ -7,7 +7,7 @@ import com.example.tbc_android_2025.data.auth.dtos.responses.*
 import retrofit2.http.Body
 import retrofit2.http.POST
 
-interface HttpMethods {
+interface UserAuthApi {
 
     @POST(value = REGISTER_ENDPOINT)
     suspend fun register(@Body request: RegisterRequestDto): RegisterResponseDto

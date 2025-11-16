@@ -14,18 +14,19 @@ class HomeFragment : BaseFragment<Binding>(inflater = Binding::inflate) {
     private val args: HomeFragmentArgs by navArgs()
 
 
-    override fun bind() = setTextViews(user = args.user)
+    override fun bind() = setTextViews(user = args.user, token = args.token)
 
     override fun listeners() = setListenerOnLogOutButton()
 
 
     /** ===================================== AUX =============================================== */
-    private fun setTextViews(user: User) = with(receiver = binding) {
+    private fun setTextViews(user: User, token: String) = with(receiver = binding) {
         with(receiver = user) {
             idTextView.text = getString(Strings.id_with_format_specifier, id)
             emailTextView.text = getString(Strings.email_with_format_specifier, email)
             usernameTextView.text = getString(Strings.username_with_format_specifier, username)
             passwordTextView.text = getString(Strings.password_with_format_specifier, password)
+            tokenTextView.text = getString(Strings.token_with_format_specifier, token)
         }
     }
 
