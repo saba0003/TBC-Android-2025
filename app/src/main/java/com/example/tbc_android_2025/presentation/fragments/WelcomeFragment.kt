@@ -2,7 +2,6 @@ package com.example.tbc_android_2025.presentation.fragments
 
 import androidx.navigation.fragment.findNavController
 import com.example.tbc_android_2025.presentation.commons.BaseFragment
-import com.example.tbc_android_2025.presentation.commons.Ids
 import com.example.tbc_android_2025.databinding.FragmentWelcomeBinding as Binding
 
 class WelcomeFragment : BaseFragment<Binding>(inflater = Binding::inflate) {
@@ -20,10 +19,14 @@ class WelcomeFragment : BaseFragment<Binding>(inflater = Binding::inflate) {
     private fun setListenerOnLoginButton() =
         binding.loginButton.setOnClickListener { navigateToLoginPage() }
 
-    private fun navigateToRegisterPage() =
-        findNavController().navigate(resId = Ids.action_welcomeFragment_to_registerFragment)
+    private fun navigateToRegisterPage() {
+        val direction = WelcomeFragmentDirections.actionWelcomeFragmentToRegisterFragment()
+        findNavController().navigate(directions = direction)
+    }
 
-    private fun navigateToLoginPage() =
-        findNavController().navigate(resId = Ids.action_welcomeFragment_to_loginFragment)
+    private fun navigateToLoginPage() {
+        val direction = WelcomeFragmentDirections.actionWelcomeFragmentToLoginFragment()
+        findNavController().navigate(directions = direction)
+    }
     /** ========================================================================================= */
 }

@@ -3,10 +3,10 @@ package com.example.tbc_android_2025.presentation.fragments
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.example.tbc_android_2025.data.auth.exceptions.ExceptionStrings.USER_NOT_FOUND_ERR
 import com.example.tbc_android_2025.data.auth.exceptions.RegistrationException
 import com.example.tbc_android_2025.presentation.commons.BaseFragment
 import com.example.tbc_android_2025.presentation.commons.Colors
-import com.example.tbc_android_2025.presentation.commons.Ids
 import com.example.tbc_android_2025.presentation.commons.Strings
 import com.example.tbc_android_2025.presentation.extensions.popMessage
 import com.example.tbc_android_2025.data.models.User
@@ -81,7 +81,7 @@ class RegisterFragment : BaseFragment<Binding>(inflater = Binding::inflate) {
             }
             result.onFailure { e ->
                 val exception = RegistrationException.RemoteRegistrationFailed(
-                    message = e.message ?: getString(Strings.unknown_error)
+                    message = e.message ?: USER_NOT_FOUND_ERR
                 )
                 showError(view = view, message = exception.message!!)
             }
@@ -102,7 +102,9 @@ class RegisterFragment : BaseFragment<Binding>(inflater = Binding::inflate) {
             color = Colors.amaranth
         )
 
-    private fun navigateToWelcomePage() =
-        findNavController().navigate(resId = Ids.action_registerFragment_to_welcomeFragment)
+    private fun navigateToWelcomePage() {
+        val direction = RegisterFragmentDirections.actionRegisterFragmentToWelcomeFragment()
+        findNavController().navigate(directions = direction)
+    }
     /** ========================================================================================= */
 }

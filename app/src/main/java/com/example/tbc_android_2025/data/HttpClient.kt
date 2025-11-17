@@ -47,13 +47,22 @@ object HttpClient {
         .build()
 
 
-    val api: UserAuthApi by lazy {
+    val authApi: UserAuthApi by lazy {
         Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()
             .create(UserAuthApi::class.java)
+    }
+
+    val api: UserApi by lazy {
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(client)
+            .build()
+            .create(UserApi::class.java)
     }
 
     fun init(context: Context) {

@@ -15,7 +15,6 @@
     <string name="an_unexpected_error_occurred">An unexpected error occurred: %1$s</string>
     <string name="unknown_registration_error">Unknown registration error</string>
     <string name="registered_successfully">Registered successfully!</string>
-    <string name="unknown_error">Unknown error</string>
     <string name="log_out">Log out</string>
     <string name="id_with_format_specifier">ID: %1$d</string>
     <string name="email_with_format_specifier">Email: %1$s</string>

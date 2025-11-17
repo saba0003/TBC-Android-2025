@@ -3,11 +3,11 @@ package com.example.tbc_android_2025.presentation
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
-import com.example.tbc_android_2025.data.models.User
+import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.example.tbc_android_2025.data.dtos.RemoteUserDto
 import com.example.tbc_android_2025.databinding.ItemUserBinding as Binding
 
-typealias UserListAdapter = ListAdapter<User, UserAdapter.UserViewHolder>
+typealias UserListAdapter = ListAdapter<RemoteUserDto, UserAdapter.UserViewHolder>
 
 class UserAdapter : UserListAdapter(UserDiffCallback) {
 
@@ -22,11 +22,14 @@ class UserAdapter : UserListAdapter(UserDiffCallback) {
         holder.bind(user = user)
     }
 
-    inner class UserViewHolder(private val binding: Binding) : RecyclerView.ViewHolder(binding.root) {
+    inner class UserViewHolder(private val binding: Binding) : ViewHolder(binding.root) {
 
-        fun bind(user: User) = with(receiver = binding) {
+        fun bind(user: RemoteUserDto) = with(receiver = binding) {
             idTextView.text = user.id.toString()
             emailTextView.text = user.email
+            firstNameTextView.text = user.firstName
+            lastNameTextView.text = user.lastName
+            avatarTextView.text = user.avatarUrl
         }
     }
 }

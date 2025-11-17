@@ -5,7 +5,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.tbc_android_2025.data.auth.SessionManager
 import com.example.tbc_android_2025.presentation.commons.BaseFragment
-import com.example.tbc_android_2025.presentation.commons.Ids
 import com.example.tbc_android_2025.presentation.commons.Strings
 import kotlinx.coroutines.launch
 import kotlin.getValue
@@ -30,8 +29,9 @@ class ProfileFragment : BaseFragment<Binding>(inflater = Binding::inflate) {
         binding.logOutButton.setOnClickListener { navigateToLoginPage() }
 
     private fun navigateToLoginPage() = lifecycleScope.launch {
+        val direction = ProfileFragmentDirections.actionProfileFragmentToLoginFragment()
         SessionManager.clear(context = requireContext())
-        findNavController().navigate(resId = Ids.action_profileFragment_to_loginFragment)
+        findNavController().navigate(directions = direction)
     }
     /** ========================================================================================= */
 }
