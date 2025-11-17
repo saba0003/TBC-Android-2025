@@ -31,12 +31,11 @@ object HttpClient {
                 originalRequest.newBuilder().addHeader(name = HEADER_KEY, value = HEADER_VALUE)
 
             if (originalRequest.url.encodedPath == PATH + LOGIN_ENDPOINT) {
-                val token = runBlocking { SessionManager.tokenFlow(appContext).first() }
-                print(token)
+                val token = runBlocking { SessionManager.tokenFlow(context = appContext).first() }
                 token?.let {
                     requestBuilder.addHeader(
                         name = AUTHORIZATION,
-                        value = String.format(BEARER_TOKEN, it)
+                        value = String.format(format = BEARER_TOKEN, it)
                     )
                 }
             }

@@ -20,13 +20,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/usernameEditText"
+        android:id="@+id/emailEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
         android:layout_marginBottom="25dp"
-        android:hint="@string/username"
-        android:inputType="textImeMultiLine"
+        android:hint="@string/email"
+        android:inputType="textEmailAddress"
         app:layout_constraintBottom_toTopOf="@id/passwordEditText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -36,9 +36,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
-        android:layout_marginBottom="100dp"
+        android:layout_marginBottom="25dp"
         android:hint="@string/password"
         android:inputType="textPassword"
+        app:layout_constraintBottom_toTopOf="@id/rememberMeButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/rememberMeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="100dp"
+        android:checked="false"
+        android:padding="8dp"
+        android:text="@string/remember_me"
+        app:buttonTint="@color/purple_500"
         app:layout_constraintBottom_toTopOf="@id/loginButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

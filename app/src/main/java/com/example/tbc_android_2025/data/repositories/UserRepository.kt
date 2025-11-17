@@ -5,7 +5,7 @@ import com.example.tbc_android_2025.data.auth.dtos.requests.LoginRequestDto
 import com.example.tbc_android_2025.data.auth.dtos.requests.RegisterRequestDto
 import com.example.tbc_android_2025.data.auth.dtos.responses.LoginResponseDto
 import com.example.tbc_android_2025.data.auth.dtos.responses.RegisterResponseDto
-import com.example.tbc_android_2025.presentation.fragments.user.User
+import com.example.tbc_android_2025.data.models.User
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -16,14 +16,11 @@ object UserRepository {
 
     fun addUser(user: User) = _users.add(element = user)
 
-    fun getUser(username: String, password: String): User? =
-        _users.find { it.username == username && it.password == password }
+    fun getUser(email: String, password: String): User? =
+        _users.find { it.email == email && it.password == password }
 
 
-    suspend fun registerUserRemote(
-        email: String,
-        password: String
-    ): Result<RegisterResponseDto> =
+    suspend fun registerUserRemote(email: String, password: String): Result<RegisterResponseDto> =
         withContext(context = Dispatchers.IO) {
             try {
                 val response =

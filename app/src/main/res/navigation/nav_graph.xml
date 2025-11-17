@@ -40,13 +40,22 @@
         android:label="Home Page">
         <argument
             android:name="user"
-            app:argType="com.example.tbc_android_2025.presentation.fragments.user.User" />
+            app:argType="com.example.tbc_android_2025.data.models.User" />
+        <action
+            android:id="@+id/action_homeFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.tbc_android_2025.presentation.fragments.ProfileFragment"
+        android:label="Profile Page">
         <argument
-            android:name="token"
+            android:name="email"
             app:argType="string" />
         <action
-            android:id="@+id/action_homeFragment_to_welcomeFragment"
-            app:destination="@id/welcomeFragment" />
+            android:id="@+id/action_profileFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
 
 </navigation>

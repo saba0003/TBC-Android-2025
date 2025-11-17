@@ -5,9 +5,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.tbc_android_2025.data.auth.SessionManager
 import com.example.tbc_android_2025.presentation.commons.BaseFragment
-import com.example.tbc_android_2025.presentation.commons.Ids
-import com.example.tbc_android_2025.presentation.commons.Strings
-import com.example.tbc_android_2025.presentation.fragments.user.User
 import kotlinx.coroutines.launch
 import com.example.tbc_android_2025.databinding.FragmentHomeBinding as Binding
 
@@ -16,28 +13,17 @@ class HomeFragment : BaseFragment<Binding>(inflater = Binding::inflate) {
     private val args: HomeFragmentArgs by navArgs()
 
 
-    override fun bind() = setTextViews(user = args.user, token = args.token)
-
-    override fun listeners() = setListenerOnLogOutButton()
+    override fun listeners() = setListenerOnProfileButton()
 
 
     /** ===================================== AUX =============================================== */
-    private fun setTextViews(user: User, token: String) = with(receiver = binding) {
-        with(receiver = user) {
-            idTextView.text = getString(Strings.id_with_format_specifier, id)
-            emailTextView.text = getString(Strings.email_with_format_specifier, email)
-            usernameTextView.text = getString(Strings.username_with_format_specifier, username)
-            passwordTextView.text = getString(Strings.password_with_format_specifier, password)
-            tokenTextView.text = getString(Strings.token_with_format_specifier, token)
-        }
-    }
+    private fun setListenerOnProfileButton() =
+        binding.profileButton.setOnClickListener { navigateToProfilePage(email = args.user.email) }
 
-    private fun setListenerOnLogOutButton() =
-        binding.logOutButton.setOnClickListener { navigateToWelcomePage() }
-
-    private fun navigateToWelcomePage() = lifecycleScope.launch {
+    private fun navigateToProfilePage(email: String) = lifecycleScope.launch {
+        val direction = HomeFragmentDirections.actionHomeFragmentToProfileFragment(email = email)
         SessionManager.clear(context = requireContext())
-        findNavController().navigate(resId = Ids.action_homeFragment_to_welcomeFragment)
+        findNavController().navigate(directions = direction)
     }
     /** ========================================================================================= */
 }

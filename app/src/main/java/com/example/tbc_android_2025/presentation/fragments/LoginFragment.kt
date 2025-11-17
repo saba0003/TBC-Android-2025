@@ -8,8 +8,10 @@ import com.example.tbc_android_2025.presentation.commons.BaseFragment
 import com.example.tbc_android_2025.presentation.commons.Colors
 import com.example.tbc_android_2025.presentation.commons.Strings
 import com.example.tbc_android_2025.presentation.extensions.popMessage
-import com.example.tbc_android_2025.presentation.fragments.user.User
-import com.example.tbc_android_2025.presentation.fragments.user.UserViewModel
+import com.example.tbc_android_2025.data.models.User
+import com.example.tbc_android_2025.presentation.ValidationStrings.REQRES_EMAIL_PATTERN
+import com.example.tbc_android_2025.presentation.exceptions.ValidationException
+import com.example.tbc_android_2025.presentation.view_models.UserViewModel
 import com.example.tbc_android_2025.databinding.FragmentLoginBinding as Binding
 
 class LoginFragment : BaseFragment<Binding>(inflater = Binding::inflate) {
@@ -24,12 +26,12 @@ class LoginFragment : BaseFragment<Binding>(inflater = Binding::inflate) {
     private fun setListenerOnLoginButton() = with(receiver = binding) {
         loginButton.setOnClickListener { view ->
 
-            val username = usernameEditText.text.toString().trim()
+            val email = emailEditText.text.toString().trim()
             val password = passwordEditText.text.toString().trim()
 
             try {
-                validateLoginFields(username = username, password = password)
-                val localUser = fetchLocalUser(username = username, password = password)
+                validateFields(email = email, password = password)
+                val localUser = fetchLocalUser(email = email, password = password)
                 remoteLoginUser(user = localUser, view = view)
             } catch (e: LoginException) {
                 showError(
@@ -45,30 +47,41 @@ class LoginFragment : BaseFragment<Binding>(inflater = Binding::inflate) {
         }
     }
 
-    private fun validateLoginFields(username: String, password: String) {
-        if (username.isEmpty() || password.isEmpty())
-            throw LoginException.EmptyFields()
+    private fun validateFields(email: String, password: String) {
+        checkAgainstEmptiness(email = email, password = password)
+        validateEmail(email = email)
     }
 
-    private fun fetchLocalUser(username: String, password: String) =
-        userViewModel.getUser(username = username, password = password)
+    private fun checkAgainstEmptiness(email: String, password: String) {
+        if (email.isEmpty() || password.isEmpty())
+            throw ValidationException.EmptyFields()
+    }
+
+    private fun validateEmail(email: String) {
+        val emailPattern = Regex(pattern = REQRES_EMAIL_PATTERN)
+        if (!emailPattern.matches(input = email))
+            throw ValidationException.InvalidEmail()
+    }
+
+    private fun fetchLocalUser(email: String, password: String) =
+        userViewModel.getUser(email = email, password = password)
             ?: throw LoginException.UserNotFound()
 
 
     private fun remoteLoginUser(user: User, view: View) =
         userViewModel.loginUserRemote(email = user.email, password = user.password) { result ->
             result.onSuccess {
-                showSuccess(view = view, username = user.username, token = it.token!!)
-                navigateToHomePage(user = user, token = it.token)
+                showSuccess(view = view, email = user.email, token = it.token!!)
+                navigateToHomePage(user = user)
             }
             result.onFailure {
                 throw LoginException.RemoteLoginFailed(message = getString(Strings.unknown_login_error))
             }
         }
 
-    private fun showSuccess(view: View, username: String, token: String) =
+    private fun showSuccess(view: View, email: String, token: String) =
         view.popMessage(
-            text = getString(Strings.login_successful_welcome_token, username, token),
+            text = getString(Strings.login_successful_welcome_token, email, token),
             color = Colors.viridian
         )
 
@@ -78,9 +91,8 @@ class LoginFragment : BaseFragment<Binding>(inflater = Binding::inflate) {
             color = Colors.amaranth
         )
 
-    private fun navigateToHomePage(user: User, token: String) {
-        val direction =
-            LoginFragmentDirections.actionLoginFragmentToHomeFragment(user = user, token = token)
+    private fun navigateToHomePage(user: User) {
+        val direction = LoginFragmentDirections.actionLoginFragmentToHomeFragment(user = user)
         findNavController().navigate(directions = direction)
     }
     /** ========================================================================================= */

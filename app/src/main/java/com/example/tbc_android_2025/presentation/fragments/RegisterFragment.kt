@@ -9,8 +9,10 @@ import com.example.tbc_android_2025.presentation.commons.Colors
 import com.example.tbc_android_2025.presentation.commons.Ids
 import com.example.tbc_android_2025.presentation.commons.Strings
 import com.example.tbc_android_2025.presentation.extensions.popMessage
-import com.example.tbc_android_2025.presentation.fragments.user.User
-import com.example.tbc_android_2025.presentation.fragments.user.UserViewModel
+import com.example.tbc_android_2025.data.models.User
+import com.example.tbc_android_2025.presentation.ValidationStrings.REQRES_EMAIL_PATTERN
+import com.example.tbc_android_2025.presentation.exceptions.ValidationException
+import com.example.tbc_android_2025.presentation.view_models.UserViewModel
 import kotlin.onFailure
 import kotlin.onSuccess
 import com.example.tbc_android_2025.databinding.FragmentRegisterBinding as Binding
@@ -28,13 +30,12 @@ class RegisterFragment : BaseFragment<Binding>(inflater = Binding::inflate) {
         registerButton.setOnClickListener { view ->
 
             val email = emailEditText.text.toString().trim()
-            val username = usernameEditText.text.toString().trim()
             val password = passwordEditText.text.toString().trim()
+            val repeatPassword = repeatPasswordEditText.text.toString().trim()
 
             try {
-                validateFields(email = email, username = username, password = password)
-                validateEmail(email = email)
-                registerUser(email = email, username = username, password = password, view = view)
+                validateFields(email = email, password = password, repeatPassword = repeatPassword)
+                registerUser(email = email, password = password, view = view)
             } catch (e: RegistrationException) {
                 showError(
                     view = view,
@@ -49,20 +50,32 @@ class RegisterFragment : BaseFragment<Binding>(inflater = Binding::inflate) {
         }
     }
 
-    private fun validateFields(email: String, username: String, password: String) {
-        if (email.isEmpty() || username.isEmpty() || password.isEmpty())
-            throw RegistrationException.EmptyFields()
+    private fun validateFields(email: String, password: String, repeatPassword: String) {
+        checkAgainstEmptiness(email = email, password = password, repeatPassword = repeatPassword)
+        validateEmail(email = email)
+        validatePassword(password = password, repeatPassword = repeatPassword)
+    }
+
+    private fun checkAgainstEmptiness(email: String, password: String, repeatPassword: String) {
+        if (email.isEmpty() || password.isEmpty() || repeatPassword.isEmpty())
+            throw ValidationException.EmptyFields()
     }
 
     private fun validateEmail(email: String) {
-        if (email.lowercase() != getString(Strings.required_registration_email))
-            throw RegistrationException.InvalidEmail()
+        val emailPattern = Regex(pattern = REQRES_EMAIL_PATTERN)
+        if (!emailPattern.matches(input = email))
+            throw ValidationException.InvalidEmail()
     }
 
-    private fun registerUser(email: String, username: String, password: String, view: View) =
+    private fun validatePassword(password: String, repeatPassword: String) {
+        if (password != repeatPassword)
+            throw ValidationException.PasswordsMismatch()
+    }
+
+    private fun registerUser(email: String, password: String, view: View) =
         userViewModel.registerUserRemote(email = email, password = password) { result ->
             result.onSuccess { res ->
-                addUserLocally(email = email, username = username, password = password)
+                addUserLocally(email = email, password = password)
                 showSuccess(view = view)
                 navigateToWelcomePage()
             }
@@ -74,8 +87,8 @@ class RegisterFragment : BaseFragment<Binding>(inflater = Binding::inflate) {
             }
         }
 
-    private fun addUserLocally(email: String, username: String, password: String) =
-        userViewModel.addUser(User(email = email, username = username, password = password))
+    private fun addUserLocally(email: String, password: String) =
+        userViewModel.addUser(User(email = email, password = password))
 
     private fun showSuccess(view: View) =
         view.popMessage(

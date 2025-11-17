@@ -1,8 +1,9 @@
-package com.example.tbc_android_2025.presentation.fragments.user
+package com.example.tbc_android_2025.presentation.view_models
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.tbc_android_2025.data.models.User
 import com.example.tbc_android_2025.data.auth.SessionManager
 import com.example.tbc_android_2025.data.auth.dtos.responses.*
 import com.example.tbc_android_2025.data.repositories.UserRepository
@@ -14,8 +15,8 @@ class UserViewModel(application: Application) : AndroidViewModel(application = a
 
     fun addUser(user: User) = UserRepository.addUser(user = user)
 
-    fun getUser(username: String, password: String): User? =
-        UserRepository.getUser(username = username, password = password)
+    fun getUser(email: String, password: String): User? =
+        UserRepository.getUser(email = email, password = password)
 
     fun registerUserRemote(
         email: String,
