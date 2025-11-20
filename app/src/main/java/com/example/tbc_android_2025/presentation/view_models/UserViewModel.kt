@@ -5,10 +5,13 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.tbc_android_2025.data.models.User
 import com.example.tbc_android_2025.data.auth.SessionManager
-import com.example.tbc_android_2025.data.auth.dtos.responses.*
+import com.example.tbc_android_2025.data.auth.log_in.dtos.respsonse.LogInResponseDto
+import com.example.tbc_android_2025.data.auth.register.dtos.response.RegisterResponseDto
 import com.example.tbc_android_2025.data.repositories.UserRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 
+@HiltViewModel
 class UserViewModel(application: Application) : AndroidViewModel(application = application) {
 
     private val appContext = application.applicationContext
@@ -32,7 +35,7 @@ class UserViewModel(application: Application) : AndroidViewModel(application = a
     fun loginUserRemote(
         email: String,
         password: String,
-        onResult: (Result<LoginResponseDto>) -> Unit
+        onResult: (Result<LogInResponseDto>) -> Unit
     ) {
         viewModelScope.launch {
             val result = UserRepository.loginUserRemote(email = email, password = password)

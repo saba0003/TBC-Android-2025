@@ -43,7 +43,7 @@ object HttpClient {
             val newRequest = requestBuilder.build()
             chain.proceed(request = newRequest)
         }
-        .addInterceptor(logging)
+        .addInterceptor(interceptor = logging)
         .build()
 
 

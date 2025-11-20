@@ -1,9 +1,9 @@
 package com.example.tbc_android_2025.presentation
 
-import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.DiffUtil.ItemCallback
 import com.example.tbc_android_2025.data.dtos.RemoteUserDto
 
-object UserDiffCallback : DiffUtil.ItemCallback<RemoteUserDto>() {
+object UserDiffCallback : ItemCallback<RemoteUserDto>() {
 
     override fun areItemsTheSame(oldUser: RemoteUserDto, newUser: RemoteUserDto): Boolean =
         oldUser.id == newUser.id

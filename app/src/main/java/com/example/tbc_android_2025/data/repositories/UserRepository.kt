@@ -1,10 +1,10 @@
 package com.example.tbc_android_2025.data.repositories
 
 import com.example.tbc_android_2025.data.HttpClient
-import com.example.tbc_android_2025.data.auth.dtos.requests.LoginRequestDto
-import com.example.tbc_android_2025.data.auth.dtos.requests.RegisterRequestDto
-import com.example.tbc_android_2025.data.auth.dtos.responses.LoginResponseDto
-import com.example.tbc_android_2025.data.auth.dtos.responses.RegisterResponseDto
+import com.example.tbc_android_2025.data.auth.log_in.dtos.request.LogInRequestDto
+import com.example.tbc_android_2025.data.auth.register.dtos.request.RegisterRequestDto
+import com.example.tbc_android_2025.data.auth.log_in.dtos.respsonse.LogInResponseDto
+import com.example.tbc_android_2025.data.auth.register.dtos.response.RegisterResponseDto
 import com.example.tbc_android_2025.data.dtos.UsersResponseDto
 import com.example.tbc_android_2025.data.models.User
 import kotlinx.coroutines.Dispatchers
@@ -40,11 +40,11 @@ object UserRepository {
             }
         }
 
-    suspend fun loginUserRemote(email: String, password: String): Result<LoginResponseDto> =
+    suspend fun loginUserRemote(email: String, password: String): Result<LogInResponseDto> =
         withContext(context = Dispatchers.IO) {
             try {
                 val response = HttpClient.authApi.login(
-                    request = LoginRequestDto(
+                    request = LogInRequestDto(
                         email = email,
                         password = password
                     )
