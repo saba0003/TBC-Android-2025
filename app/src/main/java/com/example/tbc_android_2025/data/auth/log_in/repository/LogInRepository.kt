@@ -14,7 +14,7 @@ class LogInRepository @Inject constructor(
     private val authService: LogInService,
     private val responseHandler: ResponseHandler
 ) {
-    fun login(email: String, password: String): LogInResultFlow {
+    fun logIn(email: String, password: String): LogInResultFlow {
         val loginDto = LogInRequestDto(email = email, password = password)
         return responseHandler.safeApiCall { authService.logIn(request = loginDto) }
     }

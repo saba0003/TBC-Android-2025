@@ -4,8 +4,9 @@ import kotlinx.coroutines.flow.flow
 import okio.IOException
 import retrofit2.HttpException
 import retrofit2.Response
+import javax.inject.Inject
 
-class ResponseHandler {
+class ResponseHandler @Inject constructor() {
 
     fun <T> safeApiCall(apiCall: suspend () -> Response<T>) = flow {
         emit(value = Resource.Loader(isLoading = true))

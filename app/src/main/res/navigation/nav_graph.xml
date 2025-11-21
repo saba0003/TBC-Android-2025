@@ -27,7 +27,7 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.tbc_android_2025.presentation.fragments.LoginFragment"
+        android:name="com.example.tbc_android_2025.presentation.screen.log_in.LogInFragment"
         android:label="Login Page">
         <action
             android:id="@+id/action_loginFragment_to_homeFragment"

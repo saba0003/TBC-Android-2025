@@ -34,6 +34,7 @@ abstract class BaseFragment<VB : Binding>(private val inflater: ViewBindingInfla
 
     protected abstract fun listeners()
 
+    protected open fun observes() {}
 
     override fun onDestroyView() {
         super.onDestroyView()
