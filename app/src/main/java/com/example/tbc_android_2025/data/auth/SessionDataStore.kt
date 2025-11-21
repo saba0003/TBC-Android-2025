@@ -1,4 +1,4 @@
-package com.example.tbc_android_2025.data
+package com.example.tbc_android_2025.data.auth
 
 import android.content.Context
 import androidx.datastore.preferences.preferencesDataStore

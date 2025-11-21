@@ -7,16 +7,22 @@ import com.example.tbc_android_2025.data.models.User
 import com.example.tbc_android_2025.data.auth.SessionManager
 import com.example.tbc_android_2025.data.auth.dtos.responses.*
 import com.example.tbc_android_2025.data.repositories.UserRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class UserViewModel(application: Application) : AndroidViewModel(application = application) {
+@HiltViewModel
+class UserViewModel @Inject constructor(
+    application: Application,
+    private val userRepository: UserRepository
+) : AndroidViewModel(application = application) {
 
     private val appContext = application.applicationContext
 
-    fun addUser(user: User) = UserRepository.addUser(user = user)
+    fun addUser(user: User) = userRepository.addUser(user = user)
 
     fun getUser(email: String, password: String): User? =
-        UserRepository.getUser(email = email, password = password)
+        userRepository.getUser(email = email, password = password)
 
     fun registerUserRemote(
         email: String,
@@ -24,7 +30,7 @@ class UserViewModel(application: Application) : AndroidViewModel(application = a
         onResult: (Result<RegisterResponseDto>) -> Unit
     ) {
         viewModelScope.launch {
-            val result = UserRepository.registerUserRemote(email = email, password = password)
+            val result = userRepository.registerUserRemote(email = email, password = password)
             onResult(result)
         }
     }
@@ -35,7 +41,7 @@ class UserViewModel(application: Application) : AndroidViewModel(application = a
         onResult: (Result<LoginResponseDto>) -> Unit
     ) {
         viewModelScope.launch {
-            val result = UserRepository.loginUserRemote(email = email, password = password)
+            val result = userRepository.loginUserRemote(email = email, password = password)
             result.onSuccess { SessionManager.saveToken(context = appContext, token = it.token!!) }
             onResult(result)
         }

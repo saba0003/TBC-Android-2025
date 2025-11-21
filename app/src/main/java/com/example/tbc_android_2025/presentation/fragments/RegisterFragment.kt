@@ -13,10 +13,12 @@ import com.example.tbc_android_2025.data.models.User
 import com.example.tbc_android_2025.presentation.ValidationStrings.REQRES_EMAIL_PATTERN
 import com.example.tbc_android_2025.presentation.exceptions.ValidationException
 import com.example.tbc_android_2025.presentation.view_models.UserViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlin.onFailure
 import kotlin.onSuccess
 import com.example.tbc_android_2025.databinding.FragmentRegisterBinding as Binding
 
+@AndroidEntryPoint
 class RegisterFragment : BaseFragment<Binding>(inflater = Binding::inflate) {
 
     private val userViewModel: UserViewModel by viewModels()
@@ -28,7 +30,6 @@ class RegisterFragment : BaseFragment<Binding>(inflater = Binding::inflate) {
     /** ===================================== AUX =============================================== */
     private fun setListenerOnRegisterButton() = with(receiver = binding) {
         registerButton.setOnClickListener { view ->
-
             val email = emailEditText.text.toString().trim()
             val password = passwordEditText.text.toString().trim()
             val repeatPassword = repeatPasswordEditText.text.toString().trim()

@@ -12,8 +12,10 @@ import com.example.tbc_android_2025.data.models.User
 import com.example.tbc_android_2025.presentation.ValidationStrings.REQRES_EMAIL_PATTERN
 import com.example.tbc_android_2025.presentation.exceptions.ValidationException
 import com.example.tbc_android_2025.presentation.view_models.UserViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import com.example.tbc_android_2025.databinding.FragmentLoginBinding as Binding
 
+@AndroidEntryPoint
 class LoginFragment : BaseFragment<Binding>(inflater = Binding::inflate) {
 
     private val userViewModel: UserViewModel by viewModels()

@@ -6,16 +6,18 @@ import androidx.navigation.fragment.navArgs
 import com.example.tbc_android_2025.data.auth.SessionManager
 import com.example.tbc_android_2025.presentation.commons.BaseFragment
 import com.example.tbc_android_2025.presentation.commons.Strings
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import kotlin.getValue
 import com.example.tbc_android_2025.databinding.FragmentProfileBinding as Binding
 
+@AndroidEntryPoint
 class ProfileFragment : BaseFragment<Binding>(inflater = Binding::inflate) {
 
-    private val args: HomeFragmentArgs by navArgs()
+    private val args: ProfileFragmentArgs by navArgs()
 
 
-    override fun bind() = setEmail(email = args.user.email)
+    override fun bind() = setEmail(email = args.email)
 
     override fun listeners() = setListenerOnLogOutButton()
 

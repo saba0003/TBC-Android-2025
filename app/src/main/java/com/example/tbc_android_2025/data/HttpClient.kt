@@ -8,6 +8,7 @@ import com.example.tbc_android_2025.data.HttpStrings.HEADER_KEY
 import com.example.tbc_android_2025.data.HttpStrings.HEADER_VALUE
 import com.example.tbc_android_2025.data.HttpStrings.LOGIN_ENDPOINT
 import com.example.tbc_android_2025.data.HttpStrings.PATH
+import com.example.tbc_android_2025.data.auth.FetchService
 import com.example.tbc_android_2025.data.auth.UserAuthApi
 import com.example.tbc_android_2025.data.auth.SessionManager
 import kotlinx.coroutines.flow.first
@@ -56,13 +57,13 @@ object HttpClient {
             .create(UserAuthApi::class.java)
     }
 
-    val api: UserApi by lazy {
+    val api: FetchService by lazy {
         Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()
-            .create(UserApi::class.java)
+            .create(FetchService::class.java)
     }
 
     fun init(context: Context) {
