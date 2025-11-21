@@ -69,6 +69,8 @@ dependencies {
     implementation(libs.coil.android)
     implementation(libs.glide)
     implementation(libs.moshi)
+    implementation(libs.moshi.kotlin)
+    implementation(libs.converter.moshi)
     ksp(libs.moshi.kotlin.codegen)
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
