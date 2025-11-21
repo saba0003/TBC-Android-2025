@@ -1,4 +1,4 @@
-package com.example.tbc_android_2025.commons
+package com.example.tbc_android_2025.presentation.commons
 
 import android.os.Bundle
 import android.view.LayoutInflater as Inflater
@@ -31,7 +31,9 @@ abstract class BaseFragment<VB : Binding>(private val inflater: ViewBindingInfla
     }
 
     /** setup */
-    protected abstract fun bind()
+    protected open fun bind() {}
+
+    protected open fun observes() {}
 
     protected abstract fun listeners()
 

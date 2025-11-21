@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/templateFragment"
-        android:name="com.example.tbc_android_2025.fragments.TemplateFragment"
+        android:name="com.example.tbc_android_2025.presentation.screen.TemplateFragment"
         android:label="Template" />
 
 </navigation>

@@ -4,8 +4,10 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-    id("kotlin-parcelize")
-    id("androidx.navigation.safeargs.kotlin")
+    alias(libs.plugins.kotlin.parcelize)
+    alias(libs.plugins.kotlin.safeargs)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.dagger.hilt.android)
 }
 
 android {
@@ -30,23 +32,28 @@ android {
                 "proguard-rules.pro"
             )
         }
+
+        debug {
+            isMinifyEnabled = false
+        }
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_21
-        targetCompatibility = JavaVersion.VERSION_21
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
         isCoreLibraryDesugaringEnabled = true
     }
 
     kotlin {
         compilerOptions {
-            jvmTarget = JvmTarget.JVM_21
+            jvmTarget = JvmTarget.JVM_17
         }
     }
 
-    buildFeatures {
+    buildFeatures{
         compose = true
         viewBinding = true
+        buildConfig = true
     }
 }
 
@@ -62,13 +69,19 @@ dependencies {
     implementation(libs.coil.android)
     implementation(libs.glide)
     implementation(libs.moshi)
-    implementation(libs.moshi.kotlin.codegen)
+    ksp(libs.moshi.kotlin.codegen)
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.logging.interceptor)
+    implementation(libs.androidx.datastore.preferences)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
+    ksp(libs.hilt.compiler)
+    implementation(libs.hilt.android)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
