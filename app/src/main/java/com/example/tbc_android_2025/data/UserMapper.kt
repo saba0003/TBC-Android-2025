@@ -16,4 +16,5 @@ object UserMapper {
 
     fun mapListToDomain(dtos: List<UserResponseDto>): List<User> =
         dtos.map { mapToDomain(dto = it) }
+
 }

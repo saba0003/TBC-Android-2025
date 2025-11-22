@@ -6,7 +6,7 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class UserResponseDto(
     val id: Int,
-    val image: String,
+    val image: String?,
     val owner: String,
     @field:Json(name = "last_message") val lastMessage: String,
     @field:Json(name = "last_active") val lastActive: String,

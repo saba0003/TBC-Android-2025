@@ -53,4 +53,5 @@ object AppModule {
     @Singleton
     fun provideFetchService(retrofit: Retrofit): FetchService =
         retrofit.create(FetchService::class.java)
+
 }
