@@ -1,4 +1,4 @@
-package com.example.tbc_android_2025.data
+package com.example.tbc_android_2025.domain.models
 
 enum class MessageType {
     TEXT, VOICE, FILE, UNKNOWN;

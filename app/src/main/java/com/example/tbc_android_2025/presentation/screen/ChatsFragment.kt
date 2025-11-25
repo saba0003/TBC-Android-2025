@@ -3,7 +3,6 @@ package com.example.tbc_android_2025.presentation.screen
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.tbc_android_2025.presentation.UserAdapter
 import com.example.tbc_android_2025.presentation.commons.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -13,7 +12,7 @@ import com.example.tbc_android_2025.databinding.FragmentChatsBinding as Binding
 class ChatsFragment : BaseFragment<Binding>(inflater = Binding::inflate) {
 
     private val viewModel: ChatsViewModel by viewModels()
-    private val userAdapter by lazy { UserAdapter() }
+    private val chatsAdapter by lazy { ChatsAdapter() }
 
 
     override fun bind() = setupRecyclerView()
@@ -25,16 +24,14 @@ class ChatsFragment : BaseFragment<Binding>(inflater = Binding::inflate) {
 
 
     private fun setupRecyclerView() = with(receiver = binding.recyclerView) {
-        adapter = userAdapter
+        adapter = chatsAdapter
         layoutManager = LinearLayoutManager(requireContext())
         setHasFixedSize(true)
     }
 
     private fun observeUsers() {
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.users.collect { users ->
-                userAdapter.submitList(users)
-            }
+            viewModel.chats.collect { chatsAdapter.submitList(it) }
         }
     }
 }

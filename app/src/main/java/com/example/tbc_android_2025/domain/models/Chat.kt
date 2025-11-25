@@ -1,6 +1,6 @@
-package com.example.tbc_android_2025.data
+package com.example.tbc_android_2025.domain.models
 
-data class User(
+data class Chat(
     val id: Int,
     val image: String?,
     val owner: String,

@@ -1,4 +1,4 @@
-package com.example.tbc_android_2025.presentation
+package com.example.tbc_android_2025.presentation.screen
 
 import android.util.Log
 import android.view.LayoutInflater
@@ -6,44 +6,37 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil.ItemCallback
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import coil3.imageLoader
 import coil3.load
-import coil3.request.ImageRequest
 import coil3.request.crossfade
+import coil3.request.error
 import coil3.request.placeholder
-import coil3.request.target
-import com.example.tbc_android_2025.data.User
+import com.example.tbc_android_2025.domain.models.Chat
 import com.example.tbc_android_2025.presentation.commons.Drawables
-import com.example.tbc_android_2025.databinding.ItemUserBinding as Binding
+import com.example.tbc_android_2025.databinding.ItemChatBinding as Binding
 
-typealias UserListAdapter = ListAdapter<User, UserAdapter.UserViewHolder>
+typealias ChatListAdapter = ListAdapter<Chat, ChatsAdapter.ChatsViewHolder>
 
-class UserAdapter : UserListAdapter(userDiffCallBack) {
+class ChatsAdapter : ChatListAdapter(object : ItemCallback<Chat>() {
+    override fun areItemsTheSame(oldChat: Chat, newChat: Chat) = oldChat.id == newChat.id
+    override fun areContentsTheSame(oldChat: Chat, newChat: Chat) = oldChat == newChat
+}) {
 
-    companion object {
-        private val userDiffCallBack = object : ItemCallback<User>() {
-            override fun areItemsTheSame(oldUser: User, newUser: User) = oldUser.id == newUser.id
-            override fun areContentsTheSame(oldUser: User, newUser: User) = oldUser == newUser
-        }
-    }
-
-
-    override fun onCreateViewHolder(parent: ViewGroup, ignored: Int): UserViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, ignored: Int): ChatsViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = Binding.inflate(inflater, parent, false)
-        return UserViewHolder(binding = binding)
+        return ChatsViewHolder(binding = binding)
     }
 
-    override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
-        val user = getItem(position)
-        holder.bind(user = user)
+    override fun onBindViewHolder(holder: ChatsViewHolder, position: Int) {
+        val chat = getItem(position)
+        holder.bind(chat = chat)
     }
 
 
-    inner class UserViewHolder(private val binding: Binding) : ViewHolder(binding.root) {
+    inner class ChatsViewHolder(private val binding: Binding) : ViewHolder(binding.root) {
 
-        fun bind(user: User) = with(receiver = binding) {
-            with(receiver = user) {
+        fun bind(chat: Chat) = with(receiver = binding) {
+            with(receiver = chat) {
                 fullNameTextView.text = owner
                 lastMessageTextView.text = lastMessage
                 lastActiveTextView.text = lastActive
@@ -66,7 +59,17 @@ class UserAdapter : UserListAdapter(userDiffCallBack) {
                             Log.d("Coil", "Image loaded successfully")
                         }
                     )
-                    error(message = Drawables.ic_launcher_foreground)
+
+                    error(drawableResId = Drawables.ic_launcher_foreground)
+
+                    listener(
+                        onError = { _, e ->
+                            Log.e("Coil", "Failed to load image: ${e.throwable.message}")
+                        },
+                        onSuccess = { _, _ ->
+                            Log.d("Coil", "Image loaded successfully")
+                        }
+                    )
                 }
             }
         }

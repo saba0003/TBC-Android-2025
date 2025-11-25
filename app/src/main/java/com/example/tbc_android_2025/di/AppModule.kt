@@ -1,7 +1,7 @@
 package com.example.tbc_android_2025.di
 
-import com.example.tbc_android_2025.CommonStrings.BASE_URL
-import com.example.tbc_android_2025.data.FetchService
+import com.example.tbc_android_2025.data.network.NetworkConstants.BASE_URL
+import com.example.tbc_android_2025.data.network.FetchService
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
