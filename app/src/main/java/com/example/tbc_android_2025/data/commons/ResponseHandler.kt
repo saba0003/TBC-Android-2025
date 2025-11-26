@@ -1,5 +1,10 @@
 package com.example.tbc_android_2025.data.commons
 
+import com.example.tbc_android_2025.data.constants.ErrorMessages.API_ERROR
+import com.example.tbc_android_2025.data.constants.ErrorMessages.APPLICATION_STATE_ERROR
+import com.example.tbc_android_2025.data.constants.ErrorMessages.NETWORK_ERROR
+import com.example.tbc_android_2025.data.constants.ErrorMessages.NO_DETAILS_AVAILABLE
+import com.example.tbc_android_2025.data.constants.ErrorMessages.UNKNOWN_ERROR
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
 import retrofit2.Response
@@ -22,10 +27,10 @@ class ResponseHandler @Inject constructor() {
             }
         } catch (e: Exception) {
             val errorMessage = when (e) {
-                is IOException -> "Network error: Could not connect to the server."
-                is HttpException -> "API error: Received an unexpected response code."
-                is IllegalStateException -> "Application state error."
-                else -> "An unknown error occurred: ${e.message}"
+                is IOException -> NETWORK_ERROR
+                is HttpException -> API_ERROR
+                is IllegalStateException -> APPLICATION_STATE_ERROR
+                else -> "$UNKNOWN_ERROR ${e.message ?: NO_DETAILS_AVAILABLE}"
             }
             emit(value = Resource.Error(errorMessage = errorMessage))
         } finally {

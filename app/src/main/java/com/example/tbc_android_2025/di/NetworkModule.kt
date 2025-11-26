@@ -1,7 +1,6 @@
 package com.example.tbc_android_2025.di
 
 import com.example.tbc_android_2025.data.network.NetworkConstants.BASE_URL
-import com.example.tbc_android_2025.data.network.FetchService
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -16,7 +15,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object AppModule {
+object NetworkModule {
 
     @Provides
     @Singleton
@@ -48,10 +47,5 @@ object AppModule {
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .client(okHttpClient)
             .build()
-
-    @Provides
-    @Singleton
-    fun provideFetchService(retrofit: Retrofit): FetchService =
-        retrofit.create(FetchService::class.java)
 
 }
