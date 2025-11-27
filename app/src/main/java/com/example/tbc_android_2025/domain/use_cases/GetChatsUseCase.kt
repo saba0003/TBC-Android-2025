@@ -1,6 +1,6 @@
 package com.example.tbc_android_2025.domain.use_cases
 
-import com.example.tbc_android_2025.data.commons.Resource
+import com.example.tbc_android_2025.domain.commons.Resource
 import com.example.tbc_android_2025.data.commons.ResponseHandler
 import com.example.tbc_android_2025.data.extensions.toDomainList
 import com.example.tbc_android_2025.data.network.ChatRepository

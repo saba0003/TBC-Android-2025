@@ -2,7 +2,7 @@ package com.example.tbc_android_2025.presentation.screen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.tbc_android_2025.data.commons.Resource
+import com.example.tbc_android_2025.domain.commons.Resource
 import com.example.tbc_android_2025.domain.use_cases.GetChatsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
