@@ -1,4 +1,4 @@
-package com.example.tbc_android_2025.presentation.commons
+package com.example.tbc_android_2025.commons
 
 import com.example.tbc_android_2025.R as Resources
 
