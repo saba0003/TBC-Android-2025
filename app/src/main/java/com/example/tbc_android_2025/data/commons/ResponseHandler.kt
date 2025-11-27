@@ -30,7 +30,7 @@ class ResponseHandler @Inject constructor() {
                 is IOException -> NETWORK_ERROR
                 is HttpException -> API_ERROR
                 is IllegalStateException -> APPLICATION_STATE_ERROR
-                else -> "$UNKNOWN_ERROR ${e.message ?: NO_DETAILS_AVAILABLE}"
+                else -> UNKNOWN_ERROR.plus(other = e.message ?: NO_DETAILS_AVAILABLE)
             }
             emit(value = Resource.Error(errorMessage = errorMessage))
         } finally {
