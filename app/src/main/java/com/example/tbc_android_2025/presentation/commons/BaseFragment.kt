@@ -17,11 +17,7 @@ abstract class BaseFragment<VB : Binding>(private val inflater: ViewBindingInfla
     protected val binding get() = _binding!!
 
 
-    override fun onCreateView(
-        inflater: Inflater,
-        container: Container?,
-        ignored: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: Inflater, container: Container?, ignored: Bundle?): View? {
         _binding = this.inflater.invoke(inflater, container, false)
         return binding.root
     }
