@@ -1,5 +1,6 @@
 package com.example.tbc_android_2025.di
 
+import com.example.tbc_android_2025.data.network.ApiKeyInterceptor
 import com.example.tbc_android_2025.data.network.NetworkConstants.BASE_URL
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -19,15 +20,13 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor =
-        HttpLoggingInterceptor().apply {
-            level = HttpLoggingInterceptor.Level.BODY
-        }
+    fun provideApiKeyInterceptor() = ApiKeyInterceptor()
 
     @Provides
     @Singleton
-    fun provideOkHttpClient(loggingInterceptor: HttpLoggingInterceptor): OkHttpClient =
+    fun provideOkHttpClient(apiKeyInterceptor: ApiKeyInterceptor, loggingInterceptor: HttpLoggingInterceptor) =
         OkHttpClient.Builder()
+            .addInterceptor(interceptor = apiKeyInterceptor)
             .addInterceptor(interceptor = loggingInterceptor)
             .build()
 

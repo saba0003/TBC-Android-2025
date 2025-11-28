@@ -1,9 +1,32 @@
 <resources>
     <string name="app_name">TBC-Android-2025</string>
+    <string name="welcome">Welcome</string>
+    <string name="register">Register</string>
+    <string name="login">Login</string>
+    <string name="log_out">Log out</string>
+    <string name="profile">Profile</string>
+    <string name="home">Home</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="repeat_password">Repeat password</string>
+    <string name="remember_me">Remember me</string>
+    <string name="id">id</string>
+    <string name="first_name">First name</string>
+    <string name="last_name">Last name</string>
+    <string name="user_avatar">User\'s Avatar</string>
+
+    <!-- FORMAT -->
+    <string name="format_email">Email: %1$s</string>
 
     <!-- ERRORS -->
     <string name="error_network">Network error: Could not connect to the server.</string>
     <string name="error_api">API error: Received an unexpected response code.</string>
     <string name="error_state">Application state error.</string>
     <string name="error_unknown">An unknown error occurred: No details available.</string>
+
+    <!-- LABELS -->
+    <string name="label_log_in_button">Log in button</string>
+    <string name="label_register_button">Register Button</string>
+    <string name="label_log_out_button">Log out button</string>
+    <string name="label_profile_button">Profile Button</string>
 </resources>

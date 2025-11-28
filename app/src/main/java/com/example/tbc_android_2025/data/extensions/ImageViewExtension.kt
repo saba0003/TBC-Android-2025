@@ -9,7 +9,7 @@ import coil3.request.transformations
 import coil3.transform.CircleCropTransformation
 import com.example.tbc_android_2025.commons.Drawables
 
-fun ImageView.loadImage(url: String?) {
+fun ImageView.loadUserAvatarImage(url: String) {
     this.load(data = url) {
         crossfade(enable = true)
         transformations(CircleCropTransformation())
