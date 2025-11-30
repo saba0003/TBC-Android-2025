@@ -36,35 +36,42 @@ class RegisterViewModel @Inject constructor(
 
 
     /** ===================================== AUX =============================================== */
-    private fun registerUser(request: RegisterRequest) = with(receiver = request) {
-        validateFields(email = email, password = password, repeatPassword = repeatedPassword)
+    private fun registerUser(request: RegisterRequest): Unit = with(receiver = request) {
+        if (!validateFields(email = email, password = password, repeatPassword = repeatedPassword))
+            return
+
         viewModelScope.launch {
-            registerUserUseCase(request = toDomain()).collect {
-                when (it) {
-                    is Success<*> -> TODO()
-                    is Error -> TODO()
-                    is Loader -> TODO()
+            registerUserUseCase(request = toDomain()).collect { result ->
+                when (result) {
+                    is Success<*> -> _registerState.update { it.copy(isSuccess = true) }
+                    is Error -> _registerState.update { it.copy(error = result.errorMessage) }
+                    is Loader -> _registerState.update { it.copy(isLoading = true) }
                 }
             }
         }
     }
 
-    private fun validateFields(email: String, password: String, repeatPassword: String) {
-        when (registrationValidator(email = email, password = password, repeatPassword = repeatPassword)) {
-            is RegistrationValidationResult.Error.EmptyFields -> {
-                val message = resourceProvider.getString(resId = Strings.error_empty_fields)
-                _registerState.update { it.copy(error = message) }
-            }
-            is RegistrationValidationResult.Error.InvalidEmail -> {
-                val message = resourceProvider.getString(resId = Strings.error_invalid_email)
-                _registerState.update { it.copy(error = message) }
-            }
-            is RegistrationValidationResult.Error.PasswordsMismatch -> {
-                val message = resourceProvider.getString(resId = Strings.error_password_mismatch)
-                _registerState.update { it.copy(error = message) }
-            }
-            is RegistrationValidationResult.Success -> TODO()
+    private fun validateFields(email: String, password: String, repeatPassword: String): Boolean {
+        clearError()
+
+        val errorMessage: String? = when (registrationValidator(
+            email = email,
+            password = password,
+            repeatPassword = repeatPassword
+        )) {
+            is RegistrationValidationResult.Error.EmptyFields -> resourceProvider.getString(resId = Strings.error_empty_fields)
+            is RegistrationValidationResult.Error.InvalidEmail -> resourceProvider.getString(resId = Strings.error_invalid_email)
+            is RegistrationValidationResult.Error.PasswordsMismatch -> resourceProvider.getString(
+                resId = Strings.error_password_mismatch
+            )
+            is RegistrationValidationResult.Success -> null
         }
+
+        errorMessage?.let { message -> _registerState.update { it.copy(error = message) } }
+
+        return errorMessage == null
     }
+
+    private fun clearError() =_registerState.update { it.copy(error = null) }
     /** ========================================================================================= */
 }

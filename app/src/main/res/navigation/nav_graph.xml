@@ -18,12 +18,12 @@
 
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.example.tbc_android_2025.presentation.screen.RegisterFragment"
+        android:name="com.example.tbc_android_2025.presentation.screen.register.RegisterFragment"
         android:label="Register Page" />
 
     <fragment
         android:id="@+id/logInFragment"
-        android:name="com.example.tbc_android_2025.presentation.screen.LogInFragment"
+        android:name="com.example.tbc_android_2025.presentation.screen.log_in.LogInFragment"
         android:label="Login Page" >
         <action
             android:id="@+id/action_loginFragment_to_homeFragment"

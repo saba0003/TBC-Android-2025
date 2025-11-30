@@ -9,7 +9,7 @@ import java.io.IOException
 import javax.inject.Inject
 import javax.inject.Singleton
 
-@Singleton
+@Singleton // TODO: should I inject concrete class, or interface?
 class ResponseHandler @Inject constructor(private val stringProvider: StringProvider) {
 
     fun <T> safeApiCall(apiCall: suspend () -> Response<T>) = flow {
