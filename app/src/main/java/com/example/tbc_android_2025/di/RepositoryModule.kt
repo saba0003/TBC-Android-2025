@@ -4,6 +4,7 @@ import com.example.tbc_android_2025.data.repositories.LogInRepositoryImpl
 import com.example.tbc_android_2025.data.repositories.RegisterRepositoryImpl
 import com.example.tbc_android_2025.data.repositories.UserRepositoryImpl
 import com.example.tbc_android_2025.domain.repositories.LogInRepository
+import com.example.tbc_android_2025.domain.repositories.RegisterRepository
 import com.example.tbc_android_2025.domain.repositories.UserRepository
 import dagger.Binds
 import dagger.Module
@@ -21,7 +22,7 @@ interface RepositoryModule {
 
     @Binds
     @Singleton
-    fun bindRegisterRepository(registerRepositoryImpl: RegisterRepositoryImpl): LogInRepository
+    fun bindRegisterRepository(registerRepositoryImpl: RegisterRepositoryImpl): RegisterRepository
 
     @Binds
     @Singleton

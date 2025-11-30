@@ -20,11 +20,19 @@ object NetworkModule {
 
     @Provides
     @Singleton
+    fun provideHttpLoggingInterceptor() =
+        HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY }
+
+    @Provides
+    @Singleton
     fun provideApiKeyInterceptor() = ApiKeyInterceptor()
 
     @Provides
     @Singleton
-    fun provideOkHttpClient(apiKeyInterceptor: ApiKeyInterceptor, loggingInterceptor: HttpLoggingInterceptor) =
+    fun provideOkHttpClient(
+        apiKeyInterceptor: ApiKeyInterceptor,
+        loggingInterceptor: HttpLoggingInterceptor
+    ) =
         OkHttpClient.Builder()
             .addInterceptor(interceptor = apiKeyInterceptor)
             .addInterceptor(interceptor = loggingInterceptor)
