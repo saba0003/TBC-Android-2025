@@ -3,10 +3,10 @@ package com.example.tbc_android_2025.presentation.screen.log_in
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.tbc_android_2025.commons.Strings
-import com.example.tbc_android_2025.domain.commons.LogInValidationResult
-import com.example.tbc_android_2025.domain.commons.LogInValidator
+import com.example.tbc_android_2025.domain.validations.log_in.LogInValidationResult
+import com.example.tbc_android_2025.domain.validations.log_in.LogInValidator
 import com.example.tbc_android_2025.domain.commons.Resource.*
-import com.example.tbc_android_2025.domain.commons.StringProvider
+import com.example.tbc_android_2025.domain.commons.ResourceProvider
 import com.example.tbc_android_2025.domain.use_cases.LogInUserUseCase
 import com.example.tbc_android_2025.presentation.mappers.toDomain
 import com.example.tbc_android_2025.presentation.screen.log_in.LogInEvent.*
@@ -21,7 +21,7 @@ import javax.inject.Inject
 class LogInViewModel @Inject constructor(
     private val logInUserUseCase: LogInUserUseCase,
     private val logInValidator: LogInValidator,
-    private val stringProvider: StringProvider
+    private val resourceProvider: ResourceProvider
 ) : ViewModel() {
 
     private val _logInState = MutableStateFlow(value = LogInState())
@@ -52,11 +52,11 @@ class LogInViewModel @Inject constructor(
     private fun validateFields(email: String, password: String) {
         when (logInValidator(email = email, password = password)) {
             is LogInValidationResult.Error.EmptyFields -> {
-                val message = stringProvider.getString(resId = Strings.error_empty_fields)
+                val message = resourceProvider.getString(resId = Strings.error_empty_fields)
                 _logInState.update { it.copy(error = message) }
             }
             is LogInValidationResult.Error.InvalidEmail -> {
-                val message = stringProvider.getString(resId = Strings.error_invalid_email)
+                val message = resourceProvider.getString(resId = Strings.error_invalid_email)
                 _logInState.update { it.copy(error = message) }
             }
             is LogInValidationResult.Success -> TODO()

@@ -3,10 +3,10 @@ package com.example.tbc_android_2025.presentation.screen.register
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.tbc_android_2025.commons.Strings
-import com.example.tbc_android_2025.domain.commons.RegistrationValidationResult
-import com.example.tbc_android_2025.domain.commons.RegistrationValidator
+import com.example.tbc_android_2025.domain.validations.register.RegistrationValidationResult
+import com.example.tbc_android_2025.domain.validations.register.RegistrationValidator
 import com.example.tbc_android_2025.domain.commons.Resource.*
-import com.example.tbc_android_2025.domain.commons.StringProvider
+import com.example.tbc_android_2025.domain.commons.ResourceProvider
 import com.example.tbc_android_2025.domain.use_cases.RegisterUserUseCase
 import com.example.tbc_android_2025.presentation.mappers.toDomain
 import com.example.tbc_android_2025.presentation.screen.register.RegisterEvent.*
@@ -21,7 +21,7 @@ import javax.inject.Inject
 class RegisterViewModel @Inject constructor(
     private val registerUserUseCase: RegisterUserUseCase,
     private val registrationValidator: RegistrationValidator,
-    private val stringProvider: StringProvider
+    private val resourceProvider: ResourceProvider
 ) : ViewModel() {
 
     private val _registerState = MutableStateFlow(value = RegisterState())
@@ -52,15 +52,15 @@ class RegisterViewModel @Inject constructor(
     private fun validateFields(email: String, password: String, repeatPassword: String) {
         when (registrationValidator(email = email, password = password, repeatPassword = repeatPassword)) {
             is RegistrationValidationResult.Error.EmptyFields -> {
-                val message = stringProvider.getString(resId = Strings.error_empty_fields)
+                val message = resourceProvider.getString(resId = Strings.error_empty_fields)
                 _registerState.update { it.copy(error = message) }
             }
             is RegistrationValidationResult.Error.InvalidEmail -> {
-                val message = stringProvider.getString(resId = Strings.error_invalid_email)
+                val message = resourceProvider.getString(resId = Strings.error_invalid_email)
                 _registerState.update { it.copy(error = message) }
             }
             is RegistrationValidationResult.Error.PasswordsMismatch -> {
-                val message = stringProvider.getString(resId = Strings.error_password_mismatch)
+                val message = resourceProvider.getString(resId = Strings.error_password_mismatch)
                 _registerState.update { it.copy(error = message) }
             }
             is RegistrationValidationResult.Success -> TODO()

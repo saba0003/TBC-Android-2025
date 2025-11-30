@@ -1,6 +1,5 @@
-package com.example.tbc_android_2025.domain.commons
+package com.example.tbc_android_2025.domain.validations.log_in
 
-// TODO: too many files in commons package
 sealed interface LogInValidationResult {
 
     data object Success : LogInValidationResult

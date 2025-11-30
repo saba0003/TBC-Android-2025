@@ -1,6 +1,5 @@
-package com.example.tbc_android_2025.domain.commons
+package com.example.tbc_android_2025.domain.validations.register
 
-// TODO: too many files in commons package
 sealed interface RegistrationValidationResult {
 
     data object Success : RegistrationValidationResult
