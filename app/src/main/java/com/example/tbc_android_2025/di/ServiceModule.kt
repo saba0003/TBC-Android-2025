@@ -1,8 +1,8 @@
 package com.example.tbc_android_2025.di
 
-import com.example.tbc_android_2025.data.auth.log_in.LogInService
-import com.example.tbc_android_2025.data.auth.register.RegisterService
 import com.example.tbc_android_2025.data.services.FetchService
+import com.example.tbc_android_2025.data.services.LogInService
+import com.example.tbc_android_2025.data.services.RegisterService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

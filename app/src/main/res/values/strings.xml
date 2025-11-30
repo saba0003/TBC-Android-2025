@@ -18,11 +18,16 @@
     <!-- FORMAT -->
     <string name="format_email">Email: %1$s</string>
 
-    <!-- ERRORS -->
-    <string name="error_network">Network error: Could not connect to the server.</string>
-    <string name="error_api">API error: Received an unexpected response code.</string>
-    <string name="error_state">Application state error.</string>
-    <string name="error_unknown">An unknown error occurred: No details available.</string>
+    <!-- NETWORK ERRORS -->
+    <string name="error_network">Network error: Could not connect to the server!</string>
+    <string name="error_api">API error: Received an unexpected response code!</string>
+    <string name="error_state">Application state error!</string>
+    <string name="error_unknown">An unknown error occurred: No details available!</string>
+
+    <!-- VALIDATION ERRORS -->
+    <string name="error_empty_fields">All fields must be filled in!</string>
+    <string name="error_invalid_email">Unsupported email! Input email that matches this pattern: \'firt_name.last_name@reqres.in\'</string>
+    <string name="error_password_mismatch">Passwords do not match!</string>
 
     <!-- LABELS -->
     <string name="label_log_in_button">Log in button</string>

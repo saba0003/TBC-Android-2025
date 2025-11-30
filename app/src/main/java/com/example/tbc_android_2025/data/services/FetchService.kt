@@ -1,6 +1,6 @@
 package com.example.tbc_android_2025.data.services
 
-import com.example.tbc_android_2025.data.dtos.UsersResponseDto
+import com.example.tbc_android_2025.data.dtos.responses.UsersResponseDto
 import com.example.tbc_android_2025.data.network.NetworkConstants.PAGE_QUERY_PARAMETER
 import com.example.tbc_android_2025.data.network.NetworkConstants.USERS_ENDPOINT
 import retrofit2.Response
