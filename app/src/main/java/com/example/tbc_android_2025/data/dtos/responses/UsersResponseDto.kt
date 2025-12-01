@@ -8,14 +8,14 @@ data class UsersResponseDto(
     val page: Int,
     @field:Json(name = PER_PAGE) val perPage: Int,
     val total: Int,
-    @field:Json(name = TOTAL_PAGE) val totalPages: Int,
+    @field:Json(name = TOTAL_PAGES) val totalPages: Int,
     val data: List<UserDto>,
     val support: SupportDto,
     @field:Json(name = META) val meta: MetaDto
 ) {
     private companion object {
         const val PER_PAGE = "per_page"
-        const val TOTAL_PAGE = "total_page"
+        const val TOTAL_PAGES = "total_pages"
         const val META = "_meta"
     }
 

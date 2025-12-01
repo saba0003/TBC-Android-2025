@@ -4,7 +4,6 @@ import com.example.tbc_android_2025.presentation.screen.users.User
 import com.example.tbc_android_2025.presentation.screen.users.UsersPage as UsersPagePresentation
 import com.example.tbc_android_2025.domain.models.responses.UsersPage as UsersPageDomain
 
-// TODO: unused
 fun UsersPageDomain.toPresentation() =
     UsersPagePresentation(
         page = page,

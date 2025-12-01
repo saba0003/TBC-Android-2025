@@ -2,9 +2,12 @@ package com.example.tbc_android_2025.presentation.screen.users
 
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.tbc_android_2025.commons.Colors
 import com.example.tbc_android_2025.databinding.FragmentHomeBinding as Binding
 import com.example.tbc_android_2025.presentation.commons.BaseFragment
 import com.example.tbc_android_2025.presentation.extensions.launchAndRepeatOnStart
+import com.example.tbc_android_2025.presentation.extensions.popMessage
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 
@@ -17,6 +20,7 @@ class HomeFragment : BaseFragment<Binding>(inflater = Binding::inflate) {
 
     override fun bind() {
         binding.recyclerView.adapter = userAdapter
+        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         collectObservers()
     }
 
@@ -40,9 +44,9 @@ class HomeFragment : BaseFragment<Binding>(inflater = Binding::inflate) {
 
     private fun handleState(state: HomeState) = with(receiver = state) {
         when {
-            usersPage != null -> {}
-            error != null -> {}
-            isLoading -> {}
+            usersPage != null -> userAdapter.submitList(usersPage.data)
+            error != null -> binding.root.popMessage(text = error, color = Colors.amaranth)
+            isLoading -> Unit
         }
     }
     /** ========================================================================================= */
