@@ -45,7 +45,7 @@ class RegisterFragment : BaseFragment<Binding>(inflater = Binding::inflate) {
 
     private fun setListenerOnBackButton() = binding.backButton.setOnClickListener { navigateBack() }
 
-    private fun observer() = registerViewModel.registerState
+    private fun observer() = registerViewModel.state
 
     private fun collectObservers() = viewLifecycleOwner.launchAndRepeatOnStart {
         observer().collectLatest { handleState(state = it) }

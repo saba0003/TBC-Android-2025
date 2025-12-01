@@ -1,6 +1,5 @@
 package com.example.tbc_android_2025.presentation.screen.register
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.tbc_android_2025.commons.Strings
 import com.example.tbc_android_2025.domain.validations.register.RegistrationValidationResult
@@ -8,12 +7,10 @@ import com.example.tbc_android_2025.domain.validations.register.RegistrationVali
 import com.example.tbc_android_2025.domain.commons.Resource.*
 import com.example.tbc_android_2025.domain.commons.ResourceProvider
 import com.example.tbc_android_2025.domain.use_cases.RegisterUserUseCase
+import com.example.tbc_android_2025.presentation.commons.BaseViewModel
 import com.example.tbc_android_2025.presentation.mappers.toDomain
 import com.example.tbc_android_2025.presentation.screen.register.RegisterEvent.*
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -22,13 +19,9 @@ class RegisterViewModel @Inject constructor(
     private val registerUserUseCase: RegisterUserUseCase,
     private val registrationValidator: RegistrationValidator,
     private val resourceProvider: ResourceProvider
-) : ViewModel() {
+) : BaseViewModel<RegisterState, RegisterEvent>(initialState = RegisterState()) {
 
-    private val _registerState = MutableStateFlow(value = RegisterState())
-    val registerState: StateFlow<RegisterState> = _registerState
-
-
-    fun onEvent(event: RegisterEvent) = with(receiver = event) {
+    override fun onEvent(event: RegisterEvent) = with(receiver = event) {
         when (this) {
             is RegisterUser -> registerUser(request = request)
         }
@@ -41,11 +34,11 @@ class RegisterViewModel @Inject constructor(
             return
 
         viewModelScope.launch {
-            registerUserUseCase(request = toDomain()).collect { result ->
-                when (result) {
-                    is Success<*> -> _registerState.update { it.copy(isSuccess = true) }
-                    is Error -> _registerState.update { it.copy(error = result.errorMessage) }
-                    is Loader -> _registerState.update { it.copy(isLoading = true) }
+            registerUserUseCase(request = toDomain()).collect {
+                when (it) {
+                    is Success<*> -> updateState { copy(isSuccess = true) }
+                    is Error -> updateState { copy(error = it.errorMessage) }
+                    is Loader -> updateState { copy(isLoading = it.isLoading) }
                 }
             }
         }
@@ -67,11 +60,11 @@ class RegisterViewModel @Inject constructor(
             is RegistrationValidationResult.Success -> null
         }
 
-        errorMessage?.let { message -> _registerState.update { it.copy(error = message) } }
+        errorMessage?.let { updateState { copy(error = it) } }
 
         return errorMessage == null
     }
 
-    private fun clearError() =_registerState.update { it.copy(error = null) }
+    private fun clearError() = updateState { copy(error = null) }
     /** ========================================================================================= */
 }

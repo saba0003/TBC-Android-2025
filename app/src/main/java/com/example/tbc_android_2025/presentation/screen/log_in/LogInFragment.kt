@@ -39,17 +39,19 @@ class LogInFragment : BaseFragment<Binding>(inflater = Binding::inflate) {
 
     private fun setListenerOnBackButton() = binding.backButton.setOnClickListener { navigateBack() }
 
+    // TODO: Run again later, since login requests are limited, at the time of commiting this, it doesn't work
     private fun navigateToHomePage() {
         val direction = LogInFragmentDirections.actionLoginFragmentToHomeFragment()
         findNavController().navigate(directions = direction)
     }
 
-    private fun observer() = logInViewModel.logInState
+    private fun observer() = logInViewModel.state
 
     private fun collectObservers() = viewLifecycleOwner.launchAndRepeatOnStart {
         observer().collectLatest { handleState(state = it) }
     }
 
+    // TODO: state management should be inside view model?
     private fun handleState(state: LogInState) = with(receiver = state) {
         when {
             isSuccess -> {
