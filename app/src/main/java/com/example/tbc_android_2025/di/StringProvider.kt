@@ -1,4 +1,4 @@
-package com.example.tbc_android_2025.data.commons
+package com.example.tbc_android_2025.di
 
 import android.content.Context
 import androidx.core.content.ContextCompat

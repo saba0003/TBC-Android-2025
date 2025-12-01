@@ -11,7 +11,7 @@ class WelcomeFragment : BaseFragment<Binding>(inflater = Binding::inflate) {
 
     override fun listeners() {
         setListenerOnRegisterButton()
-        setListenerOnLoginButton()
+        setListenerOnLogInButton()
     }
 
 
@@ -19,15 +19,15 @@ class WelcomeFragment : BaseFragment<Binding>(inflater = Binding::inflate) {
     private fun setListenerOnRegisterButton() =
         binding.registerButton.setOnClickListener { navigateToRegisterPage() }
 
-    private fun setListenerOnLoginButton() =
-        binding.loginButton.setOnClickListener { navigateToLoginPage() }
+    private fun setListenerOnLogInButton() =
+        binding.logInButton.setOnClickListener { navigateToLogInPage() }
 
     private fun navigateToRegisterPage() {
         val direction = WelcomeFragmentDirections.actionWelcomeFragmentToRegisterFragment()
         findNavController().navigate(directions = direction)
     }
 
-    private fun navigateToLoginPage() {
+    private fun navigateToLogInPage() {
         val direction = WelcomeFragmentDirections.actionWelcomeFragmentToLogInFragment()
         findNavController().navigate(directions = direction)
     }

@@ -45,12 +45,10 @@ class RegisterFragment : BaseFragment<Binding>(inflater = Binding::inflate) {
 
     private fun setListenerOnBackButton() = binding.backButton.setOnClickListener { navigateBack() }
 
-    private fun observes() = registerViewModel.registerState
+    private fun observer() = registerViewModel.registerState
 
     private fun collectObservers() = viewLifecycleOwner.launchAndRepeatOnStart {
-        registerViewModel.registerState.collectLatest {
-            observes().collectLatest { handleState(state = it) }
-        }
+        observer().collectLatest { handleState(state = it) }
     }
 
     private fun handleState(state: RegisterState) = with(receiver = state) {
@@ -63,13 +61,19 @@ class RegisterFragment : BaseFragment<Binding>(inflater = Binding::inflate) {
                 navigateBack()
             }
 
-            error != null -> binding.registerButton.popMessage(
-                text = error,
-                color = Colors.amaranth
-            )
+            error != null -> {
+                binding.registerButton.popMessage(text = error, color = Colors.amaranth)
+                clearInputFields()
+            }
 
             isLoading -> Unit
         }
+    }
+
+    private fun clearInputFields() = with(receiver = binding) {
+        emailEditText.setText("")
+        passwordEditText.setText("")
+        repeatPasswordEditText.setText("")
     }
     /** ========================================================================================= */
 }

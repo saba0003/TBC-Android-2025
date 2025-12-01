@@ -1,6 +1,6 @@
 package com.example.tbc_android_2025.presentation.screen.users
 
-data class UserState(
+data class HomeState(
     val usersPage: UsersPage? = null,
     val error: String? = null,
     val isLoading: Boolean = false

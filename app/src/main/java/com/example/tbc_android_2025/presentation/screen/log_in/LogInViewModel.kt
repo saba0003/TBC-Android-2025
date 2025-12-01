@@ -25,7 +25,7 @@ class LogInViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _logInState = MutableStateFlow(value = LogInState())
-    private val logInState: StateFlow<LogInState> = _logInState
+    val logInState: StateFlow<LogInState> = _logInState
 
 
     fun onEvent(event: LogInEvent) = with(receiver = event) {
@@ -36,31 +36,35 @@ class LogInViewModel @Inject constructor(
 
 
     /** ===================================== AUX =============================================== */
-    private fun logInUser(request: LogInRequest) = with(receiver = request) {
-        validateFields(email = email, password = password)
+    private fun logInUser(request: LogInRequest): Unit = with(receiver = request) {
+        if (!validateFields(email = email, password = password))
+            return
+
         viewModelScope.launch {
-            logInUserUseCase(request = toDomain()).collect {
-                when (it) {
-                    is Success<*> -> TODO()
-                    is Error -> TODO()
-                    is Loader -> TODO()
+            logInUserUseCase(request = toDomain()).collect { result ->
+                when (result) {
+                    is Success<*> -> _logInState.update { it.copy(isSuccess = true) }
+                    is Error -> _logInState.update { it.copy(error = result.errorMessage) }
+                    is Loader -> _logInState.update { it.copy(isLoading = true) }
                 }
             }
         }
     }
 
-    private fun validateFields(email: String, password: String) {
-        when (logInValidator(email = email, password = password)) {
-            is LogInValidationResult.Error.EmptyFields -> {
-                val message = resourceProvider.getString(resId = Strings.error_empty_fields)
-                _logInState.update { it.copy(error = message) }
-            }
-            is LogInValidationResult.Error.InvalidEmail -> {
-                val message = resourceProvider.getString(resId = Strings.error_invalid_email)
-                _logInState.update { it.copy(error = message) }
-            }
-            is LogInValidationResult.Success -> TODO()
+    private fun validateFields(email: String, password: String): Boolean {
+        clearError()
+
+        val errorMessage: String? = when (logInValidator(email = email, password = password)) {
+            is LogInValidationResult.Error.EmptyFields -> resourceProvider.getString(resId = Strings.error_empty_fields)
+            is LogInValidationResult.Error.InvalidEmail -> resourceProvider.getString(resId = Strings.error_invalid_email)
+            is LogInValidationResult.Success -> null
         }
+
+        errorMessage?.let { message -> _logInState.update { it.copy(error = message) } }
+
+        return errorMessage == null
     }
+
+    private fun clearError() = _logInState.update { it.copy(error = null) }
     /** ========================================================================================= */
 }

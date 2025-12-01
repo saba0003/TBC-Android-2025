@@ -1,8 +1,10 @@
 <resources>
     <string name="app_name">TBC-Android-2025</string>
+
+    <!-- FRAGMENT STRINGS -->
     <string name="welcome">Welcome</string>
     <string name="register">Register</string>
-    <string name="login">Login</string>
+    <string name="log_in">Login</string>
     <string name="log_out">Log out</string>
     <string name="profile">Profile</string>
     <string name="home">Home</string>
@@ -15,10 +17,18 @@
     <string name="last_name">Last name</string>
     <string name="user_avatar">User\'s Avatar</string>
 
-    <string name="registration_successful">Registration Successful!</string>
+    <!-- LABELS -->
+    <string name="label_log_in_button">Log in button</string>
+    <string name="label_register_button">Register Button</string>
+    <string name="label_log_out_button">Log out button</string>
+    <string name="label_profile_button">Profile Button</string>
 
     <!-- FORMAT -->
     <string name="format_email">Email: %1$s</string>
+
+    <!-- BUTTON POPUPS -->
+    <string name="registration_successful">Registration Successful!</string>
+    <string name="log_in_successful">Login Successful!</string>
 
     <!-- NETWORK ERRORS -->
     <string name="error_network">Network error: Could not connect to the server!</string>
@@ -30,10 +40,4 @@
     <string name="error_empty_fields">All fields must be filled in!</string>
     <string name="error_invalid_email">Unsupported email! Input email that matches this pattern: \'firt_name.last_name@reqres.in\'</string>
     <string name="error_password_mismatch">Passwords do not match!</string>
-
-    <!-- LABELS -->
-    <string name="label_log_in_button">Log in button</string>
-    <string name="label_register_button">Register Button</string>
-    <string name="label_log_out_button">Log out button</string>
-    <string name="label_profile_button">Profile Button</string>
 </resources>
