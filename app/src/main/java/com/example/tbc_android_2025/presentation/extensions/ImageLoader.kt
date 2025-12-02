@@ -1,4 +1,4 @@
-package com.example.tbc_android_2025.data.extensions
+package com.example.tbc_android_2025.presentation.extensions
 
 import android.widget.ImageView
 import coil3.load

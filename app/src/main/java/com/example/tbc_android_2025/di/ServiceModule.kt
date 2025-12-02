@@ -1,6 +1,6 @@
 package com.example.tbc_android_2025.di
 
-import com.example.tbc_android_2025.data.network.TemplateService
+import com.example.tbc_android_2025.data.services.TemplateService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

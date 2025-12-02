@@ -1,7 +1,7 @@
 package com.example.tbc_android_2025.di
 
 import android.content.Context
-import com.example.tbc_android_2025.data.commons.StringProvider
+import com.example.tbc_android_2025.utils.StringProvider
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup as Container
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.example.tbc_android_2025.presentation.extensions.launchAndRepeatOnStart
 import androidx.viewbinding.ViewBinding as Binding
 
 typealias ViewBindingInflater<VB> = (Inflater, Container?, Boolean) -> VB
@@ -26,14 +25,11 @@ abstract class BaseFragment<VB : Binding>(private val inflater: ViewBindingInfla
         super.onViewCreated(view, savedInstanceState)
         bind()
         listeners()
-        collectObservers()
     }
 
 
     /** setup */
     protected open fun bind() {}
-
-    protected open fun observes() {}
 
     protected abstract fun listeners()
 
@@ -44,7 +40,4 @@ abstract class BaseFragment<VB : Binding>(private val inflater: ViewBindingInfla
         super.onDestroyView()
         _binding = null
     }
-
-
-    private fun collectObservers() = viewLifecycleOwner.launchAndRepeatOnStart { observes() }
 }

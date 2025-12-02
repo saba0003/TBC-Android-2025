@@ -1,4 +1,4 @@
-package com.example.tbc_android_2025.data.network
+package com.example.tbc_android_2025.data.dtos
 
 import com.squareup.moshi.JsonClass
 
