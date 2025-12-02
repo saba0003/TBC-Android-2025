@@ -1,6 +1,6 @@
 package com.example.tbc_android_2025.data.commons
 
-import com.example.tbc_android_2025.domain.commons.Resource
+import com.example.tbc_android_2025.domain.commons.Resource.*
 import com.example.tbc_android_2025.commons.Strings
 import com.example.tbc_android_2025.domain.commons.ResourceProvider
 import kotlinx.coroutines.flow.flow
@@ -14,16 +14,16 @@ import javax.inject.Singleton
 class ResponseHandler @Inject constructor(private val resourceProvider: ResourceProvider) {
 
     fun <T> safeApiCall(apiCall: suspend () -> Response<T>) = flow {
-        emit(value = Resource.Loader(isLoading = true))
+        emit(value = Loader(isLoading = true))
 
         try {
             val response = apiCall()
             if (response.isSuccessful) {
                 val body = response.body()
-                body?.let { emit(value = Resource.Success(data = it)) }
+                body?.let { emit(value = Success(data = it)) }
             } else {
                 val error = response.errorBody()?.string()
-                emit(value = Resource.Error(errorMessage = error.orEmpty()))
+                emit(value = Error(errorMessage = error.orEmpty()))
             }
         } catch (e: Exception) {
             val errorMessage = when (e) {
@@ -32,9 +32,9 @@ class ResponseHandler @Inject constructor(private val resourceProvider: Resource
                 is IllegalStateException -> resourceProvider.getString(resId = Strings.error_state)
                 else -> resourceProvider.getString(resId = Strings.error_unknown)
             }
-            emit(value = Resource.Error(errorMessage = errorMessage))
+            emit(value = Error(errorMessage = errorMessage))
         } finally {
-            emit(value = Resource.Loader(isLoading = false))
+            emit(value = Loader(isLoading = false))
         }
     }
 

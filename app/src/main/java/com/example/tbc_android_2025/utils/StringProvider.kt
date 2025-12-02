@@ -1,4 +1,4 @@
-package com.example.tbc_android_2025.di
+package com.example.tbc_android_2025.utils
 
 import android.content.Context
 import androidx.core.content.ContextCompat
@@ -8,7 +8,8 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class StringProvider @Inject constructor(@param:ApplicationContext private val context: Context) : ResourceProvider {
+class StringProvider @Inject constructor(@param:ApplicationContext private val context: Context) :
+    ResourceProvider {
 
     override fun getString(resId: Int) = ContextCompat.getString(context, resId)
 

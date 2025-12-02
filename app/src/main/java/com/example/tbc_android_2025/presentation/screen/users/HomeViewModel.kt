@@ -6,7 +6,6 @@ import com.example.tbc_android_2025.domain.use_cases.GetUsersUseCase
 import com.example.tbc_android_2025.presentation.commons.BaseViewModel
 import com.example.tbc_android_2025.presentation.mappers.toPresentation
 import com.example.tbc_android_2025.presentation.screen.users.HomeEvent.*
-import com.example.tbc_android_2025.domain.models.responses.UsersPage as UsersPageDomain
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -26,11 +25,7 @@ class HomeViewModel @Inject constructor(private val getUsersUseCase: GetUsersUse
     private fun getUsers(page: Int) = viewModelScope.launch {
         getUsersUseCase(page = page).collect {
             when (it) {
-                is Success<*> -> {
-                    val domainModel = it.data as UsersPageDomain
-                    val uiModel = domainModel.toPresentation()
-                    updateState { copy(usersPage = uiModel) }
-                }
+                is Success -> { updateState { copy(usersPage = it.data.toPresentation()) } }
                 is Error -> updateState { copy(error = it.errorMessage) }
                 is Loader -> updateState { copy(isLoading = it.isLoading) }
             }

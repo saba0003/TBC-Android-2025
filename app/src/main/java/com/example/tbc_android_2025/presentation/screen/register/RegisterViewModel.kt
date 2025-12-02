@@ -36,7 +36,7 @@ class RegisterViewModel @Inject constructor(
         viewModelScope.launch {
             registerUserUseCase(request = toDomain()).collect {
                 when (it) {
-                    is Success<*> -> updateState { copy(isSuccess = true) }
+                    is Success -> updateState { copy(isSuccess = true) }
                     is Error -> updateState { copy(error = it.errorMessage) }
                     is Loader -> updateState { copy(isLoading = it.isLoading) }
                 }
