@@ -1,4 +1,4 @@
-package com.example.tbc_android_2025.presentation.screen.users
+package com.example.tbc_android_2025.presentation.screen.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

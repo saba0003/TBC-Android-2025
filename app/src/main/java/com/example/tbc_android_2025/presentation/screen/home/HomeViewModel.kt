@@ -1,11 +1,11 @@
-package com.example.tbc_android_2025.presentation.screen.users
+package com.example.tbc_android_2025.presentation.screen.home
 
 import androidx.lifecycle.viewModelScope
 import com.example.tbc_android_2025.domain.commons.Resource.*
 import com.example.tbc_android_2025.domain.use_cases.GetUsersUseCase
 import com.example.tbc_android_2025.presentation.commons.BaseViewModel
 import com.example.tbc_android_2025.presentation.mappers.toPresentation
-import com.example.tbc_android_2025.presentation.screen.users.HomeEvent.*
+import com.example.tbc_android_2025.presentation.screen.home.HomeEvent.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

@@ -1,12 +1,12 @@
-package com.example.tbc_android_2025.presentation.screen
+package com.example.tbc_android_2025.presentation.screen.welcome
 
 import androidx.navigation.fragment.findNavController
+import com.example.tbc_android_2025.databinding.FragmentWelcomeBinding
 import com.example.tbc_android_2025.presentation.commons.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
-import com.example.tbc_android_2025.databinding.FragmentWelcomeBinding as Binding
 
 @AndroidEntryPoint
-class WelcomeFragment : BaseFragment<Binding>(inflater = Binding::inflate) {
+class WelcomeFragment : BaseFragment<FragmentWelcomeBinding>(inflater = FragmentWelcomeBinding::inflate) {
 
 
     override fun listeners() {

@@ -1,4 +1,4 @@
-package com.example.tbc_android_2025.presentation.screen.users
+package com.example.tbc_android_2025.presentation.screen.home
 
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -9,7 +9,7 @@ import com.example.tbc_android_2025.databinding.FragmentHomeBinding as Binding
 import com.example.tbc_android_2025.presentation.commons.BaseFragment
 import com.example.tbc_android_2025.presentation.extensions.launchAndRepeatOnStart
 import com.example.tbc_android_2025.presentation.extensions.popMessage
-import com.example.tbc_android_2025.presentation.screen.users.HomeEvent.GetUsers
+import com.example.tbc_android_2025.presentation.screen.home.HomeEvent.GetUsers
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 

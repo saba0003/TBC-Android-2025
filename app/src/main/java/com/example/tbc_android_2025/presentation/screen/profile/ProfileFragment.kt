@@ -1,11 +1,11 @@
-package com.example.tbc_android_2025.presentation.screen
+package com.example.tbc_android_2025.presentation.screen.profile
 
+import com.example.tbc_android_2025.databinding.FragmentProfileBinding
 import com.example.tbc_android_2025.presentation.commons.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
-import com.example.tbc_android_2025.databinding.FragmentProfileBinding as Binding
 
 @AndroidEntryPoint
-class ProfileFragment : BaseFragment<Binding>(inflater = Binding::inflate) {
+class ProfileFragment : BaseFragment<FragmentProfileBinding>(inflater = FragmentProfileBinding::inflate) {
 
     override fun bind() {
         TODO(reason = "Not yet implemented")
