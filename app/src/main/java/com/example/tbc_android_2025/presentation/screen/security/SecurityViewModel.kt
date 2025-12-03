@@ -31,8 +31,6 @@ class SecurityViewModel @Inject constructor(@param:ApplicationContext private va
 
     /** ===================================== AUX =============================================== */
     private fun handleDigit(digit: String) {
-        if (state.value.input.length >= 4)
-            return
         updateState { copy(input = input + digit) }
         if (state.value.input.length == 4)
             validate()
@@ -48,27 +46,14 @@ class SecurityViewModel @Inject constructor(@param:ApplicationContext private va
         val input = state.value.input
         val isCorrect = input == correctPasscode
 
-        sendEffect(
-            sideEffect = SideEffect.ShowMessage(
-                text = if (isCorrect)
-                    ContextCompat.getString(context, Strings.success)
-                else
-                    ContextCompat.getString(context, Strings.failure),
-                color = if (isCorrect)
-                    Colors.viridian
-                else
-                    Colors.amaranth
-            )
-        )
+        val messageText =
+            ContextCompat.getString(context, if (isCorrect) Strings.success else Strings.failure)
+        val messageColor = if (isCorrect) Colors.viridian else Colors.amaranth
 
+        sendEffect(sideEffect = SideEffect.ShowMessage(text = messageText, color = messageColor))
         clearState()
     }
 
     private fun clearState() = updateState { copy(input = "") }
-
-//    private fun resetStateWithDelay() {
-//        // Delay so Snackbar can show before resetting UI
-//        view?.postDelayed({ currentInput.clear(); updateDots() }, 300)
-//    }
     /** ========================================================================================= */
 }

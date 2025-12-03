@@ -31,13 +31,10 @@ class SecurityFragment : BaseFragment<Binding>(inflater = Binding::inflate) {
         launch { observeStates().collect { updateDots(input = it.input) } }
 
         launch {
-            observeSideEffects().collect { effect ->
-                when (effect) {
+            observeSideEffects().collect {
+                when (it) {
                     is SecurityContract.SideEffect.ShowMessage ->
-                        binding.root.popMessage(
-                            text = effect.text,
-                            color = effect.color
-                        )
+                        binding.root.popMessage(text = it.text, color = it.color)
                 }
             }
         }
