@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F5F5"
+    android:padding="24dp">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/titleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/security_screen"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/enterYourPasswordTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/enterYourPasswordTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/enter_your_passcode"
+        android:textColor="@color/gray"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@id/dot1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/titleTextView" />
+
+    <!-- Keypad Grid -->
+    <!-- We use a helper "Flow" if available, but here is the manual Constraint approach for compatibility -->
+    <View
+        android:id="@+id/dot1"
+        style="@style/PasscodeDot.Filled"
+        android:layout_marginTop="42dp"
+        app:layout_constraintEnd_toStartOf="@id/dot2"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/enterYourPasswordTextView" />
+
+    <View
+        android:id="@+id/dot2"
+        style="@style/PasscodeDot.Filled"
+        android:layout_marginStart="50dp"
+        app:layout_constraintBottom_toBottomOf="@id/dot1"
+        app:layout_constraintEnd_toStartOf="@id/dot3"
+        app:layout_constraintStart_toEndOf="@id/dot1"
+        app:layout_constraintTop_toTopOf="@id/dot1" />
+
+    <View
+        android:id="@+id/dot3"
+        style="@style/PasscodeDot.Filled"
+        android:layout_marginStart="50dp"
+        app:layout_constraintBottom_toBottomOf="@id/dot2"
+        app:layout_constraintEnd_toStartOf="@id/dot4"
+        app:layout_constraintStart_toEndOf="@id/dot2"
+        app:layout_constraintTop_toTopOf="@id/dot2" />
+
+    <View
+        android:id="@+id/dot4"
+        style="@style/PasscodeDot.Empty"
+        android:layout_marginStart="50dp"
+        app:layout_constraintBottom_toBottomOf="@id/dot3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/dot3"
+        app:layout_constraintTop_toTopOf="@id/dot3" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn1"
+        style="@style/KeypadButton"
+        android:layout_marginTop="50dp"
+        android:text="@string/numpad_1"
+        app:layout_constraintBottom_toTopOf="@id/btn4"
+        app:layout_constraintEnd_toStartOf="@id/btn2"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dot1"
+        app:layout_constraintVertical_bias="0.3"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn2"
+        style="@style/KeypadButton"
+        android:text="@string/numpad_2"
+        app:layout_constraintBottom_toBottomOf="@id/btn1"
+        app:layout_constraintEnd_toStartOf="@id/btn3"
+        app:layout_constraintStart_toEndOf="@id/btn1"
+        app:layout_constraintTop_toTopOf="@id/btn1" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn3"
+        style="@style/KeypadButton"
+        android:text="@string/numpad_3"
+        app:layout_constraintBottom_toBottomOf="@id/btn2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btn2"
+        app:layout_constraintTop_toTopOf="@id/btn2" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn4"
+        style="@style/KeypadButton"
+        android:layout_marginTop="24dp"
+        android:text="@string/numpad_4"
+        app:layout_constraintBottom_toTopOf="@id/btn7"
+        app:layout_constraintEnd_toEndOf="@id/btn1"
+        app:layout_constraintStart_toStartOf="@id/btn1"
+        app:layout_constraintTop_toBottomOf="@id/btn1" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn5"
+        style="@style/KeypadButton"
+        android:text="@string/numpad_5"
+        app:layout_constraintBottom_toBottomOf="@id/btn4"
+        app:layout_constraintEnd_toEndOf="@id/btn2"
+        app:layout_constraintStart_toStartOf="@id/btn2"
+        app:layout_constraintTop_toTopOf="@id/btn4" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn6"
+        style="@style/KeypadButton"
+        android:text="@string/numpad_6"
+        app:layout_constraintBottom_toBottomOf="@id/btn5"
+        app:layout_constraintEnd_toEndOf="@id/btn3"
+        app:layout_constraintStart_toStartOf="@id/btn3"
+        app:layout_constraintTop_toTopOf="@id/btn5" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn7"
+        style="@style/KeypadButton"
+        android:layout_marginTop="24dp"
+        android:text="@string/numpad_7"
+        app:layout_constraintBottom_toTopOf="@id/btn0"
+        app:layout_constraintEnd_toEndOf="@id/btn4"
+        app:layout_constraintStart_toStartOf="@id/btn4"
+        app:layout_constraintTop_toBottomOf="@id/btn4" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn8"
+        style="@style/KeypadButton"
+        android:text="@string/numpad_8"
+        app:layout_constraintBottom_toBottomOf="@id/btn7"
+        app:layout_constraintEnd_toEndOf="@id/btn5"
+        app:layout_constraintStart_toStartOf="@id/btn5"
+        app:layout_constraintTop_toTopOf="@id/btn7" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn9"
+        style="@style/KeypadButton"
+        android:text="@string/numpad_9"
+        app:layout_constraintBottom_toBottomOf="@id/btn8"
+        app:layout_constraintEnd_toEndOf="@id/btn6"
+        app:layout_constraintStart_toStartOf="@id/btn6"
+        app:layout_constraintTop_toTopOf="@id/btn8" />
+
+    <ImageView
+        android:id="@+id/imgFingerprint"
+        style="@style/KeypadButton"
+        android:layout_marginTop="24dp"
+        android:padding="15dp"
+        android:src="@drawable/ic_fingerprint"
+        app:layout_constraintEnd_toEndOf="@id/btn7"
+        app:layout_constraintStart_toStartOf="@id/btn7"
+        app:layout_constraintTop_toBottomOf="@id/btn7"
+        tools:ignore="ContentDescription" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn0"
+        style="@style/KeypadButton"
+        android:text="@string/numpad_0"
+        app:layout_constraintBottom_toBottomOf="@id/imgFingerprint"
+        app:layout_constraintEnd_toEndOf="@id/btn8"
+        app:layout_constraintStart_toStartOf="@id/btn8"
+        app:layout_constraintTop_toTopOf="@id/imgFingerprint" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/backspaceButton"
+        style="@style/KeypadButton"
+        android:drawableStart="@drawable/ic_backspace"
+        android:padding="22dp"
+        app:layout_constraintBottom_toBottomOf="@id/btn0"
+        app:layout_constraintEnd_toEndOf="@id/btn9"
+        app:layout_constraintStart_toStartOf="@id/btn9"
+        app:layout_constraintTop_toTopOf="@id/btn0"
+        tools:ignore="ContentDescription" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/forgotPasswordTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="@string/forgot_password"
+        android:textColor="#9E9E9E"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

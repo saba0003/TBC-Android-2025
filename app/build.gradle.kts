@@ -25,16 +25,19 @@ android {
     }
 
     buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+        debug {
+            isMinifyEnabled = true
+            buildConfigField(type = "String", name = "PASSCODE", value = "\"0934\"")
         }
 
-        debug {
-            isMinifyEnabled = false
+        release {
+            isMinifyEnabled = true
+            isShrinkResources = true
+            proguardFiles(
+                getDefaultProguardFile(name = "proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+            buildConfigField(type = "String", name = "PASSCODE", value = "\"0934\"")
         }
     }
 

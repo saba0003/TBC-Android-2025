@@ -1,9 +1,18 @@
 <resources>
     <string name="app_name">TBC-Android-2025</string>
-
-    <!-- ERRORS -->
-    <string name="error_network">Network error: Could not connect to the server.</string>
-    <string name="error_api">API error: Received an unexpected response code.</string>
-    <string name="error_state">Application state error.</string>
-    <string name="error_unknown">An unknown error occurred: No details available.</string>
+    <string name="security_screen">Security screen</string>
+    <string name="enter_your_passcode">Enter your passcode</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="numpad_0">0</string>
+    <string name="numpad_1">1</string>
+    <string name="numpad_2">2</string>
+    <string name="numpad_3">3</string>
+    <string name="numpad_4">4</string>
+    <string name="numpad_5">5</string>
+    <string name="numpad_6">6</string>
+    <string name="numpad_7">7</string>
+    <string name="numpad_8">8</string>
+    <string name="numpad_9">9</string>
+    <string name="success">Success</string>
+    <string name="failure">Failure</string>
 </resources>
