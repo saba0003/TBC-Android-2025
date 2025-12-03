@@ -2,9 +2,10 @@ package com.example.tbc_android_2025.presentation.screen.security
 
 import android.content.Context
 import androidx.core.content.ContextCompat
-import com.example.tbc_android_2025.BuildConfig
 import com.example.tbc_android_2025.commons.Colors
 import com.example.tbc_android_2025.commons.Strings
+import com.example.tbc_android_2025.domain.validation.PasscodeValidationResult.*
+import com.example.tbc_android_2025.domain.validation.ValidatePasscodeUseCase
 import com.example.tbc_android_2025.presentation.commons.BaseViewModel
 import com.example.tbc_android_2025.presentation.screen.security.SecurityContract.State
 import com.example.tbc_android_2025.presentation.screen.security.SecurityContract.Event
@@ -14,11 +15,10 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 @HiltViewModel
-class SecurityViewModel @Inject constructor(@param:ApplicationContext private val context: Context) :
-    BaseViewModel<State, Event, SideEffect>(initialState = State()) {
-
-    private val correctPasscode = BuildConfig.PASSCODE
-
+class SecurityViewModel @Inject constructor(
+    @param:ApplicationContext private val context: Context,
+    private val validatePasscodeUseCase: ValidatePasscodeUseCase,
+) : BaseViewModel<State, Event, SideEffect>(initialState = State()) {
 
     override fun onEvent(event: Event) {
         when (event) {
@@ -43,14 +43,21 @@ class SecurityViewModel @Inject constructor(@param:ApplicationContext private va
     }
 
     private fun validate() {
-        val input = state.value.input
-        val isCorrect = input == correctPasscode
+        val result = validatePasscodeUseCase(input = state.value.input)
 
-        val messageText =
-            ContextCompat.getString(context, if (isCorrect) Strings.success else Strings.failure)
-        val messageColor = if (isCorrect) Colors.viridian else Colors.amaranth
+        val sideEffect = when (result) {
+            is Success -> SideEffect.ShowMessage(
+                text = ContextCompat.getString(context, Strings.success),
+                color = Colors.viridian
+            )
+            is Failure -> SideEffect.ShowMessage(
+                text = ContextCompat.getString(context, Strings.failure),
+                color = Colors.amaranth
+            )
+        }
 
-        sendEffect(sideEffect = SideEffect.ShowMessage(text = messageText, color = messageColor))
+        sendEffect(sideEffect = sideEffect)
+
         clearState()
     }
 
