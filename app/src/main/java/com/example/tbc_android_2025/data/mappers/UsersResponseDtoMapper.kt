@@ -1,9 +1,9 @@
 package com.example.tbc_android_2025.data.mappers
 
-import com.example.tbc_android_2025.data.dtos.UsersResponseDto
+import com.example.tbc_android_2025.data.dtos.UserResponseDto
 import com.example.tbc_android_2025.domain.models.UsersModel
 
-fun UsersResponseDto.UserDto.toDomain() =
+fun UserResponseDto.toDomain() =
     UsersModel.UserModel(
         id = id,
         fullName = fullName,
@@ -14,4 +14,4 @@ fun UsersResponseDto.UserDto.toDomain() =
         profileImageUrl = profileImageUrl
     )
 
-fun UsersResponseDto.toDomain() = UsersModel(users = users.map { it.toDomain() })
+fun List<UserResponseDto>.toDomain() = UsersModel(users = this.map { it.toDomain() })
