@@ -1,8 +1,10 @@
 package com.example.tbc_android_2025.data.commons
 
-import com.example.tbc_android_2025.utils.StringProvider
+import android.content.Context
+import androidx.core.content.ContextCompat
 import com.example.tbc_android_2025.domain.commons.Resource
 import com.example.tbc_android_2025.commons.Strings
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
 import retrofit2.Response
@@ -11,7 +13,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class ResponseHandler @Inject constructor(private val stringProvider: StringProvider) {
+class ResponseHandler @Inject constructor(@param:ApplicationContext private val context: Context) {
 
     fun <T> safeApiCall(apiCall: suspend () -> Response<T>) = flow {
         emit(value = Resource.Loader(isLoading = true))
@@ -27,14 +29,15 @@ class ResponseHandler @Inject constructor(private val stringProvider: StringProv
             }
         } catch (e: Exception) {
             val errorMessage = when (e) {
-                is IOException -> stringProvider.getString(resId = Strings.error_network)
-                is HttpException -> stringProvider.getString(resId = Strings.error_api)
-                is IllegalStateException -> stringProvider.getString(resId = Strings.error_state)
-                else -> stringProvider.getString(resId = Strings.error_unknown)
+                is IOException -> ContextCompat.getString(context, Strings.error_network)
+                is HttpException -> ContextCompat.getString(context, Strings.error_api)
+                is IllegalStateException -> ContextCompat.getString(context, Strings.error_state)
+                else -> ContextCompat.getString(context, Strings.error_unknown)
             }
             emit(value = Resource.Error(errorMessage = errorMessage))
         } finally {
             emit(value = Resource.Loader(isLoading = false))
         }
     }
+
 }
