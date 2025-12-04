@@ -2,6 +2,7 @@ package com.example.tbc_android_2025.presentation.screen.security
 
 import android.content.Context
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.viewModelScope
 import com.example.tbc_android_2025.commons.Colors
 import com.example.tbc_android_2025.commons.Strings
 import com.example.tbc_android_2025.domain.validation.PasscodeValidationResult.*
@@ -12,6 +13,8 @@ import com.example.tbc_android_2025.presentation.screen.security.SecurityContrac
 import com.example.tbc_android_2025.presentation.screen.security.SecurityContract.SideEffect
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -24,16 +27,16 @@ class SecurityViewModel @Inject constructor(
         when (event) {
             is Event.DigitPressed -> handleDigit(digit = event.digit)
             is Event.BackspacePressed -> handleBackspace()
-            is Event.Validate -> validate()
+            is Event.Validate -> handleValidation()
         }
     }
 
 
-    /** ===================================== AUX =============================================== */
+    /** =================================== HANDLERS ============================================ */
     private fun handleDigit(digit: String) {
         updateState { copy(input = input + digit) }
         if (state.value.input.length == 4)
-            validate()
+            handleValidation()
     }
 
     private fun handleBackspace() {
@@ -42,7 +45,7 @@ class SecurityViewModel @Inject constructor(
         updateState { copy(input = input.dropLast(n = 1)) }
     }
 
-    private fun validate() {
+    private fun handleValidation() {
         val result = validatePasscodeUseCase(input = state.value.input)
 
         val sideEffect = when (result) {
@@ -50,6 +53,7 @@ class SecurityViewModel @Inject constructor(
                 text = ContextCompat.getString(context, Strings.success),
                 color = Colors.viridian
             )
+
             is Failure -> SideEffect.ShowMessage(
                 text = ContextCompat.getString(context, Strings.failure),
                 color = Colors.amaranth
@@ -58,8 +62,14 @@ class SecurityViewModel @Inject constructor(
 
         sendEffect(sideEffect = sideEffect)
 
-        clearState()
+        resetStateWithDelay()
     }
+    /** ========================================================================================= */
+
+
+    /** ===================================== AUX =============================================== */
+    private fun resetStateWithDelay(delay: Long = 100L) =
+        viewModelScope.launch { delay(timeMillis = delay); clearState() }
 
     private fun clearState() = updateState { copy(input = "") }
     /** ========================================================================================= */

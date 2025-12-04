@@ -18,10 +18,11 @@ abstract class BaseViewModel<STATE, EVENT, SIDE_EFFECT>(initialState: STATE) : V
     val sideEffect = _sideEffect.asSharedFlow()
 
 
-    protected fun updateState(reducer: STATE.() -> STATE) = _state.update { it.reducer() }
+    open fun onEvent(event: EVENT) {}
 
-    abstract fun onEvent(event: EVENT)
+    protected fun updateState(reducer: STATE.() -> STATE) = _state.update { it.reducer() }
 
     protected fun sendEffect(sideEffect: SIDE_EFFECT) =
         viewModelScope.launch { _sideEffect.emit(value = sideEffect) }
+
 }

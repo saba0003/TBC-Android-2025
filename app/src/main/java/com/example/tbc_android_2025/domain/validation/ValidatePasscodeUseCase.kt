@@ -8,4 +8,5 @@ class ValidatePasscodeUseCase(private val correctPasscode: String) {
         else
             PasscodeValidationResult.Failure
     }
+
 }
