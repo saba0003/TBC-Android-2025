@@ -1,6 +1,6 @@
 package com.example.tbc_android_2025.di
 
-import com.example.tbc_android_2025.data.network.NetworkConstants.BASE_URL
+import com.example.tbc_android_2025.BuildConfig
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -40,7 +40,7 @@ object NetworkModule {
     @Singleton
     fun provideRetrofit(okHttpClient: OkHttpClient, moshi: Moshi): Retrofit =
         Retrofit.Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl(BuildConfig.BASE_URL.plus(other = BuildConfig.API_VERSION))
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .client(okHttpClient)
             .build()

@@ -8,12 +8,13 @@ import coil3.request.placeholder
 import coil3.request.transformations
 import coil3.transform.CircleCropTransformation
 import com.example.tbc_android_2025.commons.Drawables
+import com.example.tbc_android_2025.commons.Images
 
 fun ImageView.loadImage(url: String?) {
     this.load(data = url) {
         crossfade(enable = true)
         transformations(CircleCropTransformation())
-        placeholder(drawableResId = Drawables.ic_launcher_background)
+        placeholder(drawableResId = Images.ic_launcher)
         error(drawableResId = Drawables.ic_launcher_foreground)
     }
 }

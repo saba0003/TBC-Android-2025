@@ -2,20 +2,20 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/templateFragment">
+    app:startDestination="@id/usersFragment">
 
     <fragment
         android:id="@+id/splashFragment"
         android:name="com.example.tbc_android_2025.presentation.screen.splash.SplashFragment"
         android:label="Splash">
         <action
-            android:id="@+id/action_splashFragment_to_templateFragment"
-            app:destination="@id/templateFragment" />
+            android:id="@+id/action_splashFragment_to_usersFragment"
+            app:destination="@id/usersFragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/templateFragment"
-        android:name="com.example.tbc_android_2025.presentation.screen.TemplateFragment"
-        android:label="Template" />
+        android:id="@+id/usersFragment"
+        android:name="com.example.tbc_android_2025.presentation.screen.users.UsersFragment"
+        android:label="Users Screen" />
 
 </navigation>

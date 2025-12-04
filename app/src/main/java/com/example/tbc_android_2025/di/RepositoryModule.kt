@@ -1,7 +1,7 @@
 package com.example.tbc_android_2025.di
 
-import com.example.tbc_android_2025.data.repositories.TemplateRepositoryImpl
-import com.example.tbc_android_2025.domain.repositories.TemplateRepository
+import com.example.tbc_android_2025.data.repositories.UserRepositoryImpl
+import com.example.tbc_android_2025.domain.repositories.UserRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -14,6 +14,6 @@ interface RepositoryModule {
 
     @Binds
     @Singleton
-    fun bindTemplateRepository(templateRepositoryImpl: TemplateRepositoryImpl): TemplateRepository
+    fun bindUserRepository(userRepositoryImpl: UserRepositoryImpl): UserRepository
 
 }

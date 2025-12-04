@@ -1,6 +1,6 @@
 package com.example.tbc_android_2025.di
 
-import com.example.tbc_android_2025.data.services.TemplateService
+import com.example.tbc_android_2025.data.services.FetchService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -14,7 +14,7 @@ object ServiceModule {
 
     @Provides
     @Singleton
-    fun provideTemplateService(retrofit: Retrofit): TemplateService =
-        retrofit.create(TemplateService::class.java)
+    fun provideTemplateService(retrofit: Retrofit): FetchService =
+        retrofit.create(FetchService::class.java)
 
 }

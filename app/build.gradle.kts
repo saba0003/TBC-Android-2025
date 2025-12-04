@@ -27,6 +27,13 @@ android {
     buildTypes {
         debug {
             isMinifyEnabled = true
+            buildConfigField(type = "String", name = "BASE_URL", value = "\"https://mocki.io/\"")
+            buildConfigField(type = "String", name = "API_VERSION", value = "\"v1/\"")
+            buildConfigField(
+                type = "String",
+                name = "ENDPOINT",
+                value = "\"3668d139-e182-4fe2-b909-6259524117cb\""
+            )
         }
 
         release {
@@ -35,6 +42,13 @@ android {
             proguardFiles(
                 getDefaultProguardFile(name = "proguard-android-optimize.txt"),
                 "proguard-rules.pro"
+            )
+            buildConfigField(type = "String", name = "BASE_URL", value = "\"https://mocki.io/\"")
+            buildConfigField(type = "String", name = "API_VERSION", value = "\"v1/\"")
+            buildConfigField(
+                type = "String",
+                name = "ENDPOINT",
+                value = "\"3668d139-e182-4fe2-b909-6259524117cb\""
             )
         }
     }
@@ -51,7 +65,7 @@ android {
         }
     }
 
-    buildFeatures{
+    buildFeatures {
         compose = true
         viewBinding = true
         buildConfig = true
