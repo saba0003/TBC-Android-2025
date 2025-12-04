@@ -31,7 +31,7 @@ abstract class BaseFragment<VB : Binding>(private val inflater: ViewBindingInfla
     /** setup */
     protected open fun bind() {}
 
-    protected abstract fun listeners()
+    protected open fun listeners() {}
 
     protected open fun navigateBack() = findNavController().popBackStack()
 
