@@ -45,21 +45,17 @@ class UserRepositoryImpl @Inject constructor(
                     local.saveUsers(users = it.data.toEntities())
                     emit(value = Success(data = it.data.toDomain()))
                 }
-
                 is Error -> emit(value = Error(errorMessage = it.errorMessage))
                 is Loader -> Unit
             }
         }
-
-        // TODO: always emit local cache after remote fetch (optional)
-        fetchFromLocal()
     }
 
     private suspend fun FlowCollector<Resource<UsersModel>>.fetchFromLocal() {
-        local.getUsers().collect { cached ->
-            if (cached.isNotEmpty()) {
-                emit(value = Success(data = cached.toDomain()))
-            } else {
+        local.getUsers().collect {
+            if (it.isNotEmpty())
+                emit(value = Success(data = it.toDomain()))
+            else
                 emit(
                     value = Error(
                         errorMessage = ContextCompat.getString(
@@ -67,7 +63,6 @@ class UserRepositoryImpl @Inject constructor(
                         )
                     )
                 )
-            }
         }
     }
     /** ========================================================================================= */
