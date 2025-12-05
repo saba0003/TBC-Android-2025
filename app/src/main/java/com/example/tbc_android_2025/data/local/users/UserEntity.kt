@@ -1,9 +1,10 @@
-package com.example.tbc_android_2025.data.local.models
+package com.example.tbc_android_2025.data.local.users
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.example.tbc_android_2025.data.local.users.UserTable.NAME
 
-@Entity(tableName = "users")
+@Entity(tableName = NAME)
 data class UserEntity(
     @PrimaryKey val id: Int,
     val fullName: String,

@@ -5,10 +5,10 @@ import android.content.Context
 import android.content.pm.PackageManager.PERMISSION_GRANTED
 import androidx.core.content.ContextCompat
 import com.example.tbc_android_2025.commons.Strings
-import com.example.tbc_android_2025.data.local.LocalUserDataSource
+import com.example.tbc_android_2025.data.local.data_sources.LocalUserDataSource
 import com.example.tbc_android_2025.data.mappers.toDomain
 import com.example.tbc_android_2025.data.mappers.toEntities
-import com.example.tbc_android_2025.data.remote.RemoteUserDataSource
+import com.example.tbc_android_2025.data.remote.data_sources.RemoteUserDataSource
 import com.example.tbc_android_2025.domain.commons.Resource
 import com.example.tbc_android_2025.domain.commons.Resource.*
 import com.example.tbc_android_2025.domain.models.UsersModel

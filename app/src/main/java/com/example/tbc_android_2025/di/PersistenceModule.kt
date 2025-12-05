@@ -2,8 +2,9 @@ package com.example.tbc_android_2025.di
 
 import android.content.Context
 import androidx.room.Room
-import com.example.tbc_android_2025.data.local.AppDatabase
-import com.example.tbc_android_2025.data.local.daos.UserDao
+import com.example.tbc_android_2025.data.local.db.AppDatabase
+import com.example.tbc_android_2025.data.local.db.DatabaseConstants.USER_DATABASE
+import com.example.tbc_android_2025.data.local.users.UserDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,14 +16,13 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object PersistenceModule {
 
-// TODO: strings are hardcoded
     @Provides
     @Singleton
     fun provideAppDatabase(@ApplicationContext context: Context): AppDatabase =
         Room.databaseBuilder(
             context = context,
             klass = AppDatabase::class.java,
-            name = "user_database"
+            name = USER_DATABASE
         ).build()
 
     @Provides
