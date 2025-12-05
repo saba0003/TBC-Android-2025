@@ -1,11 +1,11 @@
 package com.example.tbc_android_2025.domain.repositories
 
 import com.example.tbc_android_2025.domain.commons.Resource
-import com.example.tbc_android_2025.domain.models.UsersModel
+import com.example.tbc_android_2025.domain.models.CardModel
 import kotlinx.coroutines.flow.Flow
 
-interface UserRepository {
+interface CardRepository {
 
-    fun getUsers(): Flow<Resource<UsersModel>>
+    fun getCards() : Flow<Resource<List<CardModel>>>
 
 }

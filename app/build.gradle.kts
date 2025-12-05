@@ -32,7 +32,7 @@ android {
             buildConfigField(
                 type = "String",
                 name = "ENDPOINT",
-                value = "\"3668d139-e182-4fe2-b909-6259524117cb\""
+                value = "\"e3215354-6784-4bae-9bb9-25b39360971b\""
             )
         }
 
@@ -48,7 +48,7 @@ android {
             buildConfigField(
                 type = "String",
                 name = "ENDPOINT",
-                value = "\"3668d139-e182-4fe2-b909-6259524117cb\""
+                value = "\"e3215354-6784-4bae-9bb9-25b39360971b\""
             )
         }
     }
@@ -77,6 +77,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
+    implementation("androidx.viewpager2:viewpager2:1.1.0")
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)

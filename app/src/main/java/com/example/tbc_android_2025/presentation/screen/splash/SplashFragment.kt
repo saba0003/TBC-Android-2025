@@ -47,7 +47,7 @@ class SplashFragment : BaseFragment<Binding>(inflater = Binding::inflate) {
 
     /** ===================================== AUX =============================================== */
     private fun navigateToTemplateFragment() {
-        val direction = SplashFragmentDirections.actionSplashFragmentToUsersFragment()
+        val direction = SplashFragmentDirections.actionSplashFragmentToCardsFragment()
         findNavController().navigate(directions = direction)
     }
     /** ========================================================================================= */

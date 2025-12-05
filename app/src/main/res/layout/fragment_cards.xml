@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/statisticsTextView"
+        android:layout_width="80dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="50dp"
+        android:text="@string/statistics"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/viewPager"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="40dp"
+        app:layout_constraintBottom_toTopOf="@id/homeImageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/statisticsTextView"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/heartImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/homeImageView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ic_heart" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/homeImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/heartImageView"
+        app:layout_constraintEnd_toStartOf="@id/chatImageView"
+        app:layout_constraintStart_toEndOf="@id/heartImageView"
+        app:layout_constraintTop_toTopOf="@+id/heartImageView"
+        app:srcCompat="@drawable/ic_home" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/chatImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/homeImageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/homeImageView"
+        app:layout_constraintTop_toTopOf="@+id/homeImageView"
+        app:srcCompat="@drawable/ic_chat" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

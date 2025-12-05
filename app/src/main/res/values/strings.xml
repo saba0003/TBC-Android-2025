@@ -1,18 +1,10 @@
 <resources>
     <string name="app_name">TBC-Android-2025</string>
 
-    <!-- USER FIELDS -->
-    <string name="id">id: %1$d</string>
-    <string name="full_name">Full name: %1$s</string>
-    <string name="email">email: %1$s</string>
-    <string name="activation_status">Activation status: %1$d</string>
-    <string name="last_active_description">Last active description: %1$s</string>
-    <string name="last_active_epoch">Last active epoch: %1$d</string>
-
     <!-- ERRORS -->
     <string name="error_network">Network error: Could not connect to the server.</string>
     <string name="error_api">API error: Received an unexpected response code.</string>
     <string name="error_state">Application state error.</string>
     <string name="error_unknown">An unknown error occurred: No details available.</string>
-    <string name="error_no_cached_data_available">No cached data available!"</string>
+    <string name="statistics">Statistics</string>
 </resources>

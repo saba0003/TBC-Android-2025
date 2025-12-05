@@ -9,13 +9,13 @@
         android:name="com.example.tbc_android_2025.presentation.screen.splash.SplashFragment"
         android:label="Splash">
         <action
-            android:id="@+id/action_splashFragment_to_usersFragment"
-            app:destination="@id/usersFragment" />
+            android:id="@+id/action_splashFragment_to_cardsFragment"
+            app:destination="@id/cardsFragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/usersFragment"
-        android:name="com.example.tbc_android_2025.presentation.screen.users.UsersFragment"
-        android:label="Users Screen" />
+        android:id="@+id/cardsFragment"
+        android:name="com.example.tbc_android_2025.presentation.screen.cards.CardsFragment"
+        android:label="Cards Screen" />
 
 </navigation>
