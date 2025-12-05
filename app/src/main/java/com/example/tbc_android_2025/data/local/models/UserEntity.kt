@@ -3,7 +3,6 @@ package com.example.tbc_android_2025.data.local.models
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-// TODO: strings are hardcoded
 @Entity(tableName = "users")
 data class UserEntity(
     @PrimaryKey val id: Int,
