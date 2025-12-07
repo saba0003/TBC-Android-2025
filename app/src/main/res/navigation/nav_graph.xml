@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/splashFragment"
-        android:name="com.example.tbc_android_2025.presentation.screen.splash.SplashFragment"
+        android:name="com.example.tbc_android_2025.presentation.screens.splash.SplashFragment"
         android:label="Splash Screen">
         <action
             android:id="@+id/action_splashFragment_to_templateFragment"
@@ -15,7 +15,7 @@
 
     <fragment
         android:id="@+id/templateFragment"
-        android:name="com.example.tbc_android_2025.presentation.screen.template.TemplateFragment"
+        android:name="com.example.tbc_android_2025.presentation.screens.template.TemplateFragment"
         android:label="Template Screen" />
 
 </navigation>

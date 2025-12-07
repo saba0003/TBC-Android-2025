@@ -1,8 +1,8 @@
-package com.example.tbc_android_2025.presentation.screen.splash
+package com.example.tbc_android_2025.presentation.screens.splash
 
 import androidx.lifecycle.viewModelScope
 import com.example.tbc_android_2025.presentation.commons.BaseViewModel
-import com.example.tbc_android_2025.presentation.screen.splash.SplashContract.*
+import com.example.tbc_android_2025.presentation.screens.splash.SplashContract.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay

@@ -1,11 +1,11 @@
-package com.example.tbc_android_2025.presentation.screen.template
+package com.example.tbc_android_2025.presentation.screens.template
 
 import androidx.lifecycle.viewModelScope
 import com.example.tbc_android_2025.domain.commons.Resource
 import com.example.tbc_android_2025.domain.use_cases.GetTemplateModelsUseCase
 import com.example.tbc_android_2025.presentation.commons.BaseViewModel
 import com.example.tbc_android_2025.presentation.mappers.toPresentation
-import com.example.tbc_android_2025.presentation.screen.template.TemplateContract.*
+import com.example.tbc_android_2025.presentation.screens.template.TemplateContract.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

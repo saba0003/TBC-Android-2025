@@ -1,12 +1,12 @@
-package com.example.tbc_android_2025.presentation.screen.splash
+package com.example.tbc_android_2025.presentation.screens.splash
 
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.tbc_android_2025.databinding.FragmentSplashBinding as Binding
 import com.example.tbc_android_2025.presentation.commons.BaseFragment
 import com.example.tbc_android_2025.presentation.extensions.launchAndRepeatOnStart
-import com.example.tbc_android_2025.presentation.screen.splash.SplashContract.State
-import com.example.tbc_android_2025.presentation.screen.splash.SplashContract.SideEffect
+import com.example.tbc_android_2025.presentation.screens.splash.SplashContract.State
+import com.example.tbc_android_2025.presentation.screens.splash.SplashContract.SideEffect
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 

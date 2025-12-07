@@ -1,4 +1,4 @@
-package com.example.tbc_android_2025.presentation.screen.splash
+package com.example.tbc_android_2025.presentation.screens.splash
 
 sealed interface SplashContract {
 

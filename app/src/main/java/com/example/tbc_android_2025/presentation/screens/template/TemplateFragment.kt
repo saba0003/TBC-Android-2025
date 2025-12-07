@@ -1,10 +1,10 @@
-package com.example.tbc_android_2025.presentation.screen.template
+package com.example.tbc_android_2025.presentation.screens.template
 
 import androidx.fragment.app.viewModels
 import com.example.tbc_android_2025.databinding.FragmentTemplateBinding as Binding
 import com.example.tbc_android_2025.presentation.commons.BaseFragment
 import com.example.tbc_android_2025.presentation.extensions.launchAndRepeatOnStart
-import com.example.tbc_android_2025.presentation.screen.template.TemplateContract.State
+import com.example.tbc_android_2025.presentation.screens.template.TemplateContract.State
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
