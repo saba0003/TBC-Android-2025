@@ -15,13 +15,7 @@ class CardsFragment : BaseFragment<Binding>(inflater = Binding::inflate) {
     private val adapter by lazy { CardsAdapter() }
 
 
-    override fun bind() {
-        with(receiver = binding.viewPager) {
-            adapter = this@CardsFragment.adapter
-            orientation = ORIENTATION_HORIZONTAL
-        }
-        collectObservers()
-    }
+    override fun bind() { setupViewPager(); collectObservers() }
 
 
     /** ======================================= OBSERVERS ======================================= */
@@ -37,6 +31,14 @@ class CardsFragment : BaseFragment<Binding>(inflater = Binding::inflate) {
     private fun handleStates(group: CardsState) = with(receiver = group) {
         if (group.data.isNotEmpty())
             adapter.submitList(data.toPresentation())
+    }
+    /** ========================================================================================= */
+
+
+    /** ========================================== AUX ========================================== */
+    private fun setupViewPager() = with(receiver = binding.viewPager) {
+        adapter = this@CardsFragment.adapter
+        orientation = ORIENTATION_HORIZONTAL
     }
     /** ========================================================================================= */
 }
