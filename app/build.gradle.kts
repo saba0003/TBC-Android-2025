@@ -27,6 +27,9 @@ android {
     buildTypes {
         debug {
             isMinifyEnabled = true
+            buildConfigField(type = "String", name = "BASE_URL", value = "\"https://mocki.io/\"")
+            buildConfigField(type = "String", name = "API_VERSION", value = "\"v1/\"")
+            buildConfigField(type = "String", name = "ENDPOINT", value = "\"models\"")
         }
 
         release {
@@ -81,6 +84,7 @@ dependencies {
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
+    implementation(libs.androidx.viewpager2)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.navigation.fragment.ktx)

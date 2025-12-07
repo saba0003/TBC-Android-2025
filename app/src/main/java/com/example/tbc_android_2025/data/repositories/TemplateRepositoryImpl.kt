@@ -3,7 +3,7 @@ package com.example.tbc_android_2025.data.repositories
 import com.example.tbc_android_2025.data.commons.ResponseHandler
 import com.example.tbc_android_2025.data.mappers.asResource
 import com.example.tbc_android_2025.data.mappers.toDomainList
-import com.example.tbc_android_2025.data.services.TemplateService
+import com.example.tbc_android_2025.data.remote.services.TemplateService
 import com.example.tbc_android_2025.domain.commons.Resource
 import com.example.tbc_android_2025.domain.models.TemplateModel
 import com.example.tbc_android_2025.domain.repositories.TemplateRepository

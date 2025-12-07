@@ -14,4 +14,5 @@ class TemplateFragment : BaseFragment<Binding>(inflater = Binding::inflate) {
     override fun listeners() {
         TODO(reason = "Not yet implemented")
     }
+
 }
