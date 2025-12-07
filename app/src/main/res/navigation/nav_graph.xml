@@ -15,7 +15,7 @@
 
     <fragment
         android:id="@+id/templateFragment"
-        android:name="com.example.tbc_android_2025.presentation.screen.TemplateFragment"
+        android:name="com.example.tbc_android_2025.presentation.screen.template.TemplateFragment"
         android:label="Template Screen" />
 
 </navigation>
