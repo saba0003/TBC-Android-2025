@@ -6,11 +6,15 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @HiltViewModel
-class SplashViewModel : BaseViewModel<SplashState, SplashEvent, Unit>(initialState = SplashState.Loading) {
+class SplashViewModel @Inject constructor() :
+    BaseViewModel<SplashState, SplashEvent, SplashSideEffect>(initialState = SplashState.Loading) {
 
-    companion object { private const val DELAY = 3000L }
+
+    private companion object { const val DELAY = 3000L }
+
 
     private var splashJob: Job? = null
 
@@ -19,18 +23,19 @@ class SplashViewModel : BaseViewModel<SplashState, SplashEvent, Unit>(initialSta
 
 
     override fun onEvent(event: SplashEvent) {
-        when(event) {
+        when (event) {
             SplashEvent.OnStartSplash -> onStartSplash()
             SplashEvent.OnStopSplash -> onStopSplash()
         }
     }
 
 
-    /** ===================================== AUX =============================================== */
+    /** ========================================== AUX ========================================== */
     private fun onStartSplash() {
         splashJob = viewModelScope.launch {
             delay(timeMillis = DELAY)
-            updateState { SplashState.NavigateToTemplate }
+            updateState { SplashState.Finished }
+            sendEffect(sideEffect = SplashSideEffect.NavigateToTemplate)
         }
     }
 
