@@ -2,6 +2,7 @@ package com.example.tbc_android_2025.presentation.screen.splash
 
 import androidx.lifecycle.viewModelScope
 import com.example.tbc_android_2025.presentation.commons.BaseViewModel
+import com.example.tbc_android_2025.presentation.screen.splash.SplashContract.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -10,7 +11,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SplashViewModel @Inject constructor() :
-    BaseViewModel<SplashState, SplashEvent, SplashSideEffect>(initialState = SplashState.Loading) {
+    BaseViewModel<State, Event, SideEffect>(initialState = State.Loading) {
 
 
     private companion object { const val DELAY = 3000L }
@@ -19,26 +20,26 @@ class SplashViewModel @Inject constructor() :
     private var splashJob: Job? = null
 
 
-    init { onStartSplash() }
+    init { onStart() }
 
 
-    override fun onEvent(event: SplashEvent) {
+    override fun onEvent(event: Event) {
         when (event) {
-            SplashEvent.OnStartSplash -> onStartSplash()
-            SplashEvent.OnStopSplash -> onStopSplash()
+            Event.OnStart -> onStart()
+            Event.OnStop -> onStop()
         }
     }
 
 
     /** ========================================== AUX ========================================== */
-    private fun onStartSplash() {
+    private fun onStart() {
         splashJob = viewModelScope.launch {
             delay(timeMillis = DELAY)
-            updateState { SplashState.Finished }
-            sendEffect(sideEffect = SplashSideEffect.NavigateToTemplate)
+            updateState { State.Finished }
+            sendSideEffect(sideEffect = SideEffect.NavigateToTemplate)
         }
     }
 
-    private fun onStopSplash() = splashJob?.cancel()
+    private fun onStop() = splashJob?.cancel()
     /** ========================================================================================= */
 }

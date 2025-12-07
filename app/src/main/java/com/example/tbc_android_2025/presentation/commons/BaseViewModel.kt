@@ -22,7 +22,7 @@ abstract class BaseViewModel<STATE, EVENT, SIDE_EFFECT>(initialState: STATE) : V
 
     protected fun updateState(reducer: STATE.() -> STATE) = _state.update { it.reducer() }
 
-    protected fun sendEffect(sideEffect: SIDE_EFFECT) =
+    protected fun sendSideEffect(sideEffect: SIDE_EFFECT) =
         viewModelScope.launch { _sideEffect.emit(value = sideEffect) }
 
 }
