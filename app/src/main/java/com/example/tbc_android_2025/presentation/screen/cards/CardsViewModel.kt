@@ -13,9 +13,12 @@ class CardsViewModel @Inject constructor(private val getCardsUseCase: GetCardsUs
     BaseViewModel<CardsState, CardsEvent, Unit>(initialState = CardsState(isLoading = true)) {
 
 
+    init { onEvent(event = CardsEvent.GetCards) }
+
+
     override fun onEvent(event: CardsEvent): Unit = with(receiver = event) {
         when (this) {
-            CardsEvent.GetUsers -> handleGetCards()
+            CardsEvent.GetCards -> handleGetCards()
         }
     }
 
