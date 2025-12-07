@@ -1,10 +1,10 @@
 package com.example.tbc_android_2025.presentation.mappers
 
 import com.example.tbc_android_2025.domain.models.CardModel
-import com.example.tbc_android_2025.presentation.screen.cards.Card
+import com.example.tbc_android_2025.presentation.screen.cards.Cards
 
 fun CardModel.toPresentation() =
-    Card(
+    Cards.Card(
         location = location,
         altitude = altitude,
         title = title,

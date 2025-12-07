@@ -1,63 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="16dp">
+    android:layout_height="match_parent">
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/cardImage"
-        android:layout_width="0dp"
-        android:layout_height="200dp"
+        android:id="@+id/cardImageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/ic_sample_card_image_1_foreground" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/locationPinImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="50dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_location_pin" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/titleText"
-        android:layout_width="0dp"
+        android:id="@+id/locationTextView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="88dp"
-        android:paddingTop="12dp"
+        android:layout_marginStart="20dp"
+        android:text="Barcelona"
         android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cardImage" />
+        app:layout_constraintBottom_toBottomOf="@id/locationPinImageView"
+        app:layout_constraintStart_toEndOf="@id/locationPinImageView"
+        app:layout_constraintTop_toTopOf="@id/locationPinImageView" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/flameImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintBottom_toBottomOf="@id/locationPinImageView"
+        app:layout_constraintEnd_toStartOf="@id/altitudeTextView"
+        app:layout_constraintTop_toTopOf="@id/locationPinImageView"
+        app:srcCompat="@drawable/ic_flame" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/locationText"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginTop="36dp"
-        android:textColor="@android:color/white"
-        android:textSize="14sp"
+        android:id="@+id/altitudeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="50dp"
+        android:text="2500"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/flameImageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/flameImageView" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/titleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginBottom="20dp"
+        android:text="Natural walk to the top"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/priceTextView"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/priceTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginBottom="50dp"
+        android:text="$120"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/titleText"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/altitudeText"
+    <androidx.appcompat.widget.AppCompatRatingBar
+        android:id="@+id/ratingBar"
+        style="?android:attr/ratingBarStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@android:color/white"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/locationText" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/starsText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@android:color/holo_orange_light"
-        android:textSize="14sp"
+        android:layout_marginEnd="50dp"
+        android:isIndicator="true"
+        android:numStars="5"
+        android:rating="4"
+        android:stepSize="1"
+        app:layout_constraintBottom_toBottomOf="@id/priceTextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/altitudeText" />
+        app:layout_constraintTop_toTopOf="@id/priceTextView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

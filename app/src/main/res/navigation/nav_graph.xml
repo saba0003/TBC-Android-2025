@@ -7,7 +7,7 @@
     <fragment
         android:id="@+id/splashFragment"
         android:name="com.example.tbc_android_2025.presentation.screen.splash.SplashFragment"
-        android:label="Splash">
+        android:label="Splash Screen">
         <action
             android:id="@+id/action_splashFragment_to_cardsFragment"
             app:destination="@id/cardsFragment" />

@@ -12,21 +12,23 @@ import javax.inject.Inject
 class CardsViewModel @Inject constructor(private val getCardsUseCase: GetCardsUseCase) :
     BaseViewModel<CardsState, CardsEvent, Unit>(initialState = CardsState(isLoading = true)) {
 
+
     override fun onEvent(event: CardsEvent): Unit = with(receiver = event) {
         when (this) {
-            CardsEvent.GetUsers -> getCards()
+            CardsEvent.GetUsers -> handleGetCards()
         }
     }
 
-    private fun getCards() = viewModelScope.launch {
+
+    /** ======================================= HANDLERS ======================================== */
+    private fun handleGetCards() = viewModelScope.launch {
         getCardsUseCase().collect {
             when (it) {
                 is Resource.Success -> updateState { CardsState(data = it.data) }
-                is Resource.Error -> updateState {
-                    CardsState(error = it.errorMessage)
-                }
+                is Resource.Error -> updateState { CardsState(error = it.errorMessage) }
                 is Resource.Loader -> updateState { CardsState(isLoading = it.isLoading) }
             }
         }
     }
+    /** ========================================================================================= */
 }
