@@ -1,4 +1,4 @@
-package com.example.tbc_android_2025.di
+package com.example.tbc_android_2025.di.modules
 
 import com.example.tbc_android_2025.BuildConfig.BASE_URL
 import com.example.tbc_android_2025.BuildConfig.API_VERSION
