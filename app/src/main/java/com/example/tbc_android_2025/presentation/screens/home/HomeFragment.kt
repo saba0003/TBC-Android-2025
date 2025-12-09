@@ -1,16 +1,17 @@
-package com.example.tbc_android_2025.presentation.screens.template
+package com.example.tbc_android_2025.presentation.screens.home
 
 import androidx.fragment.app.viewModels
-import com.example.tbc_android_2025.databinding.FragmentTemplateBinding as Binding
+import com.example.tbc_android_2025.databinding.FragmentHomeBinding as Binding
 import com.example.tbc_android_2025.presentation.commons.BaseFragment
 import com.example.tbc_android_2025.presentation.extensions.launchAndRepeatOnStart
-import com.example.tbc_android_2025.presentation.screens.template.TemplateContract.State
+import com.example.tbc_android_2025.presentation.screens.home.post.PostContract.State
+import com.example.tbc_android_2025.presentation.screens.home.post.PostViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class TemplateFragment : BaseFragment<Binding>(inflater = Binding::inflate) {
+class HomeFragment : BaseFragment<Binding>(inflater = Binding::inflate) {
 
-    private val viewModel: TemplateViewModel by viewModels()
+    private val viewModel: PostViewModel by viewModels()
 
 
     override fun bind() = collectObservers()

@@ -53,8 +53,8 @@
         app:layout_constraintStart_toStartOf="@id/postAuthorImageView"
         app:layout_constraintTop_toBottomOf="@id/postAuthorImageView" />
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/photosHolder"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/photosHolderConstraintLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
@@ -70,7 +70,7 @@
         app:layout_constraintBottom_toTopOf="@id/commentsGroup"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/photosHolder"
+        app:layout_constraintTop_toBottomOf="@id/photosHolderConstraintLayout"
         app:layout_constraintWidth_percent="0.95" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
