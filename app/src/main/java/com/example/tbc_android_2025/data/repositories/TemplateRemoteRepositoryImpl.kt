@@ -2,7 +2,7 @@ package com.example.tbc_android_2025.data.repositories
 
 import com.example.tbc_android_2025.data.commons.ResponseHandler
 import com.example.tbc_android_2025.data.mappers.asResource
-import com.example.tbc_android_2025.data.mappers.toDomainList
+import com.example.tbc_android_2025.data.mappers.toDomain
 import com.example.tbc_android_2025.data.remote.services.TemplateService
 import com.example.tbc_android_2025.di.qualifiers.RemoteRepository
 import com.example.tbc_android_2025.domain.commons.Resource
@@ -21,6 +21,6 @@ class TemplateRemoteRepositoryImpl @Inject constructor(
 
     override fun getTemplateModels():  Flow<Resource<List<TemplateModel>>> =
         responseHandler.safeApiCall { templateService.getTemplateModels() }
-            .asResource { it.toDomainList() }
+            .asResource { it.toDomain() }
 
 }

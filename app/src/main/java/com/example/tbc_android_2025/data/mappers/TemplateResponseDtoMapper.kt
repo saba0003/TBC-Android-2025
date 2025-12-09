@@ -5,4 +5,4 @@ import com.example.tbc_android_2025.domain.models.TemplateModel
 
 fun TemplateResponseDto.toDomain() = TemplateModel(id = id)
 
-fun List<TemplateResponseDto>.toDomainList() = this.map { it.toDomain() }
+fun List<TemplateResponseDto>.toDomain() = this.map { it.toDomain() }
