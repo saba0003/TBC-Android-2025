@@ -29,7 +29,7 @@ android {
             isMinifyEnabled = true
             buildConfigField(type = "String", name = "BASE_URL", value = "\"https://mocki.io/\"")
             buildConfigField(type = "String", name = "API_VERSION", value = "\"v1/\"")
-            buildConfigField(type = "String", name = "ENDPOINT", value = "\"models\"")
+            buildConfigField(type = "String", name = "ENDPOINT", value = "\"1e3f40b1-19a5-4986-ad60-fdc80c27234b\"")
         }
 
         release {
