@@ -2,20 +2,21 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/templateFragment">
+    app:startDestination="@id/movieCatalogueFragment">
 
+    <!-- TODO: I'll leave splash screen disabled for now -->
     <fragment
         android:id="@+id/splashFragment"
         android:name="com.example.tbc_android_2025.presentation.screens.splash.SplashFragment"
         android:label="Splash Screen">
         <action
-            android:id="@+id/action_splashFragment_to_templateFragment"
-            app:destination="@id/templateFragment" />
+            android:id="@+id/action_splashFragment_to_movieCatalogueFragment"
+            app:destination="@id/movieCatalogueFragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/templateFragment"
-        android:name="com.example.tbc_android_2025.presentation.screens.template.TemplateFragment"
-        android:label="Template Screen" />
+        android:id="@+id/movieCatalogueFragment"
+        android:name="com.example.tbc_android_2025.presentation.screens.movie_catalogue.MovieCatalogueFragment"
+        android:label="Movie Catalogue Screen" />
 
 </navigation>

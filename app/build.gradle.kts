@@ -27,9 +27,10 @@ android {
     buildTypes {
         debug {
             isMinifyEnabled = true
-            buildConfigField(type = "String", name = "BASE_URL", value = "\"https://mocki.io/\"")
+            buildConfigField(type = "String", name = "BASE_URL", value = "\"http://10.0.2.2:8080/\"")
+            buildConfigField(type = "String", name = "API", value = "\"api/\"")
             buildConfigField(type = "String", name = "API_VERSION", value = "\"v1/\"")
-            buildConfigField(type = "String", name = "ENDPOINT", value = "\"models\"")
+            buildConfigField(type = "String", name = "GET_ALL_MOVIES_ENDPOINT", value = "\"movies\"")
         }
 
         release {

@@ -1,16 +1,16 @@
-package com.example.tbc_android_2025.presentation.screens.template
+package com.example.tbc_android_2025.presentation.screens.movie_catalogue
 
 import androidx.fragment.app.viewModels
-import com.example.tbc_android_2025.databinding.FragmentTemplateBinding as Binding
+import com.example.tbc_android_2025.databinding.FragmentMoviesCatalogueBinding as Binding
 import com.example.tbc_android_2025.presentation.commons.BaseFragment
 import com.example.tbc_android_2025.presentation.extensions.launchAndRepeatOnStart
-import com.example.tbc_android_2025.presentation.screens.template.TemplateContract.State
+import com.example.tbc_android_2025.presentation.screens.movie_catalogue.MovieContract.State
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class TemplateFragment : BaseFragment<Binding>(inflater = Binding::inflate) {
+class MovieCatalogueFragment : BaseFragment<Binding>(inflater = Binding::inflate) {
 
-    private val viewModel: TemplateViewModel by viewModels()
+    private val viewModel: MovieCatalogueViewModel by viewModels()
 
 
     override fun bind() = collectObservers()
