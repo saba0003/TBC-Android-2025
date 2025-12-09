@@ -17,4 +17,5 @@
     <color name="post_background_color">#30444E</color>
     <color name="default_icon_color">#96A7AF</color>
     <color name="selected_navbar_icon_overlay">#3DD598</color>
+    <color name="edit_text_background_color">#2A3C44</color>
 </resources>

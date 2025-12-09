@@ -6,4 +6,12 @@
     <string name="error_api">API error: Received an unexpected response code.</string>
     <string name="error_state">Application state error.</string>
     <string name="error_unknown">An unknown error occurred: No details available.</string>
+    <string name="category_chip_sample_text">When you wake up</string>
+    <string name="post_author_full_name_sample">Alice Smith</string>
+    <string name="post_creation_date_time_sample">20 April at 4:20 PM</string>
+    <string name="post_description_sample">We’re interested in your ideas and would be glad to build something bigger out of it.</string>
+    <string name="number_of_comments">%1$d Comments</string>
+    <string name="number_of_likes">%1$d Likes</string>
+    <string name="share">Share</string>
+    <string name="edit_text_hint">Write comment...</string>
 </resources>
