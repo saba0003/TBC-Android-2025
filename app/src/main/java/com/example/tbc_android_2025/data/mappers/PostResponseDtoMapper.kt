@@ -7,7 +7,7 @@ fun PostResponseDto.toDomain() =
     PostModel(
         avatar = avatar,
         postDate = postDate,
-        fullName = firstName.plus(other = lastName),
+        authorFullName = firstName.plus(other = ' ').plus(other = lastName),
         images = images,
         commentsCount = commentsCount,
         likesCount = likesCount,

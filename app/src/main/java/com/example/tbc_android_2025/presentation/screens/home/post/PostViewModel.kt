@@ -15,9 +15,7 @@ class PostViewModel @Inject constructor(private val getTemplateModels: GetPostMo
     BaseViewModel<State, Event, Unit>(initialState = State(isLoading = true)) {
 
 
-    init {
-        onEvent(event = Event.GetPostModels)
-    }
+    init { onEvent(event = Event.GetPostModels) }
 
 
     override fun onEvent(event: Event): Unit = with(receiver = event) {

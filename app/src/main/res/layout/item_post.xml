@@ -18,7 +18,7 @@
         app:srcCompat="@drawable/shape_oval_post_author" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/fullNameTextView"
+        android:id="@+id/authorFullNameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -40,7 +40,7 @@
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@id/postAuthorImageView"
         app:layout_constraintStart_toEndOf="@id/postAuthorImageView"
-        app:layout_constraintTop_toBottomOf="@id/fullNameTextView" />
+        app:layout_constraintTop_toBottomOf="@id/authorFullNameTextView" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/postDescriptionTextView"
@@ -49,7 +49,7 @@
         android:layout_marginTop="10dp"
         android:text="@string/post_description_sample"
         android:textColor="@color/white"
-        android:textSize="14sp"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@id/postAuthorImageView"
         app:layout_constraintTop_toBottomOf="@id/postAuthorImageView" />
 
@@ -191,11 +191,14 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
+        android:background="@drawable/shape_oval_user"
+        android:clipToOutline="true"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/commentEditText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/separatorLine2"
-        app:srcCompat="@drawable/shape_oval_user" />
+        app:srcCompat="@mipmap/grisha_oniani" />
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/commentEditText"
@@ -206,6 +209,7 @@
         android:drawablePadding="10dp"
         android:hint="@string/edit_text_hint"
         android:padding="12dp"
+        android:textColor="@color/white"
         android:textColorHint="@color/gray"
         app:layout_constraintBottom_toBottomOf="@id/userImageView"
         app:layout_constraintEnd_toEndOf="parent"

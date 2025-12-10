@@ -7,7 +7,7 @@ fun PostModelDomain.toPresentation() =
     PostModelPresentation(
         avatar = avatar,
         postDate = postDate,
-        fullName = fullName,
+        authorFullName = authorFullName,
         images = images,
         commentsCount = commentsCount,
         likesCount = likesCount,
