@@ -8,8 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding as Binding
 
-typealias ViewBindingInflater<VB> = (Inflater, Container?, Boolean) -> VB
-
 abstract class BaseFragment<VB : Binding>(private val inflater: ViewBindingInflater<VB>) : Fragment() {
 
     private var _binding: VB? = null

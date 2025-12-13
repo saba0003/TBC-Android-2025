@@ -1,15 +1,13 @@
 package com.example.tbc_android_2025.presentation.screens.movie_catalogue
 
-import android.view.LayoutInflater
-import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil.ItemCallback
-import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.example.tbc_android_2025.domain.models.MovieModel
+import com.example.tbc_android_2025.presentation.commons.BaseAdapter
+import com.example.tbc_android_2025.presentation.extensions.loadImage
 import com.example.tbc_android_2025.databinding.ItemMovieBinding as Binding
 
-class MovieAdapter :
-    ListAdapter<MovieModel, MovieAdapter.MovieViewHolder>(object : ItemCallback<MovieModel>() {
+class MovieAdapter : BaseAdapter<MovieModel, Binding>(
+    inflater = Binding::inflate,
+    diffCallback = object : ItemCallback<MovieModel>() {
         override fun areItemsTheSame(oldMovie: MovieModel, newMovie: MovieModel) =
             oldMovie.id == newMovie.id
 
@@ -18,27 +16,10 @@ class MovieAdapter :
     }) {
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-        MovieViewHolder(
-            binding = Binding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            )
-        )
-
-    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) =
-        holder.bind(movie = getItem(position))
-
-
-    inner class MovieViewHolder(private val binding: Binding) : ViewHolder(binding.root) {
-
-        fun bind(movie: MovieModel) = with(receiver = movie) {
-
-        }
-
-
-        /** ====================================== BINDERS ====================================== */
-        /** ===================================================================================== */
+    override fun bind(binding: Binding, item: MovieModel) {
+        binding.posterImageView.loadImage(url = item.postersUrls.first())
+        binding.titleTextView.text = item.title
+        binding.descriptionTextView.text = item.description
     }
+
 }
