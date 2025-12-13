@@ -21,11 +21,7 @@ class MovieCatalogueFragment : BaseFragment<Binding>(inflater = Binding::inflate
     private val adapter by lazy { MovieAdapter() }
 
 
-    override fun bind() = with(receiver = binding.recyclerView) {
-        adapter = this@MovieCatalogueFragment.adapter
-        layoutManager = LinearLayoutManager(requireContext())
-        collectObservers()
-    }
+    override fun bind() { setupRecycler(); collectObservers() }
 
 
     /** ======================================= OBSERVERS ======================================= */
@@ -44,23 +40,34 @@ class MovieCatalogueFragment : BaseFragment<Binding>(inflater = Binding::inflate
 
     /** ======================================= HANDLERS ======================================== */
     private fun handleStates(group: State) = with(receiver = group) {
-        if (group is State.Success)
-            if (group.data.isNotEmpty())
-                adapter.submitList(group.data)
+        when (group) {
+            is State.Success -> if (group.data.isNotEmpty()) adapter.submitList(group.data)
+            is State.Error -> Unit
+            is State.Loader -> Unit
+        }
     }
 
     private fun handleSideEffects(group: SideEffect) = with(receiver = binding.root) {
-        if (group is SideEffect.ShowError) {
-            val error: String = when (group.error) {
-                is AppError.Network -> ContextCompat.getString(context, Strings.error_network)
-                is AppError.Api -> ContextCompat.getString(context, Strings.error_api)
-                is AppError.State -> ContextCompat.getString(context, Strings.error_state)
-                is AppError.Unknown -> ContextCompat.getString(context, Strings.error_unknown)
-                is AppError.Message -> group.error.value
-                null -> SideEffect.ShowError()
-            } as String
-            popMessage(text = error, color = Colors.amaranth)
+        when (group) {
+            is SideEffect.ShowError -> {
+                val error = when (group.error) {
+                    is AppError.Network -> ContextCompat.getString(context, Strings.error_network)
+                    is AppError.Api -> ContextCompat.getString(context, Strings.error_api)
+                    is AppError.State -> ContextCompat.getString(context, Strings.error_state)
+                    is AppError.Unknown -> ContextCompat.getString(context, Strings.error_unknown)
+                    is AppError.Message -> group.error.value
+                }
+                popMessage(text = error, color = Colors.amaranth)
+            }
         }
-        /** ========================================================================================= */
     }
+    /** ========================================================================================= */
+
+
+    /** ========================================== AUX ========================================== */
+    private fun setupRecycler() = with(receiver = binding.recyclerView) {
+        adapter = this@MovieCatalogueFragment.adapter
+        layoutManager = LinearLayoutManager(requireContext())
+    }
+    /** ========================================================================================= */
 }

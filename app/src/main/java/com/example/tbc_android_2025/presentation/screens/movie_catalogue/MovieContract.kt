@@ -17,7 +17,7 @@ sealed interface MovieContract {
     }
 
     sealed interface SideEffect {
-        data class ShowError(val error: AppError? = null) : SideEffect
+        data class ShowError(val error: AppError) : SideEffect
     }
 
 }
