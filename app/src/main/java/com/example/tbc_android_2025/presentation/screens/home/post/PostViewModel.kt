@@ -30,7 +30,7 @@ class PostViewModel @Inject constructor(private val getTemplateModels: GetPostMo
         getTemplateModels().collect {
             when (it) {
                 is Success -> updateState { State(posts = it.data.toPresentation()) }
-                is Error -> updateState { State(error = it.errorMessage) }
+                is Error -> updateState { State(error = it.error) }
                 is Loader -> updateState { State(isLoading = it.isLoading) }
             }
         }

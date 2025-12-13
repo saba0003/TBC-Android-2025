@@ -1,5 +1,11 @@
 package com.example.tbc_android_2025.presentation.screens.home.post
 
+import android.view.View
+import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
+import android.widget.ImageView
+import androidx.appcompat.widget.AppCompatImageView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.recyclerview.widget.DiffUtil.ItemCallback
 import com.example.tbc_android_2025.commons.Strings
 import com.example.tbc_android_2025.presentation.commons.BaseAdapter
@@ -27,4 +33,23 @@ class PostAdapter : BaseAdapter<PostModel, Binding>(
         }
     }
 
+
+    private fun layoutSinglePhoto(photo: String) {
+        val img = makeImageView(url = photo).apply {
+            id = View.generateViewId()
+            layoutParams = ConstraintLayout.LayoutParams(0, WRAP_CONTENT).apply {
+                dimensionRatio = "1:1" // or 16:9 depending on your need
+                bottomToBottom = ConstraintSet.PARENT_ID
+                endToEnd = ConstraintSet.PARENT_ID
+                startToStart = ConstraintSet.PARENT_ID
+                topToTop = ConstraintSet.PARENT_ID
+            }
+        }
+        photosHolder.addView(img)
+    }
+
+    private fun makeImageView(url: String) = AppCompatImageView(requireContext()).apply {
+        scaleType = ImageView.ScaleType.CENTER_CROP
+        loadImage(url = url)
+    }
 }

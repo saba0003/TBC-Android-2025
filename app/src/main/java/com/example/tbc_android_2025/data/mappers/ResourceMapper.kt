@@ -9,7 +9,7 @@ fun <DTO, DOMAIN> Flow<Resource<DTO>>.asResource(onSuccess: (DTO) -> DOMAIN): Fl
     return this.map {
         when (it) {
             is Success -> Success(data = onSuccess(it.data))
-            is Error -> Error(errorMessage = it.errorMessage, throwable = it.throwable)
+            is Error -> Error(error = it.error, throwable = it.throwable)
             is Loader -> Loader(isLoading = it.isLoading)
         }
     }

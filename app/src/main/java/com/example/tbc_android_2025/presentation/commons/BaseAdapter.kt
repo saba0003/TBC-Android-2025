@@ -13,7 +13,7 @@ abstract class BaseAdapter<T, VB : Binding>(
 ) : ListAdapter<T, BaseAdapter.BaseViewHolder<VB>>(diffCallback) {
 
 
-    override fun onCreateViewHolder(container: Container, viewType: Int) =
+    override fun onCreateViewHolder(container: Container, ignored: Int) =
         BaseViewHolder(binding = inflater(Inflater.from(container.context), container, false))
 
     override fun onBindViewHolder(holder: BaseViewHolder<VB>, position: Int) =
