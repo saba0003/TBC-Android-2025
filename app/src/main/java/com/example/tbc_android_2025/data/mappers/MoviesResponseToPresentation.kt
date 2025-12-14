@@ -1,18 +1,20 @@
 package com.example.tbc_android_2025.data.mappers
 
 import com.example.tbc_android_2025.data.remote.dtos.MoviesResponseDto
+import com.example.tbc_android_2025.data.remote.dtos.MoviesResponseDto.MovieDto
+import com.example.tbc_android_2025.domain.mappers.*
 import com.example.tbc_android_2025.domain.models.MovieModel
 
-fun MoviesResponseDto.MovieDto.toDomain() =
+fun MovieDto.toDomain() =
     MovieModel(
         id = id,
         title = title,
         description = description,
-        releaseDate = releaseDate,
+        releaseDate = releaseDate.toLocalDate(),
         duration = duration,
-        genres = genres,
-        languages = languages,
-        ageRating = ageRating,
+        genres = genres.toGenres(),
+        languages = languages.toLanguages(),
+        ageRating = ageRating.toAgeRating(),
         director = director,
         country = country,
         postersUrls = postersUrls,

@@ -1,9 +1,18 @@
 <resources>
     <string name="app_name">TBC-Android-2025</string>
 
+    <string name="search_movies_hint">Search movies</string>
+
     <!-- SAMPLES -->
     <string name="movie_title_sample">Arthur and the invisibles</string>
     <string name="movie_description_sample">Seven-feet-tall Maltazard wishes to dominate the world. Arthur, a Minimoy, gulps an elixir of life provided by a queen bee and receives a human form. He then confronts Maltazard with the latter\'s son.</string>
+    <string name="age_rating_sample">R</string>
+    <string name="language_sample">ENG</string>
+    <string name="release_year_sample">2006</string>
+
+    <!-- CONTENT DESCRIPTIONS -->
+    <string name="back_button_content_description">Back Button</string>
+    <string name="filter_button_content_description">Filter Button</string>
 
     <!-- ERRORS -->
     <string name="error_network">Network error: Could not connect to the server.</string>

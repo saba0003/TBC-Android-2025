@@ -12,6 +12,7 @@ import com.example.tbc_android_2025.presentation.extensions.launchAndRepeatOnSta
 import com.example.tbc_android_2025.presentation.extensions.popMessage
 import com.example.tbc_android_2025.presentation.screens.movie_catalogue.MovieContract.*
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -32,7 +33,7 @@ class MovieCatalogueFragment : BaseFragment<Binding>(inflater = Binding::inflate
     private fun collectObservers() {
         viewLifecycleOwner.launchAndRepeatOnStart {
             launch { observeStates().collect { handleStates(group = it) } }
-            launch { observeSideEffects().collect { handleSideEffects(group = it) } }
+            launch { observeSideEffects().collectLatest { handleSideEffects(group = it) } }
         }
     }
     /** ========================================================================================= */

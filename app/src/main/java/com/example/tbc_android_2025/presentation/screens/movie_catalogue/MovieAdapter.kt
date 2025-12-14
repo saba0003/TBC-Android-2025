@@ -2,7 +2,7 @@ package com.example.tbc_android_2025.presentation.screens.movie_catalogue
 
 import androidx.recyclerview.widget.DiffUtil.ItemCallback
 import com.example.tbc_android_2025.presentation.commons.BaseAdapter
-import com.example.tbc_android_2025.presentation.extensions.loadImage
+import com.example.tbc_android_2025.presentation.extensions.loadPoster
 import com.example.tbc_android_2025.databinding.ItemMovieBinding as Binding
 
 class MovieAdapter : BaseAdapter<MovieModel, Binding>(
@@ -15,11 +15,12 @@ class MovieAdapter : BaseAdapter<MovieModel, Binding>(
             oldMovie == newMovie
     }) {
 
-
-    override fun bind(binding: Binding, item: MovieModel) {
-        binding.posterImageView.loadImage(url = item.postersUrls.first())
-        binding.titleTextView.text = item.title
-        binding.descriptionTextView.text = item.description
+    override fun bind(binding: Binding, item: MovieModel) = with(receiver = binding) {
+        posterImageView.loadPoster(url = item.postersUrls.first())
+        ageRatingBadgeTextView.text = item.ageRating.toString()
+        languageBadgeTextView.text = item.languages.first().toString()
+        titleTextView.text = item.title
+        releaseYearBadgeTextView.text = item.releaseDate.year.toString()
     }
 
 }
