@@ -13,7 +13,8 @@ sealed interface MovieContract {
     }
 
     sealed interface Event {
-        data object GetMovieModels : Event
+        data object GetAllMovieModels : Event
+        data class GetMovieModelsByTitle(val title: String) : Event
     }
 
     sealed interface SideEffect {

@@ -22,24 +22,20 @@
             android:contentDescription="@string/back_button_content_description"
             android:src="@drawable/ic_back"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/searchEditText"
+            app:layout_constraintEnd_toStartOf="@id/searchView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:tint="@color/black" />
 
         <androidx.appcompat.widget.SearchView
-            android:id="@+id/searchEditText"
+            android:id="@+id/searchView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="8dp"
             android:imeOptions="actionSearch"
             android:inputType="text"
-            app:boxBackgroundMode="outline"
-            app:boxCornerRadiusBottomEnd="12dp"
-            app:boxCornerRadiusBottomStart="12dp"
-            app:boxCornerRadiusTopEnd="12dp"
-            app:boxCornerRadiusTopStart="12dp"
             app:defaultQueryHint="@string/search_movies_hint"
+            app:iconifiedByDefault="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/filterImageButton"
             app:layout_constraintStart_toEndOf="@id/backImageButton"
@@ -53,7 +49,7 @@
             android:contentDescription="@string/filter_button_content_description"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/searchEditText"
+            app:layout_constraintStart_toEndOf="@id/searchView"
             app:layout_constraintTop_toTopOf="parent"
             app:tint="@color/black" />
 

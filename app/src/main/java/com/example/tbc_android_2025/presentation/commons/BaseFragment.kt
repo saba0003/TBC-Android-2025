@@ -8,7 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding as Binding
 
-abstract class BaseFragment<VB : Binding>(private val inflater: ViewBindingInflater<VB>) : Fragment() {
+abstract class BaseFragment<VB : Binding>(private val inflater: ViewBindingInflater<VB>) :
+    Fragment() {
 
     private var _binding: VB? = null
     protected val binding get() = _binding!!
@@ -31,7 +32,9 @@ abstract class BaseFragment<VB : Binding>(private val inflater: ViewBindingInfla
 
     protected open fun listeners() {}
 
-    protected open fun navigateBack() = findNavController().popBackStack()
+    protected open fun navigateBack() {
+        findNavController().popBackStack()
+    }
 
 
     override fun onDestroyView() {

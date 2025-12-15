@@ -1,5 +1,6 @@
 package com.example.tbc_android_2025.presentation.screens.movie_catalogue
 
+import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,6 +24,31 @@ class MovieCatalogueFragment : BaseFragment<Binding>(inflater = Binding::inflate
 
 
     override fun bind() { setupRecycler(); collectObservers() }
+
+    override fun listeners() { setListenerOnSearchBar(); setListenerOnBackButton() }
+
+    override fun navigateBack() = requireActivity().finish()
+
+
+    /** ======================================= LISTENERS ======================================= */
+    private fun setListenerOnSearchBar() =
+        binding.searchView.setOnQueryTextListener(provideOnQueryTextListener())
+
+    private fun provideOnQueryTextListener() = object : SearchView.OnQueryTextListener {
+        override fun onQueryTextSubmit(query: String?): Boolean {
+            submitSearch(query = query)
+            binding.searchView.clearFocus() // hides keyboard
+            return true
+        }
+
+        override fun onQueryTextChange(newText: String?): Boolean {
+            // optional: handle live search
+            return true
+        }
+    }
+
+    private fun setListenerOnBackButton() = binding.backImageButton.setOnClickListener { navigateBack() }
+    /** ========================================================================================= */
 
 
     /** ======================================= OBSERVERS ======================================= */
@@ -52,10 +78,11 @@ class MovieCatalogueFragment : BaseFragment<Binding>(inflater = Binding::inflate
         when (group) {
             is SideEffect.ShowError -> {
                 val error = when (group.error) {
-                    is AppError.Network -> ContextCompat.getString(context, Strings.error_network)
-                    is AppError.Api -> ContextCompat.getString(context, Strings.error_api)
-                    is AppError.State -> ContextCompat.getString(context, Strings.error_state)
-                    is AppError.Unknown -> ContextCompat.getString(context, Strings.error_unknown)
+                    AppError.Network -> ContextCompat.getString(context, Strings.error_network)
+                    AppError.Api -> ContextCompat.getString(context, Strings.error_api)
+                    AppError.State -> ContextCompat.getString(context, Strings.error_state)
+                    AppError.Unknown -> ContextCompat.getString(context, Strings.error_unknown)
+                    AppError.SearchQuery -> ContextCompat.getString(context, Strings.error_search_query_length_subminimal)
                     is AppError.Message -> group.error.value
                 }
                 popMessage(text = error, color = Colors.amaranth)
@@ -70,5 +97,8 @@ class MovieCatalogueFragment : BaseFragment<Binding>(inflater = Binding::inflate
         adapter = this@MovieCatalogueFragment.adapter
         layoutManager = LinearLayoutManager(requireContext())
     }
+
+    private fun submitSearch(query: String?) =
+        query?.let { viewModel.onEvent(event = Event.GetMovieModelsByTitle(title = it)) }
     /** ========================================================================================= */
 }

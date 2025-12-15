@@ -31,6 +31,7 @@ android {
             buildConfigField(type = "String", name = "API", value = "\"api/\"")
             buildConfigField(type = "String", name = "API_VERSION", value = "\"v1/\"")
             buildConfigField(type = "String", name = "GET_ALL_MOVIES_ENDPOINT", value = "\"movies\"")
+            buildConfigField(type = "String", name = "GET_MOVIES_BY_TITLE_ENDPOINT", value = "\"movies/search/by-title\"")
         }
 
         release {
