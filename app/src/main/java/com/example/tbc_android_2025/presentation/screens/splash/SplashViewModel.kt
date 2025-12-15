@@ -13,12 +13,9 @@ import javax.inject.Inject
 class SplashViewModel @Inject constructor() :
     BaseViewModel<State, Event, SideEffect>(initialState = State.Loading) {
 
-
     private companion object { const val DELAY = 3000L }
 
-
     private var splashJob: Job? = null
-
 
     init { onStart() }
 
@@ -36,7 +33,7 @@ class SplashViewModel @Inject constructor() :
         splashJob = viewModelScope.launch {
             delay(timeMillis = DELAY)
             updateState { State.Finished }
-            sendSideEffect(sideEffect = SideEffect.NavigateToTemplate)
+            emitSideEffect(sideEffect = SideEffect.NavigateToMovieCatalogue)
         }
     }
 

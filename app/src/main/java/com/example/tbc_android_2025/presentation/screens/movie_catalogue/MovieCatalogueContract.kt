@@ -1,11 +1,10 @@
 package com.example.tbc_android_2025.presentation.screens.movie_catalogue
 
 import com.example.tbc_android_2025.domain.exceptions.AppError
+import com.example.tbc_android_2025.presentation.screens.commons.MovieModel
 
-sealed interface MovieContract {
-
+sealed interface MovieCatalogueContract {
     // TODO: maybe use sets instead of lists
-
     sealed class State {
         data class Success(val data: List<MovieModel> = emptyList()) : State()
         data class Error(val error: AppError? = null, val throwable: Throwable? = null) : State()
@@ -13,12 +12,13 @@ sealed interface MovieContract {
     }
 
     sealed interface Event {
-        data object GetAllMovieModels : Event
-        data class GetMovieModelsByTitle(val title: String) : Event
+        data object OnGetAllMovieModels : Event
+        data class OnGetMovieModelsByTitle(val title: String) : Event
+        data class OnMovieClicked(val movie: MovieModel) : Event
     }
 
     sealed interface SideEffect {
+        data class NavigateToMovie(val movie: MovieModel) : SideEffect
         data class ShowError(val error: AppError) : SideEffect
     }
-
 }

@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">TBC-Android-2025</string>
 
+    <!-- MISC -->
     <string name="search_movies_hint">Search movies</string>
+    <string name="watch_trailer">Watch Trailer</string>
 
     <!-- SAMPLES -->
     <string name="movie_title_sample">Arthur and the invisibles</string>

@@ -40,7 +40,7 @@ class SplashFragment : BaseFragment<Binding>(inflater = Binding::inflate) {
     }
 
     private fun handleSideEffects(group: SideEffect) = when (group) {
-        is SideEffect.NavigateToTemplate -> navigateToTemplateFragment()
+        is SideEffect.NavigateToMovieCatalogue -> navigateToTemplateFragment()
     }
     /** ========================================================================================= */
 

@@ -1,7 +1,7 @@
 package com.example.tbc_android_2025.presentation.mappers
 
 import com.example.tbc_android_2025.domain.models.MovieModel as MovieModelDomain
-import com.example.tbc_android_2025.presentation.screens.movie_catalogue.MovieModel as MovieModelPresentation
+import com.example.tbc_android_2025.presentation.screens.commons.MovieModel as MovieModelPresentation
 
 fun MovieModelDomain.toPresentation() =
     MovieModelPresentation(

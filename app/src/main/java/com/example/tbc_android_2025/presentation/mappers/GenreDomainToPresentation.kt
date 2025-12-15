@@ -1,7 +1,7 @@
 package com.example.tbc_android_2025.presentation.mappers
 
 import com.example.tbc_android_2025.domain.models.MovieModel.Genre as GenreDomain
-import com.example.tbc_android_2025.presentation.screens.movie_catalogue.MovieModel.Genre as GenrePresentation
+import com.example.tbc_android_2025.presentation.screens.commons.MovieModel.Genre as GenrePresentation
 
 fun GenreDomain.toPresentation() = GenrePresentation.valueOf(value = name)
 

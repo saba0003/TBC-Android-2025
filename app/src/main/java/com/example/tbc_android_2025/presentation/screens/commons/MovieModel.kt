@@ -1,7 +1,10 @@
-package com.example.tbc_android_2025.presentation.screens.movie_catalogue
+package com.example.tbc_android_2025.presentation.screens.commons
 
+import android.os.Parcelable
 import kotlinx.datetime.LocalDate
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class MovieModel(
     val id: Int,
     val title: String,
@@ -17,7 +20,7 @@ data class MovieModel(
     val trailersUrls: List<String>,
     val budget: String,
     val boxOfficeGross: String
-) {
+) : Parcelable {
     enum class Genre {
         ACTION, ADVENTURE, ANIMATION, COMEDY, CRIME, DOCUMENTARY, DRAMA, FANTASY, HORROR, MYSTERY,
         ROMANCE, SCIENCE_FICTION, THRILLER, WAR, WESTERN, MAFIA, GANGSTER, SUSPENSE, CLASSIC, SILENT,

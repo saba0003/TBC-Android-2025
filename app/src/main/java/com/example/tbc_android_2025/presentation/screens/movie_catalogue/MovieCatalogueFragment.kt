@@ -3,6 +3,7 @@ package com.example.tbc_android_2025.presentation.screens.movie_catalogue
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tbc_android_2025.commons.Colors
 import com.example.tbc_android_2025.commons.Strings
@@ -11,7 +12,7 @@ import com.example.tbc_android_2025.databinding.FragmentMoviesCatalogueBinding a
 import com.example.tbc_android_2025.presentation.commons.BaseFragment
 import com.example.tbc_android_2025.presentation.extensions.launchAndRepeatOnStart
 import com.example.tbc_android_2025.presentation.extensions.popMessage
-import com.example.tbc_android_2025.presentation.screens.movie_catalogue.MovieContract.*
+import com.example.tbc_android_2025.presentation.screens.movie_catalogue.MovieCatalogueContract.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -20,7 +21,9 @@ import kotlinx.coroutines.launch
 class MovieCatalogueFragment : BaseFragment<Binding>(inflater = Binding::inflate) {
 
     private val viewModel: MovieCatalogueViewModel by viewModels()
-    private val adapter by lazy { MovieAdapter() }
+    private val adapter by lazy {
+        MovieAdapter { viewModel.onEvent(event = Event.OnMovieClicked(movie = it)) }
+    }
 
 
     override fun bind() { setupRecycler(); collectObservers() }
@@ -52,14 +55,10 @@ class MovieCatalogueFragment : BaseFragment<Binding>(inflater = Binding::inflate
 
 
     /** ======================================= OBSERVERS ======================================= */
-    private fun observeStates() = viewModel.state
-
-    private fun observeSideEffects() = viewModel.sideEffect
-
     private fun collectObservers() {
         viewLifecycleOwner.launchAndRepeatOnStart {
-            launch { observeStates().collect { handleStates(group = it) } }
-            launch { observeSideEffects().collectLatest { handleSideEffects(group = it) } }
+            launch { viewModel.state.collect { handleStates(group = it) } }
+            launch { viewModel.sideEffect.collectLatest { handleSideEffects(group = it) } }
         }
     }
     /** ========================================================================================= */
@@ -87,6 +86,13 @@ class MovieCatalogueFragment : BaseFragment<Binding>(inflater = Binding::inflate
                 }
                 popMessage(text = error, color = Colors.amaranth)
             }
+
+            is SideEffect.NavigateToMovie -> {
+                val direction =
+                    MovieCatalogueFragmentDirections
+                        .actionMovieCatalogueFragmentToMovieFragment(movie = group.movie)
+                findNavController().navigate(directions = direction)
+            }
         }
     }
     /** ========================================================================================= */
@@ -99,6 +105,6 @@ class MovieCatalogueFragment : BaseFragment<Binding>(inflater = Binding::inflate
     }
 
     private fun submitSearch(query: String?) =
-        query?.let { viewModel.onEvent(event = Event.GetMovieModelsByTitle(title = it)) }
+        query?.let { viewModel.onEvent(event = Event.OnGetMovieModelsByTitle(title = it)) }
     /** ========================================================================================= */
 }

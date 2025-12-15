@@ -12,10 +12,13 @@ class GetMovieModelsByTitleUseCase @Inject constructor(@param:RemoteRepository p
 
     operator fun invoke(title: String): MoviesResourceFlow {
         val trimmedTitle = title.trim()
-        return when {
-            trimmedTitle.length < 3 -> flowOf(value = Resource.Error(error = SearchQuery))
-            else -> repository.getMoviesByTitle(title = trimmedTitle)
-        }
+        return if (!validateTitle(title = trimmedTitle))
+            flowOf(value = Resource.Error(error = SearchQuery))
+        else
+            repository.getMoviesByTitle(title = trimmedTitle)
     }
 
+    /** ========================================== AUX ========================================== */
+    private fun validateTitle(title: String) = title.length > 2
+    /** ========================================================================================= */
 }

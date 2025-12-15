@@ -13,7 +13,7 @@ sealed interface SplashContract {
     }
 
     sealed interface SideEffect {
-        data object NavigateToTemplate : SideEffect
+        data object NavigateToMovieCatalogue : SideEffect
     }
 
 }

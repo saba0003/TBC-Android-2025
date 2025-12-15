@@ -5,7 +5,8 @@ import com.example.tbc_android_2025.domain.commons.Resource.*
 import com.example.tbc_android_2025.domain.use_cases.*
 import com.example.tbc_android_2025.presentation.commons.BaseViewModel
 import com.example.tbc_android_2025.presentation.mappers.toPresentation
-import com.example.tbc_android_2025.presentation.screens.movie_catalogue.MovieContract.*
+import com.example.tbc_android_2025.presentation.screens.commons.MovieModel
+import com.example.tbc_android_2025.presentation.screens.movie_catalogue.MovieCatalogueContract.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -17,15 +18,14 @@ class MovieCatalogueViewModel @Inject constructor(
 ) : BaseViewModel<State, Event, SideEffect>(initialState = State.Loader(isLoading = true)) {
 
 
-    init {
-        onEvent(event = Event.GetAllMovieModels)
-    }
+    init { onEvent(event = Event.OnGetAllMovieModels) }
 
 
     override fun onEvent(event: Event) = with(receiver = event) {
         when (this) {
-            Event.GetAllMovieModels -> onGetAllMovieModels()
-            is Event.GetMovieModelsByTitle -> onGetMovieModelsByTitle(title = title)
+            Event.OnGetAllMovieModels -> onGetAllMovieModels()
+            is Event.OnGetMovieModelsByTitle -> onGetMovieModelsByTitle(title = title)
+            is Event.OnMovieClicked -> onMovieClicked(movie = movie)
         }
     }
 
@@ -38,7 +38,7 @@ class MovieCatalogueViewModel @Inject constructor(
                     is Success -> updateState { State.Success(data = it.data.toPresentation()) }
                     is Error -> {
                         updateState { State.Error(error = it.error) }
-                        sendSideEffect(sideEffect = SideEffect.ShowError(error = it.error))
+                        emitSideEffect(sideEffect = SideEffect.ShowError(error = it.error))
                     }
                     is Loader -> updateState { State.Loader(isLoading = it.isLoading) }
                 }
@@ -53,12 +53,15 @@ class MovieCatalogueViewModel @Inject constructor(
                     is Success -> updateState { State.Success(data = it.data.toPresentation()) }
                     is Error -> {
                         updateState { State.Error(error = it.error) }
-                        sendSideEffect(sideEffect = SideEffect.ShowError(error = it.error))
+                        emitSideEffect(sideEffect = SideEffect.ShowError(error = it.error))
                     }
                     is Loader -> updateState { State.Loader(isLoading = it.isLoading) }
                 }
             }
         }
     }
+
+    private fun onMovieClicked(movie: MovieModel) =
+        sendSideEffect(sideEffect = SideEffect.NavigateToMovie(movie = movie))
     /** ========================================================================================= */
 }

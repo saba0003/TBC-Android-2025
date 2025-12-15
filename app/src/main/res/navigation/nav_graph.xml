@@ -2,9 +2,8 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/movieCatalogueFragment">
+    app:startDestination="@id/splashFragment">
 
-    <!-- TODO: I'll leave splash screen disabled for now -->
     <fragment
         android:id="@+id/splashFragment"
         android:name="com.example.tbc_android_2025.presentation.screens.splash.SplashFragment"
@@ -17,6 +16,19 @@
     <fragment
         android:id="@+id/movieCatalogueFragment"
         android:name="com.example.tbc_android_2025.presentation.screens.movie_catalogue.MovieCatalogueFragment"
-        android:label="Movie Catalogue Screen" />
+        android:label="Movie Catalogue Screen">
+        <action
+            android:id="@+id/action_movieCatalogueFragment_to_movieFragment"
+            app:destination="@id/movieFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/movieFragment"
+        android:name="com.example.tbc_android_2025.presentation.screens.movie.MovieFragment"
+        android:label="Movie Screen">
+        <argument
+            android:name="movie"
+            app:argType="com.example.tbc_android_2025.presentation.screens.commons.MovieModel" />
+    </fragment>
 
 </navigation>
