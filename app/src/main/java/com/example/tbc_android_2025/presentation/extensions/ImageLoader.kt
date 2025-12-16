@@ -7,7 +7,7 @@ import coil3.request.error
 import coil3.request.placeholder
 import coil3.request.transformations
 import coil3.transform.RoundedCornersTransformation
-import com.example.tbc_android_2025.commons.Drawables
+import com.example.tbc_android_2025.commons.Images
 
 fun ImageView.loadPoster(url: String?, cornerRadiusDp: Float = 12F) {
     load(data = url) {
@@ -15,7 +15,7 @@ fun ImageView.loadPoster(url: String?, cornerRadiusDp: Float = 12F) {
         transformations(
             RoundedCornersTransformation(topLeft = cornerRadiusDp, topRight = cornerRadiusDp)
         )
-        placeholder(drawableResId = Drawables.ic_launcher_background)
-        error(drawableResId = Drawables.ic_launcher_foreground)
+        placeholder(drawableResId = Images.pablo_waiting)
+        error(drawableResId = Images.grisha_yelling)
     }
 }
