@@ -13,6 +13,7 @@ data class MoviesResponseDto(
     @JsonClass(generateAdapter = true)
     data class MovieDto(
         val id: Int,
+        val imdbId: String,
         val title: String,
         val description: String,
         val releaseDate: String,

@@ -5,6 +5,7 @@ import kotlinx.datetime.LocalDate
 // TODO: maybe use sets instead of lists
 data class MovieModel(
     val id: Int,
+    val imdbId: String,
     val title: String,
     val description: String,
     val releaseDate: LocalDate,

@@ -6,6 +6,7 @@ import com.example.tbc_android_2025.presentation.screens.commons.MovieModel as M
 fun MovieModelDomain.toPresentation() =
     MovieModelPresentation(
         id = id,
+        imdbId = imdbId,
         title = title,
         description = description,
         releaseDate = releaseDate,

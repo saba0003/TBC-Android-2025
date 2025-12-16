@@ -8,6 +8,7 @@ import com.example.tbc_android_2025.domain.models.MovieModel
 fun MovieDto.toDomain() =
     MovieModel(
         id = id,
+        imdbId = imdbId,
         title = title,
         description = description,
         releaseDate = releaseDate.toLocalDate(),
