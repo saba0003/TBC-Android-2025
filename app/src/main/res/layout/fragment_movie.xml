@@ -1,56 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="20dp">
+    android:layout_marginVertical="20dp"
+    android:fillViewport="true">
 
-    <androidx.appcompat.widget.AppCompatImageButton
-        android:id="@+id/backImageButton"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:contentDescription="@string/back_button_content_description"
-        android:src="@drawable/ic_back"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/black" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/titleTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/movie_title_sample"
-        app:layout_constraintStart_toStartOf="@id/backImageButton"
-        app:layout_constraintTop_toBottomOf="@id/backImageButton" />
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/backImageButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/back_button_content_description"
+            android:src="@drawable/ic_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/black" />
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/posterImageView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@color/black"
-        android:scaleType="fitCenter"
-        android:src="@android:drawable/ic_menu_gallery"
-        app:layout_constraintDimensionRatio="H,2:3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/titleTextView"
-        app:layout_constraintTop_toBottomOf="@id/titleTextView" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/titleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/movie_title_sample"
+            app:layout_constraintStart_toStartOf="@id/backImageButton"
+            app:layout_constraintTop_toBottomOf="@id/backImageButton" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/watchTrailerButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/watch_trailer"
-        android:textAllCaps="false"
-        app:layout_constraintStart_toStartOf="@id/posterImageView"
-        app:layout_constraintTop_toBottomOf="@id/posterImageView" />
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/posterImageView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/black"
+            android:scaleType="fitCenter"
+            android:src="@android:drawable/ic_menu_gallery"
+            app:layout_constraintDimensionRatio="H,2:3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/titleTextView"
+            app:layout_constraintTop_toBottomOf="@id/titleTextView" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/descriptionTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/movie_description_sample"
-        app:layout_constraintStart_toStartOf="@id/watchTrailerButton"
-        app:layout_constraintTop_toBottomOf="@id/watchTrailerButton" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/watchTrailerButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/watch_trailer"
+            android:textAllCaps="false"
+            app:layout_constraintStart_toStartOf="@id/posterImageView"
+            app:layout_constraintTop_toBottomOf="@id/posterImageView" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/descriptionTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/description"
+            app:layout_constraintStart_toStartOf="@id/watchTrailerButton"
+            app:layout_constraintTop_toBottomOf="@id/watchTrailerButton" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/releaseDateTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/release_date"
+            app:layout_constraintStart_toStartOf="@id/descriptionTextView"
+            app:layout_constraintTop_toBottomOf="@id/descriptionTextView" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/durationTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/duration"
+            app:layout_constraintStart_toStartOf="@id/releaseDateTextView"
+            app:layout_constraintTop_toBottomOf="@id/releaseDateTextView" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/genresTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/genres"
+            app:layout_constraintStart_toStartOf="@id/durationTextView"
+            app:layout_constraintTop_toBottomOf="@id/durationTextView" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/languagesTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/languages"
+            app:layout_constraintStart_toStartOf="@id/genresTextView"
+            app:layout_constraintTop_toBottomOf="@id/genresTextView" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/ageRatingTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/age_rating"
+            app:layout_constraintStart_toStartOf="@id/languagesTextView"
+            app:layout_constraintTop_toBottomOf="@id/languagesTextView" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/directorTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/director"
+            app:layout_constraintStart_toStartOf="@id/ageRatingTextView"
+            app:layout_constraintTop_toBottomOf="@id/ageRatingTextView" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/countryTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/country"
+            app:layout_constraintStart_toStartOf="@id/directorTextView"
+            app:layout_constraintTop_toBottomOf="@id/directorTextView" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/budgetTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/budget"
+            app:layout_constraintStart_toStartOf="@id/countryTextView"
+            app:layout_constraintTop_toBottomOf="@id/countryTextView" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/boxOfficeGrossTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/box_office_gross"
+            app:layout_constraintStart_toStartOf="@id/budgetTextView"
+            app:layout_constraintTop_toBottomOf="@id/budgetTextView" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

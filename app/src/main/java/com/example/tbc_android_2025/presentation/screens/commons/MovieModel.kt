@@ -21,6 +21,7 @@ data class MovieModel(
     val budget: String,
     val boxOfficeGross: String
 ) : Parcelable {
+
     enum class Genre {
         ACTION, ADVENTURE, ANIMATION, COMEDY, CRIME, DOCUMENTARY, DRAMA, FANTASY, HORROR, MYSTERY,
         ROMANCE, SCIENCE_FICTION, THRILLER, WAR, WESTERN, MAFIA, GANGSTER, SUSPENSE, CLASSIC, SILENT,
@@ -31,7 +32,13 @@ data class MovieModel(
     enum class Language {
         ENGLISH, SPANISH, FRENCH, GERMAN, ITALIAN, JAPANESE, KOREAN, CHINESE, HINDI, RUSSIAN, GEORGIAN;
 
-        override fun toString() = name.take(n = 3)
+        fun code() = name.take(n = FIRST_THREE_CHARACTERS)
+
+        override fun toString() = name.replaceFirstChar { it.titlecase() }
+
+        private companion object {
+            const val FIRST_THREE_CHARACTERS = 3
+        }
     }
 
     enum class AgeRating {
@@ -50,9 +57,9 @@ data class MovieModel(
         }
 
         private companion object {
-            private const val OLD_CHAR = '_'
-            private const val NEW_CHAR = '-'
-            private const val IGNORE_CASE = true
+            const val OLD_CHAR = '_'
+            const val NEW_CHAR = '-'
+            const val IGNORE_CASE = true
         }
     }
 }

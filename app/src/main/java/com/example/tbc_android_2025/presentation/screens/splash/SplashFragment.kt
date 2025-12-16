@@ -8,6 +8,7 @@ import com.example.tbc_android_2025.presentation.extensions.launchAndRepeatOnSta
 import com.example.tbc_android_2025.presentation.screens.splash.SplashContract.State
 import com.example.tbc_android_2025.presentation.screens.splash.SplashContract.SideEffect
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -27,7 +28,7 @@ class SplashFragment : BaseFragment<Binding>(inflater = Binding::inflate) {
     private fun collectObservers() {
         viewLifecycleOwner.launchAndRepeatOnStart {
             launch { observeStates().collect { handleStates(group = it) } }
-            launch { observeSideEffects().collect { handleSideEffects(group = it) } }
+            launch { observeSideEffects().collectLatest { handleSideEffects(group = it) } }
         }
     }
     /** ========================================================================================= */

@@ -20,9 +20,8 @@ class MovieAdapter(private val onClick: (MovieModel) -> Unit) : BaseAdapter<Movi
         root.setOnClickListener { onClick(item) }
         posterImageView.loadPoster(url = item.postersUrls.first())
         ageRatingBadgeTextView.text = item.ageRating.toString()
-        languageBadgeTextView.text = item.languages.first().toString()
+        languageBadgeTextView.text = item.languages.first().code()
         titleTextView.text = item.title
         releaseYearBadgeTextView.text = item.releaseDate.year.toString()
     }
-
 }
