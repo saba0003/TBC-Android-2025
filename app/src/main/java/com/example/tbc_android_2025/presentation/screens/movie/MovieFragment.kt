@@ -201,7 +201,6 @@ class MovieFragment : BaseFragment<Binding>(inflater = Binding::inflate) {
             BASE_URL, html, MIME_TYPE, ENCODING, null
         )
     }
-
     /** ========================================================================================= */
 
     private companion object {
