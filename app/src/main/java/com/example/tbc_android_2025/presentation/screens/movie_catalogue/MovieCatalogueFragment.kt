@@ -35,10 +35,10 @@ class MovieCatalogueFragment : BaseFragment<Binding>(inflater = Binding::inflate
 
     /** ======================================= LISTENERS ======================================= */
     private fun setListenerOnSearchBar() =
-        binding.searchView.setOnQueryTextListener(onQueryTextListener())
+        binding.searchView.setOnQueryTextListener(provideOnQueryTextListener())
 
     // TODO: Debouncer can be added
-    private fun onQueryTextListener() = object : SearchView.OnQueryTextListener {
+    private fun provideOnQueryTextListener() = object : SearchView.OnQueryTextListener {
         override fun onQueryTextSubmit(query: String?): Boolean {
             submitSearch(query = query)
             binding.searchView.clearFocus()

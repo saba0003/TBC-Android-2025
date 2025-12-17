@@ -157,11 +157,11 @@ class MovieFragment : BaseFragment<Binding>(inflater = Binding::inflate) {
         settings.mediaPlaybackRequiresUserGesture = false
         settings.loadsImagesAutomatically = true
         webViewClient = WebViewClient()
-        webChromeClient = WebChromeClient()
+        webChromeClient = provideWebChromeClient()
         loadMovie(imdbId = imdbId)
     }
 
-    private fun WebChromeClient() = object : WebChromeClient() {
+    private fun provideWebChromeClient() = object : WebChromeClient() {
 
         private var customView: View? = null
         private var customViewCallback: CustomViewCallback? = null
