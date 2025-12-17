@@ -22,7 +22,6 @@ data class MovieModel(
     val budget: String,
     val boxOfficeGross: String
 ) : Parcelable {
-
     enum class Genre {
         ACTION, ADVENTURE, ANIMATION, COMEDY, CRIME, DOCUMENTARY, DRAMA, FANTASY, HORROR, MYSTERY,
         ROMANCE, SCIENCE_FICTION, THRILLER, WAR, WESTERN, MAFIA, GANGSTER, SUSPENSE, CLASSIC, SILENT,

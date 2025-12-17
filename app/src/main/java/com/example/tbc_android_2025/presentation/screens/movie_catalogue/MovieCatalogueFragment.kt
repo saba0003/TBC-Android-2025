@@ -37,17 +37,15 @@ class MovieCatalogueFragment : BaseFragment<Binding>(inflater = Binding::inflate
     private fun setListenerOnSearchBar() =
         binding.searchView.setOnQueryTextListener(provideOnQueryTextListener())
 
+    // TODO: Debouncer can be added
     private fun provideOnQueryTextListener() = object : SearchView.OnQueryTextListener {
         override fun onQueryTextSubmit(query: String?): Boolean {
             submitSearch(query = query)
-            binding.searchView.clearFocus() // hides keyboard
+            binding.searchView.clearFocus()
             return true
         }
 
-        override fun onQueryTextChange(newText: String?): Boolean {
-            // optional: handle live search
-            return true
-        }
+        override fun onQueryTextChange(newText: String?) = false
     }
 
     private fun setListenerOnBackButton() = binding.backImageButton.setOnClickListener { navigateBack() }
@@ -57,32 +55,32 @@ class MovieCatalogueFragment : BaseFragment<Binding>(inflater = Binding::inflate
     /** ======================================= OBSERVERS ======================================= */
     private fun collectObservers() {
         viewLifecycleOwner.launchAndRepeatOnStart {
-            launch { viewModel.state.collect { handleStates(group = it) } }
-            launch { viewModel.sideEffect.collectLatest { handleSideEffects(group = it) } }
+            launch { viewModel.state.collect { handleStates(state = it) } }
+            launch { viewModel.sideEffect.collectLatest { handleSideEffects(sideEffect = it) } }
         }
     }
     /** ========================================================================================= */
 
 
     /** ======================================= HANDLERS ======================================== */
-    private fun handleStates(group: State) = with(receiver = group) {
-        when (group) {
-            is State.Success -> if (group.data.isNotEmpty()) adapter.submitList(group.data)
+    private fun handleStates(state: State) = with(receiver = state) {
+        when (state) {
+            is State.Success -> if (state.data.isNotEmpty()) adapter.submitList(state.data)
             is State.Error -> Unit
             is State.Loader -> Unit
         }
     }
 
-    private fun handleSideEffects(group: SideEffect) = with(receiver = binding.root) {
-        when (group) {
+    private fun handleSideEffects(sideEffect: SideEffect) = with(receiver = binding.root) {
+        when (sideEffect) {
             is SideEffect.ShowError -> {
-                val error = when (group.error) {
+                val error = when (sideEffect.error) {
                     AppError.Network -> ContextCompat.getString(context, Strings.error_network)
                     AppError.Api -> ContextCompat.getString(context, Strings.error_api)
                     AppError.State -> ContextCompat.getString(context, Strings.error_state)
                     AppError.Unknown -> ContextCompat.getString(context, Strings.error_unknown)
                     AppError.SearchQuery -> ContextCompat.getString(context, Strings.error_search_query_length_subminimal)
-                    is AppError.Message -> group.error.value
+                    is AppError.Message -> sideEffect.error.value
                 }
                 popMessage(text = error, color = Colors.amaranth)
             }
@@ -90,7 +88,7 @@ class MovieCatalogueFragment : BaseFragment<Binding>(inflater = Binding::inflate
             is SideEffect.NavigateToMovie -> {
                 val direction =
                     MovieCatalogueFragmentDirections
-                        .actionMovieCatalogueFragmentToMovieFragment(movie = group.movie)
+                        .actionMovieCatalogueFragmentToMovieFragment(movie = sideEffect.movie)
                 findNavController().navigate(directions = direction)
             }
         }
