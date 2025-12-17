@@ -23,7 +23,6 @@ import kotlinx.coroutines.launch
 import kotlinx.datetime.LocalDate
 import androidx.core.net.toUri
 
-// TODO: Hardcoded strings
 @AndroidEntryPoint
 class MovieFragment : BaseFragment<Binding>(inflater = Binding::inflate) {
 
@@ -32,9 +31,7 @@ class MovieFragment : BaseFragment<Binding>(inflater = Binding::inflate) {
 
 
     override fun bind() {
-        val movie = args.movie
-        bindMovie(movie = movie)
-        viewModel.onEvent(event = Event.Init(movie = movie))
+        viewModel.onEvent(event = Event.Init(movie = args.movie))
         collectObservers()
     }
 
@@ -45,19 +42,19 @@ class MovieFragment : BaseFragment<Binding>(inflater = Binding::inflate) {
 
 
     /** ===================================== PEAKY BINDERS ===================================== */
-    private fun bindMovie(movie: MovieModel) {
-        bindTitle(title = movie.title)
-        bindPoster(url = movie.postersUrls.first())
-        bindDescription(description = movie.description)
-        formatReleaseDate(releaseDate = movie.releaseDate)
-        bindDuration(duration = movie.duration)
-        bindGenres(genres = movie.genres)
-        bindLanguages(languages = movie.languages)
-        bindAgeRating(ageRating = movie.ageRating)
-        bindDirector(director = movie.director)
-        bindCountry(country = movie.country)
-        bindBudget(budget = movie.budget)
-        bindBoxOfficeGross(boxOfficeGross = movie.boxOfficeGross)
+    private fun bindMovie(movie: MovieModel) = with(receiver = movie) {
+        bindTitle(title = title)
+        bindPoster(url = postersUrls.first())
+        bindDescription(description = description)
+        formatReleaseDate(releaseDate = releaseDate)
+        bindDuration(duration = duration)
+        bindGenres(genres = genres)
+        bindLanguages(languages = languages)
+        bindAgeRating(ageRating = ageRating)
+        bindDirector(director = director)
+        bindCountry(country = country)
+        bindBudget(budget = budget)
+        bindBoxOfficeGross(boxOfficeGross = boxOfficeGross)
     }
 
     private fun bindTitle(title: String) {
@@ -80,12 +77,12 @@ class MovieFragment : BaseFragment<Binding>(inflater = Binding::inflate) {
 
     private fun bindGenres(genres: List<MovieModel.Genre>) {
         binding.genresTextView.text =
-            getString(Strings.genres, genres.joinToString(separator = ", "))
+            getString(Strings.genres, genres.joinToString(separator = SEPARATOR))
     }
 
     private fun bindLanguages(languages: List<MovieModel.Language>) {
         binding.languagesTextView.text =
-            getString(Strings.languages, languages.joinToString(separator = ", "))
+            getString(Strings.languages, languages.joinToString(separator = SEPARATOR))
     }
 
     private fun bindAgeRating(ageRating: MovieModel.AgeRating) {
@@ -148,72 +145,72 @@ class MovieFragment : BaseFragment<Binding>(inflater = Binding::inflate) {
 
 
     /** ========================================== AUX ========================================== */
-    // TODO: Gotta check if this breaks clean architecture or not
     private fun openYoutube(url: String) {
-        val intent = Intent(Intent.ACTION_VIEW, url.toUri()).apply {
-            setPackage("com.android.chrome")
-        }
+        val intent = Intent(Intent.ACTION_VIEW, url.toUri()).apply { setPackage(BROWSER) }
         startActivity(intent)
     }
 
     @SuppressLint("SetJavaScriptEnabled")
-    private fun setupMovieWebView(imdbId: String) = with(binding.movieWebView) {
-//        WebView.setWebContentsDebuggingEnabled(true)
-
+    private fun setupMovieWebView(imdbId: String) = with(receiver = binding.movieWebView) {
         settings.javaScriptEnabled = true
         settings.domStorageEnabled = true
         settings.mediaPlaybackRequiresUserGesture = false
         settings.loadsImagesAutomatically = true
-
         webViewClient = WebViewClient()
+        webChromeClient = WebChromeClient()
+        loadMovie(imdbId = imdbId)
+    }
 
-        webChromeClient = object : WebChromeClient() {
-            private var customView: View? = null
-            private var customViewCallback: CustomViewCallback? = null
+    private fun WebChromeClient() = object : WebChromeClient() {
 
-            override fun onShowCustomView(view: View, callback: CustomViewCallback) {
-                customView = view
-                customViewCallback = callback
-                (requireActivity().window.decorView as ViewGroup).addView(
-                    view,
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.MATCH_PARENT
-                )
-            }
+        private var customView: View? = null
+        private var customViewCallback: CustomViewCallback? = null
 
-            override fun onHideCustomView() {
-                customView?.let {
-                    (requireActivity().window.decorView as ViewGroup).removeView(it)
-                }
-                customViewCallback?.onCustomViewHidden()
-                customView = null
-            }
 
-            override fun onPermissionRequest(request: PermissionRequest) {
-                request.grant(request.resources)
-            }
+        override fun onShowCustomView(view: View, callback: CustomViewCallback) {
+            customView = view
+            customViewCallback = callback
+            (requireActivity().window.decorView as ViewGroup).addView(
+                view,
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT
+            )
         }
 
-        val html = """
-        <!DOCTYPE html>
-        <html>
-            <head>
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <style>
-                    html, body { margin: 0; padding: 0; height: 100%; background-color: black; }
-                    iframe { width: 100%; height: 100%; border: none; }
-                </style>
-            </head>
-            <body>
-                <iframe
-                    src="https://vsrc.su/embed/movie?imdb=$imdbId"
-                    allowfullscreen>
-                </iframe>
-            </body>
-        </html>
-        """.trimIndent()
+        override fun onHideCustomView() {
+            customView?.let {
+                (requireActivity().window.decorView as ViewGroup).removeView(it)
+            }
+            customViewCallback?.onCustomViewHidden()
+            customView = null
+        }
 
-        loadDataWithBaseURL("https://vsrc.su", html, "text/html", "UTF-8", null)
+        override fun onPermissionRequest(request: PermissionRequest) =
+            request.grant(request.resources)
     }
+
+    private fun loadMovie(imdbId: String) {
+        val html = requireContext()
+            .assets
+            .open(MOVIE_PLAYER)
+            .bufferedReader()
+            .use { it.readText() }
+            .replace(oldValue = IMDB_ID, newValue = imdbId)
+
+        binding.movieWebView.loadDataWithBaseURL(
+            BASE_URL, html, MIME_TYPE, ENCODING, null
+        )
+    }
+
     /** ========================================================================================= */
+
+    private companion object {
+        const val SEPARATOR = ", "
+        const val BROWSER = "com.android.chrome"
+        const val MOVIE_PLAYER = "html/movie_player.html"
+        const val IMDB_ID = "{{IMDB_ID}}"
+        const val BASE_URL = "https://vsrc.su"
+        const val MIME_TYPE = "text/html"
+        const val ENCODING = "UTF-8"
+    }
 }

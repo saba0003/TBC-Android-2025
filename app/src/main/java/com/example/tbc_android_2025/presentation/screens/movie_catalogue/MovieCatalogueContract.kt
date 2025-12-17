@@ -4,7 +4,6 @@ import com.example.tbc_android_2025.domain.exceptions.AppError
 import com.example.tbc_android_2025.presentation.screens.commons.MovieModel
 
 sealed interface MovieCatalogueContract {
-    // TODO: maybe use sets instead of lists
     sealed class State {
         data class Success(val data: List<MovieModel> = emptyList()) : State()
         data class Error(val error: AppError? = null, val throwable: Throwable? = null) : State()

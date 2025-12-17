@@ -2,7 +2,6 @@ package com.example.tbc_android_2025.data.remote.dtos
 
 import com.squareup.moshi.JsonClass
 
-// TODO: maybe use sets instead of lists
 @JsonClass(generateAdapter = true)
 data class MoviesResponseDto(
     val data: List<MovieDto>,

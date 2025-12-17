@@ -2,7 +2,6 @@ package com.example.tbc_android_2025.domain.models
 
 import kotlinx.datetime.LocalDate
 
-// TODO: maybe use sets instead of lists
 data class MovieModel(
     val id: Int,
     val imdbId: String,
