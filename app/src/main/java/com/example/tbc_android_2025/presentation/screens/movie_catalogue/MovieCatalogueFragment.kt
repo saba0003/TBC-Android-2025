@@ -22,7 +22,7 @@ class MovieCatalogueFragment : BaseFragment<Binding>(inflater = Binding::inflate
 
     private val viewModel: MovieCatalogueViewModel by viewModels()
     private val adapter by lazy {
-        MovieAdapter { viewModel.onEvent(event = Event.OnMovieClicked(movie = it)) }
+        MovieCatalogueAdapter { viewModel.onEvent(event = Event.OnMovieClicked(movie = it)) }
     }
 
 

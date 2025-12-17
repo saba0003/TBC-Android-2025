@@ -6,7 +6,7 @@ import com.example.tbc_android_2025.presentation.extensions.loadPoster
 import com.example.tbc_android_2025.presentation.screens.commons.MovieModel
 import com.example.tbc_android_2025.databinding.ItemMovieBinding as Binding
 
-class MovieAdapter(private val onClick: (MovieModel) -> Unit) : BaseAdapter<MovieModel, Binding>(
+class MovieCatalogueAdapter(private val onClick: (MovieModel) -> Unit) : BaseAdapter<MovieModel, Binding>(
     inflater = Binding::inflate,
     diffCallback = object : ItemCallback<MovieModel>() {
         override fun areItemsTheSame(oldMovie: MovieModel, newMovie: MovieModel) =
