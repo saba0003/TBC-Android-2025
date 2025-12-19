@@ -2,16 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/splashFragment">
-
-    <fragment
-        android:id="@+id/splashFragment"
-        android:name="com.example.tbc_android_2025.presentation.screens.splash.SplashFragment"
-        android:label="Splash Screen">
-        <action
-            android:id="@+id/action_splashFragment_to_movieCatalogueFragment"
-            app:destination="@id/movieCatalogueFragment" />
-    </fragment>
+    app:startDestination="@id/movieCatalogueFragment">
 
     <fragment
         android:id="@+id/movieCatalogueFragment"

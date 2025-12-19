@@ -5,12 +5,10 @@ import com.example.tbc_android_2025.data.mappers.asResource
 import com.example.tbc_android_2025.data.mappers.toDomain
 import com.example.tbc_android_2025.data.remote.services.FetchService
 import com.example.tbc_android_2025.di.qualifiers.RemoteRepository
-import com.example.tbc_android_2025.domain.commons.MoviesResourceFlow
 import com.example.tbc_android_2025.domain.repositories.MovieRepository
+import com.example.tbc_android_2025.domain.use_cases.MoviesResourceFlow
 import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
 @RemoteRepository
 class MovieRemoteRepositoryImpl @Inject constructor(
     private val fetchService: FetchService,

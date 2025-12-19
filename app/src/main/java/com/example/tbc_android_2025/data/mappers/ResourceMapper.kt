@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 fun <DTO, DOMAIN> Flow<Resource<DTO>>.asResource(onSuccess: (DTO) -> DOMAIN): Flow<Resource<DOMAIN>> {
-    return this.map {
+    return map {
         when (it) {
             is Success -> Success(data = onSuccess(it.data))
             is Error -> Error(error = it.error, throwable = it.throwable)

@@ -15,7 +15,6 @@ class ResponseHandler @Inject constructor() {
 
     fun <T> safeApiCall(apiCall: suspend () -> Response<T>): Flow<Resource<T>> = flow {
         emit(value = Resource.Loader(isLoading = true))
-
         try {
             val response = apiCall()
             if (response.isSuccessful) {
@@ -37,5 +36,4 @@ class ResponseHandler @Inject constructor() {
             emit(value = Resource.Loader(isLoading = false))
         }
     }
-
 }
