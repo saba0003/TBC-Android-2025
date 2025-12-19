@@ -5,8 +5,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import com.example.tbc_android_2025.presentation.screens.splash.SplashState
-import com.example.tbc_android_2025.presentation.screens.splash.SplashViewModel
+import com.example.tbc_android_2025.presentation.screen.splash.SplashState
+import com.example.tbc_android_2025.presentation.screen.splash.SplashViewModel
 import com.example.tbc_android_2025.databinding.ActivityMainBinding as Binding
 import dagger.hilt.android.AndroidEntryPoint
 

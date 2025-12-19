@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/movieCatalogueFragment"
-        android:name="com.example.tbc_android_2025.presentation.screens.movie_catalogue.MovieCatalogueFragment"
+        android:name="com.example.tbc_android_2025.presentation.screen.movie_catalogue.MovieCatalogueFragment"
         android:label="Movie Catalogue Screen">
         <action
             android:id="@+id/action_movieCatalogueFragment_to_movieFragment"
@@ -15,11 +15,11 @@
 
     <fragment
         android:id="@+id/movieFragment"
-        android:name="com.example.tbc_android_2025.presentation.screens.movie.MovieFragment"
+        android:name="com.example.tbc_android_2025.presentation.screen.movie.MovieFragment"
         android:label="Movie Screen">
         <argument
             android:name="movie"
-            app:argType="com.example.tbc_android_2025.presentation.screens.commons.MovieModel" />
+            app:argType="com.example.tbc_android_2025.presentation.screen.model.MovieModel" />
     </fragment>
 
 </navigation>
