@@ -1,8 +1,8 @@
 package com.example.tbc_android_2025.di.modules
 
-import com.example.tbc_android_2025.data.repositories.TemplateRemoteRepositoryImpl
+import com.example.tbc_android_2025.data.repository.TemplateRemoteRepositoryImpl
 import com.example.tbc_android_2025.di.qualifiers.RemoteRepository
-import com.example.tbc_android_2025.domain.repositories.TemplateRepository
+import com.example.tbc_android_2025.domain.repository.TemplateRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

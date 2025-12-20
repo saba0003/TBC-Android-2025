@@ -6,4 +6,5 @@
     <string name="error_api">API error: Received an unexpected response code.</string>
     <string name="error_state">Application state error.</string>
     <string name="error_unknown">An unknown error occurred: No details available.</string>
+
 </resources>

@@ -62,7 +62,9 @@ android {
 }
 
 dependencies {
+    implementation(libs.kotlinx.datetime)
     implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.core.splashscreen)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
@@ -83,7 +85,6 @@ dependencies {
     implementation(libs.logging.interceptor)
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.androidx.appcompat)
-    implementation(libs.material)
     implementation(libs.androidx.viewpager2)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
