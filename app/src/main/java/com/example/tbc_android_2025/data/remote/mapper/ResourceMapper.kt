@@ -1,4 +1,4 @@
-package com.example.tbc_android_2025.data.mapper
+package com.example.tbc_android_2025.data.remote.mapper
 
 import com.example.tbc_android_2025.domain.common.Resource
 import com.example.tbc_android_2025.domain.common.Resource.*
@@ -9,7 +9,7 @@ fun <DTO, DOMAIN> Flow<Resource<DTO>>.asResource(onSuccess: (DTO) -> DOMAIN): Fl
     map {
         when (it) {
             is Success -> Success(data = onSuccess(it.data))
-            is Error -> Error(errorCode = it.errorCode, throwable = it.throwable)
+            is Error -> Error(value = it.value, throwable = it.throwable)
             is Loader -> Loader(isLoading = it.isLoading)
         }
     }

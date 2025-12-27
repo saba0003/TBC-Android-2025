@@ -2,6 +2,7 @@ package com.example.tbc_android_2025.di.modules
 
 import com.example.tbc_android_2025.BuildConfig.BASE_URL
 import com.example.tbc_android_2025.BuildConfig.API_VERSION
+import com.example.tbc_android_2025.data.remote.interceptor.AuthInterceptor
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -25,10 +26,13 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideOkHttpClient(loggingInterceptor: HttpLoggingInterceptor) =
-        OkHttpClient.Builder()
-            .addInterceptor(interceptor = loggingInterceptor)
-            .build()
+    fun provideOkHttpClient(
+        authInterceptor: AuthInterceptor,
+        loggingInterceptor: HttpLoggingInterceptor
+    ) = OkHttpClient.Builder()
+        .addInterceptor(interceptor = authInterceptor)
+        .addInterceptor(interceptor = loggingInterceptor)
+        .build()
 
     @Provides
     @Singleton

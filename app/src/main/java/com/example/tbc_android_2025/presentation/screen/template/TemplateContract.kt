@@ -5,7 +5,7 @@ import com.example.tbc_android_2025.domain.error.AppError
 sealed interface TemplateContract {
     data class State(
         val data: List<TemplateModel> = emptyList(),
-        val errorCode: AppError? = null,
+        val error: AppError? = null,
         val isLoading: Boolean = false
     )
 
@@ -14,6 +14,6 @@ sealed interface TemplateContract {
     }
 
     sealed interface SideEffect {
-        data class ShowError(val errorCode: AppError) : SideEffect
+        data class ShowError(val error: AppError) : SideEffect
     }
 }
