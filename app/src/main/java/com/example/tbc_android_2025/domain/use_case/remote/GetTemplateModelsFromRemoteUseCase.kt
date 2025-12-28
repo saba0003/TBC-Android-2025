@@ -1,4 +1,4 @@
-package com.example.tbc_android_2025.domain.use_case
+package com.example.tbc_android_2025.domain.use_case.remote
 
 import com.example.tbc_android_2025.di.qualifiers.RemoteRepository
 import com.example.tbc_android_2025.domain.common.Resource
@@ -9,8 +9,10 @@ import javax.inject.Inject
 
 typealias TemplateModelsResourceFlow = Flow<Resource<List<TemplateModel>>>
 
-class GetTemplateModelsUseCase @Inject constructor(@param:RemoteRepository private val templateRepository: TemplateRepository) {
+class GetTemplateModelsFromRemoteUseCase @Inject constructor(
+    @param:RemoteRepository private val templateRepository: TemplateRepository
+) {
 
-    operator fun invoke(): TemplateModelsResourceFlow = templateRepository.getTemplateModels()
+    operator fun invoke(): TemplateModelsResourceFlow = templateRepository.getTemplateModelsFromRemote()
 
 }

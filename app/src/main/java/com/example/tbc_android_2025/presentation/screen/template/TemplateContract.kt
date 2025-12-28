@@ -10,7 +10,6 @@ sealed interface TemplateContract {
     )
 
     sealed interface Event {
-        data object GetTemplateModels : Event
     }
 
     sealed interface SideEffect {

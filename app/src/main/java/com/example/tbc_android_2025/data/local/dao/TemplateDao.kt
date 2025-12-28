@@ -11,7 +11,7 @@ import com.example.tbc_android_2025.data.local.entity.TemplateEntity.Companion.T
 interface TemplateDao {
 
     @Query(value = SELECT_ALL)
-    suspend fun downloadAll(): List<TemplateEntity>
+    suspend fun getTemplateEntities(): List<TemplateEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(templateEntity: TemplateEntity)

@@ -1,12 +1,12 @@
 package com.example.tbc_android_2025.domain.repository
 
-import com.example.tbc_android_2025.domain.model.TemplateModel
-import com.example.tbc_android_2025.domain.use_case.TemplateModelsResourceFlow
+import com.example.tbc_android_2025.domain.use_case.local.TemplateModelsFlow
+import com.example.tbc_android_2025.domain.use_case.remote.TemplateModelsResourceFlow
 
 interface TemplateRepository {
 
-    fun getTemplateModels(): TemplateModelsResourceFlow
+    fun getTemplateModelsFromRemote(): TemplateModelsResourceFlow
 
-    suspend fun downloadTemplateModels(): List<TemplateModel>
+    fun getTemplateModelsFromLocal(): TemplateModelsFlow
 
 }
