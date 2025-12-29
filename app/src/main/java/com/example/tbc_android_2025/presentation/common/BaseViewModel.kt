@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.tbc_android_2025.domain.common.Resource
 import com.example.tbc_android_2025.domain.error.AppError
+import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,7 +18,10 @@ abstract class BaseViewModel<STATE, EVENT, SIDE_EFFECT>(initialState: STATE) : V
     private val _state = MutableStateFlow(value = initialState)
     val state = _state.asStateFlow()
 
-    private val _sideEffect = Channel<SIDE_EFFECT>(capacity = Channel.BUFFERED)
+    private val _sideEffect = Channel<SIDE_EFFECT>(
+        capacity = Channel.BUFFERED,
+        onBufferOverflow = BufferOverflow.DROP_OLDEST
+    )
     val sideEffect = _sideEffect.receiveAsFlow()
 
 
