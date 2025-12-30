@@ -2,7 +2,6 @@ package com.example.tbc_android_2025.domain.repository
 
 import com.example.tbc_android_2025.domain.common.Resource
 import com.example.tbc_android_2025.domain.model.EquipmentCategoryModel
-import com.example.tbc_android_2025.domain.use_case.local.TemplateModelsFlow
 import kotlinx.coroutines.flow.Flow
 
 typealias EquipmentCategoryModelsResourceFlow = Flow<Resource<List<EquipmentCategoryModel>>>
@@ -10,7 +9,5 @@ typealias EquipmentCategoryModelsResourceFlow = Flow<Resource<List<EquipmentCate
 interface EquipmentCategoryRepository {
 
     fun getEquipmentCategoryModelsFromRemote(): EquipmentCategoryModelsResourceFlow
-
-    fun getTemplateModelsFromLocal(): TemplateModelsFlow
 
 }

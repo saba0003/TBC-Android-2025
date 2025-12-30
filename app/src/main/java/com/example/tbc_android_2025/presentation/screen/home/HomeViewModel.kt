@@ -1,11 +1,10 @@
 package com.example.tbc_android_2025.presentation.screen.home
 
 import androidx.lifecycle.viewModelScope
-import com.example.tbc_android_2025.domain.use_case.remote.FilterEquipmentCategoryModelsByNameUseCase
+import com.example.tbc_android_2025.domain.use_case.local.FilterEquipmentCategoryModelsByNameUseCase
 import com.example.tbc_android_2025.domain.use_case.remote.GetEquipmentCategoryModelsFromRemoteUseCase
 import com.example.tbc_android_2025.presentation.common.BaseViewModel
-import com.example.tbc_android_2025.presentation.mapper.toDomain
-import com.example.tbc_android_2025.presentation.mapper.toPresentation
+import com.example.tbc_android_2025.presentation.mapper.*
 import com.example.tbc_android_2025.presentation.model.EquipmentCategoryModel
 import com.example.tbc_android_2025.presentation.screen.home.HomeContract.*
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -32,7 +31,6 @@ class HomeViewModel @Inject constructor(
             Event.OnLoadEquipmentCategoryModelsFromRemote -> onLoadEquipmentCategoryModelsFromRemote()
             is Event.OnSearch -> onSearch(query = query)
             is Event.OnEquipmentCategoryClick -> onEquipmentCategoryClick(equipmentCategory = equipmentCategory)
-            Event.OnLoadTemplateModelsFromLocal -> Unit
         }
     }
 

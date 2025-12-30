@@ -1,4 +1,4 @@
-package com.example.tbc_android_2025.domain.use_case.remote
+package com.example.tbc_android_2025.domain.use_case.local
 
 import com.example.tbc_android_2025.domain.model.EquipmentCategoryModel
 import javax.inject.Inject

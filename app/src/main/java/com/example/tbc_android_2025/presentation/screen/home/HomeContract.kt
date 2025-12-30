@@ -15,7 +15,6 @@ sealed interface HomeContract {
         data object OnLoadEquipmentCategoryModelsFromRemote : Event
         data class OnSearch(val query: String?) : Event
         data class OnEquipmentCategoryClick(val equipmentCategory: EquipmentCategoryModel) : Event
-        data object OnLoadTemplateModelsFromLocal : Event
     }
 
     sealed interface SideEffect {
