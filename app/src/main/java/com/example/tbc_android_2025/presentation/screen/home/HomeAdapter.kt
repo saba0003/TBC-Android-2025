@@ -1,13 +1,14 @@
 package com.example.tbc_android_2025.presentation.screen.home
 
 import android.view.View
-import com.example.tbc_android_2025.databinding.ItemEquipmentCategoryBinding as Binding
+import com.example.tbc_android_2025.databinding.ItemEquipmentCategorySuggestionBinding as Binding
 import com.example.tbc_android_2025.presentation.common.BaseAdapter
 import com.example.tbc_android_2025.presentation.extension.gone
 import com.example.tbc_android_2025.presentation.extension.show
+import com.example.tbc_android_2025.presentation.model.EquipmentCategoryModel
 
-class EquipmentCategoryAdapter :
-    BaseAdapter<EquipmentCategoryModel, Binding>(inflater = Binding::inflate) {
+class HomeAdapter(onClick: (EquipmentCategoryModel) -> Unit) :
+    BaseAdapter<EquipmentCategoryModel, Binding>(inflater = Binding::inflate, onClick = onClick) {
 
 
     override fun bind(binding: Binding, item: EquipmentCategoryModel) = with(receiver = binding) {

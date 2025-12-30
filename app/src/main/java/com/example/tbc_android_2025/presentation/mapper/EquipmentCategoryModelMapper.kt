@@ -2,7 +2,7 @@ package com.example.tbc_android_2025.presentation.mapper
 
 import kotlin.uuid.ExperimentalUuidApi
 import com.example.tbc_android_2025.domain.model.EquipmentCategoryModel as EquipmentCategoryModelDomain
-import com.example.tbc_android_2025.presentation.screen.home.EquipmentCategoryModel as EquipmentCategoryModelPresentation
+import com.example.tbc_android_2025.presentation.model.EquipmentCategoryModel as EquipmentCategoryModelPresentation
 
 @OptIn(ExperimentalUuidApi::class)
 fun EquipmentCategoryModelDomain.toPresentation() = EquipmentCategoryModelPresentation(

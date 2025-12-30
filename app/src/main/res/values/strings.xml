@@ -4,6 +4,12 @@
     <string name="query_hint">Enter category</string>
     <string name="suggestions">Suggestions</string>
     <string name="category_name_sample">Category Name</string>
+    <string name="uuid">UUID: %1$s</string>
+    <string name="name">NAME: %1$s</string>
+    <string name="name_de">NAME DEUTSCHE: %1$s</string>
+    <string name="created_at">CREATED AT: %1$s</string>
+    <string name="order_id">ORDER ID: %1$s</string>
+    <string name="super_categories">SUPER CATEGORIES: %1$d</string>
 
     <!-- ERRORS -->
     <string name="error_network">Network Error: Could not connect to the server. Please check your settings and try again.</string>

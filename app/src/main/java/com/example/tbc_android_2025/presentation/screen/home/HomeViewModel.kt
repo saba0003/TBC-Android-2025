@@ -6,15 +6,17 @@ import com.example.tbc_android_2025.domain.use_case.remote.GetEquipmentCategoryM
 import com.example.tbc_android_2025.presentation.common.BaseViewModel
 import com.example.tbc_android_2025.presentation.mapper.toDomain
 import com.example.tbc_android_2025.presentation.mapper.toPresentation
-import com.example.tbc_android_2025.presentation.screen.home.EquipmentCategoryContract.*
+import com.example.tbc_android_2025.presentation.model.EquipmentCategoryModel
+import com.example.tbc_android_2025.presentation.screen.home.HomeContract.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
+import kotlin.uuid.ExperimentalUuidApi
 
 @HiltViewModel
-class EquipmentCategoryViewModel @Inject constructor(
+class HomeViewModel @Inject constructor(
     private val getEquipmentCategoryModelsFromRemoteUseCase: GetEquipmentCategoryModelsFromRemoteUseCase,
     private val filterEquipmentCategoryModelsByNameUseCase: FilterEquipmentCategoryModelsByNameUseCase
 ) : BaseViewModel<State, Event, SideEffect>(initialState = State(isLoading = true)) {
@@ -29,6 +31,7 @@ class EquipmentCategoryViewModel @Inject constructor(
         when (this) {
             Event.OnLoadEquipmentCategoryModelsFromRemote -> onLoadEquipmentCategoryModelsFromRemote()
             is Event.OnSearch -> onSearch(query = query)
+            is Event.OnEquipmentCategoryClick -> onEquipmentCategoryClick(equipmentCategory = equipmentCategory)
             Event.OnLoadTemplateModelsFromLocal -> Unit
         }
     }
@@ -62,6 +65,12 @@ class EquipmentCategoryViewModel @Inject constructor(
                 updateState { copy(filteredData = filteredResults.toPresentation()) }
             }
         }
+    }
+
+    @OptIn(ExperimentalUuidApi::class)
+    private fun onEquipmentCategoryClick(equipmentCategory: EquipmentCategoryModel) {
+        val strippedEquipmentCategory = equipmentCategory.copy(children = emptyList())
+        emitSideEffect(sideEffect = SideEffect.NavigateToEquipmentCategoryDetails(equipmentCategory = strippedEquipmentCategory))
     }
     /** ========================================================================================= */
 }

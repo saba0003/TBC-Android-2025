@@ -2,11 +2,24 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/navGraph"
-    app:startDestination="@id/equipmentCategoryFragment">
+    app:startDestination="@id/homeFragment">
 
     <fragment
-        android:id="@+id/equipmentCategoryFragment"
-        android:name="com.example.tbc_android_2025.presentation.screen.home.EquipmentCategoryFragment"
-        android:label="Home Screen" />
+        android:id="@+id/homeFragment"
+        android:name="com.example.tbc_android_2025.presentation.screen.home.HomeFragment"
+        android:label="Home Screen">
+        <action
+            android:id="@+id/action_homeFragment_to_equipmentCategoryDetailsFragment"
+            app:destination="@id/equipmentCategoryDetailsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/equipmentCategoryDetailsFragment"
+        android:name="com.example.tbc_android_2025.presentation.screen.equipment_category_details.EquipmentCategoryDetailsFragment"
+        android:label="Equipment Category Details Screen">
+        <argument
+            android:name="equipmentCategory"
+            app:argType="com.example.tbc_android_2025.presentation.model.EquipmentCategoryModel" />
+    </fragment>
 
 </navigation>

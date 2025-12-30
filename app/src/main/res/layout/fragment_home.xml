@@ -66,6 +66,6 @@
         app:layout_constraintEnd_toEndOf="@id/lineSeparatorView"
         app:layout_constraintStart_toStartOf="@id/suggestionsTextView"
         app:layout_constraintTop_toBottomOf="@id/suggestionsTextView"
-        tools:listitem="@layout/item_equipment_category" />
+        tools:listitem="@layout/item_equipment_category_suggestion" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
