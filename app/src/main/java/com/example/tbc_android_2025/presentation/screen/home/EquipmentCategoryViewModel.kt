@@ -1,15 +1,22 @@
 package com.example.tbc_android_2025.presentation.screen.home
 
+import androidx.lifecycle.viewModelScope
+import com.example.tbc_android_2025.domain.use_case.remote.FilterEquipmentCategoryModelsByNameUseCase
 import com.example.tbc_android_2025.domain.use_case.remote.GetEquipmentCategoryModelsFromRemoteUseCase
 import com.example.tbc_android_2025.presentation.common.BaseViewModel
+import com.example.tbc_android_2025.presentation.mapper.toDomain
 import com.example.tbc_android_2025.presentation.mapper.toPresentation
 import com.example.tbc_android_2025.presentation.screen.home.EquipmentCategoryContract.*
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
 class EquipmentCategoryViewModel @Inject constructor(
-    private val getEquipmentCategoryModelsFromRemoteUseCase: GetEquipmentCategoryModelsFromRemoteUseCase
+    private val getEquipmentCategoryModelsFromRemoteUseCase: GetEquipmentCategoryModelsFromRemoteUseCase,
+    private val filterEquipmentCategoryModelsByNameUseCase: FilterEquipmentCategoryModelsByNameUseCase
 ) : BaseViewModel<State, Event, SideEffect>(initialState = State(isLoading = true)) {
 
 
@@ -46,19 +53,15 @@ class EquipmentCategoryViewModel @Inject constructor(
             return
         }
 
-        val allMatches = mutableListOf<EquipmentCategoryModel>()
+        viewModelScope.launch(context = Dispatchers.Default) {
+            val filteredResults = filterEquipmentCategoryModelsByNameUseCase(
+                query = query, categories = state.value.data.toDomain()
+            )
 
-        fun searchDeep(categories: List<EquipmentCategoryModel>) {
-            for (category in categories) {
-                if (category.name.contains(other = query, ignoreCase = true))
-                    allMatches.add(element = category)
-                if (category.children.isNotEmpty())
-                    searchDeep(categories = category.children)
+            withContext(context = Dispatchers.Main) {
+                updateState { copy(filteredData = filteredResults.toPresentation()) }
             }
         }
-
-        searchDeep(categories = state.value.data)
-        updateState { copy(filteredData = allMatches) }
     }
     /** ========================================================================================= */
 }
