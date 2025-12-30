@@ -2,11 +2,11 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/navGraph"
-    app:startDestination="@id/templateFragment">
+    app:startDestination="@id/equipmentCategoryFragment">
 
     <fragment
-        android:id="@+id/templateFragment"
-        android:name="com.example.tbc_android_2025.presentation.screen.template.TemplateFragment"
-        android:label="Template Screen" />
+        android:id="@+id/equipmentCategoryFragment"
+        android:name="com.example.tbc_android_2025.presentation.screen.home.EquipmentCategoryFragment"
+        android:label="Home Screen" />
 
 </navigation>

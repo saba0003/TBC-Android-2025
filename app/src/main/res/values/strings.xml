@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">TBC-Android-2025</string>
+    <string name="category">Category</string>
+    <string name="query_hint">Enter category</string>
+    <string name="suggestions">Suggestions</string>
+    <string name="category_name_sample">Category Name</string>
 
     <!-- ERRORS -->
     <string name="error_network">Network Error: Could not connect to the server. Please check your settings and try again.</string>
