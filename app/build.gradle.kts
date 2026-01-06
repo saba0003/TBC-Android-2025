@@ -26,10 +26,10 @@ android {
 
     buildTypes {
         debug {
-            isMinifyEnabled = true
+            isMinifyEnabled = false
+            isShrinkResources = false
             buildConfigField(type = "String", name = "BASE_URL", value = "\"https://mocki.io/\"")
             buildConfigField(type = "String", name = "API_VERSION", value = "\"v1/\"")
-            buildConfigField(type = "String", name = "ENDPOINT", value = "\"models\"")
         }
 
         release {

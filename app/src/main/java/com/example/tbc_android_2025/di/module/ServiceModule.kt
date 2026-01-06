@@ -1,4 +1,4 @@
-package com.example.tbc_android_2025.di.modules
+package com.example.tbc_android_2025.di.module
 
 import com.example.tbc_android_2025.data.remote.service.TemplateService
 import dagger.Module

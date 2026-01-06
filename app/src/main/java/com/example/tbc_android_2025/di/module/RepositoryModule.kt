@@ -1,7 +1,6 @@
-package com.example.tbc_android_2025.di.modules
+package com.example.tbc_android_2025.di.module
 
 import com.example.tbc_android_2025.data.repository.TemplateRemoteRepositoryImpl
-import com.example.tbc_android_2025.di.qualifiers.RemoteRepository
 import com.example.tbc_android_2025.domain.repository.TemplateRepository
 import dagger.Binds
 import dagger.Module
@@ -15,7 +14,6 @@ interface RepositoryModule {
 
     @Binds
     @Singleton
-    @RemoteRepository
     fun bindTemplateRemoteRepository(impl: TemplateRemoteRepositoryImpl): TemplateRepository
 
 }
