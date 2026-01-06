@@ -85,7 +85,6 @@ dependencies {
     implementation(libs.coil.android)
     implementation(libs.coil.network.okhttp)
     implementation(libs.moshi)
-    implementation(libs.moshi.kotlin)
     ksp(libs.moshi.kotlin.codegen)
     implementation(libs.converter.moshi)
     implementation(libs.kmapper.annotations)
