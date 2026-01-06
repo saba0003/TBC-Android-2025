@@ -1,18 +1,17 @@
 package com.example.tbc_android_2025.presentation.common
 
+import androidx.recyclerview.widget.DiffUtil.ItemCallback
 import android.view.LayoutInflater as Inflater
 import android.view.ViewGroup as Container
-import androidx.recyclerview.widget.DiffUtil.ItemCallback
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.NO_POSITION
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import androidx.viewbinding.ViewBinding as Binding
 
-abstract class BaseAdapter<T, VB : Binding>(
+abstract class BaseAdapter<T : BaseAdapter.HasId<*>, VB : Binding>(
     private val inflater: ViewBindingInflater<VB>,
     private val onClick: ((T) -> Unit)? = null,
-    diffCallback: ItemCallback<T>,
-) : ListAdapter<T, BaseAdapter.BaseViewHolder<VB>>(diffCallback) {
+) : ListAdapter<T, BaseAdapter.BaseViewHolder<VB>>(BaseDiffItemCallback()) {
 
 
     override fun onCreateViewHolder(container: Container, ignored: Int): BaseViewHolder<VB> {
@@ -34,11 +33,27 @@ abstract class BaseAdapter<T, VB : Binding>(
         holder.bind { bind(binding = it, item = getItem(position)) }
 
 
+    /** TO BE IMPLEMENTED */
     abstract fun bind(binding: VB, item: T)
+
+
+    interface HasId<I> {
+        val id: I
+
+        fun isContentTheSame(other: Any?): Boolean = this == other
+    }
 
 
     class BaseViewHolder<VB : Binding>(private val binding: VB) : ViewHolder(binding.root) {
 
         fun bind(block: (VB) -> Unit) = block(binding)
+    }
+
+
+    /** AUX */
+    private class BaseDiffItemCallback<T : HasId<*>> : ItemCallback<T>() {
+        override fun areItemsTheSame(oldItem: T, newItem: T): Boolean = oldItem.id == newItem.id
+        override fun areContentsTheSame(oldItem: T, newItem: T): Boolean =
+            oldItem.isContentTheSame(other = newItem)
     }
 }
