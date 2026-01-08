@@ -18,8 +18,12 @@
 
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.example.tbc_android_2025.presentation.screen.register.RegisterMviFragment"
-        android:label="Register Screen" />
+        android:name="com.example.tbc_android_2025.presentation.screen.register.RegisterFragment"
+        android:label="Register Screen" >
+        <action
+            android:id="@+id/action_registerFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/loginFragment"
