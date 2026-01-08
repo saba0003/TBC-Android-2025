@@ -8,9 +8,11 @@ plugins {
     alias(libs.plugins.kotlin.safeargs)
     alias(libs.plugins.ksp)
     alias(libs.plugins.dagger.hilt.android)
+    alias(libs.plugins.secrets.gradle.plugin)
 }
 
 android {
+
     namespace = "com.example.tbc_android_2025"
     compileSdk = 36
 
@@ -28,8 +30,9 @@ android {
         debug {
             isMinifyEnabled = false
             isShrinkResources = false
-            buildConfigField(type = "String", name = "BASE_URL", value = "\"https://mocki.io/\"")
-            buildConfigField(type = "String", name = "API_VERSION", value = "\"v1/\"")
+            buildConfigField(type = "String", name = "BASE_URL", value = "\"https://reqres.in/\"")
+            buildConfigField(type = "String", name = "API", value = "\"api/\"")
+            buildConfigField(type = "String", name = "API_HEADER_KEY", value = "\"x-api-key\"")
         }
 
         release {
@@ -69,7 +72,8 @@ dependencies {
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.androidx.appcompat)
-    implementation(libs.androidx.viewpager2)
+    implementation(libs.androidx.paging)
+    implementation(libs.androidx.paging.compose)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.navigation.fragment.ktx)

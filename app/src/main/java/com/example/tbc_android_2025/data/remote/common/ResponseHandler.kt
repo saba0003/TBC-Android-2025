@@ -23,6 +23,7 @@ class ResponseHandler @Inject constructor() {
             } else {
                 val error = when (response.code()) {
                     HTTP_UNAUTHORIZED -> Unauthorized
+                    HTTP_FORBIDDEN -> Forbidden
                     HTTP_NOT_FOUND -> NotFound
                     in HTTP_INTERNAL_SERVER_ERROR..HTTP_NETWORK_CONNECT_TIMEOUT_ERROR -> ServiceUnavailable
                     else -> ApiError(message = response.errorBody()?.string())
@@ -42,8 +43,9 @@ class ResponseHandler @Inject constructor() {
         }
     }
 
-    companion object {
+    private companion object {
         const val HTTP_UNAUTHORIZED = 401
+        const val HTTP_FORBIDDEN = 403
         const val HTTP_NOT_FOUND = 404
         const val HTTP_INTERNAL_SERVER_ERROR = 500
         const val HTTP_NETWORK_CONNECT_TIMEOUT_ERROR = 599

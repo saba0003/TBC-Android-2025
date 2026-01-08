@@ -9,6 +9,7 @@ fun AppError.asString(context: Context) = when (this) {
     AppError.Network -> getString(context, Strings.error_network)
     AppError.ServiceUnavailable -> getString(context, Strings.error_server)
     AppError.NotFound -> getString(context, Strings.error_not_found)
+    AppError.Forbidden -> getString(context, Strings.error_forbidden)
     AppError.Unauthorized -> getString(context, Strings.error_login_required)
     is AppError.ApiError -> message ?: getString(context, Strings.error_api)
     is AppError.Technical -> message ?: getString(context, Strings.error_technical)
