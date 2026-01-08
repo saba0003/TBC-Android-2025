@@ -37,8 +37,9 @@ class HomeFragment :
 
 
     /** ======================================= HANDLERS ======================================== */
-    override fun handleStates(state: State) {
-        binding.profileButton.isEnabled = state.isLoading.not()
+    override fun handleStates(state: State) = with(receiver = binding) {
+        homeButton.isEnabled = state.isLoading.not()
+        profileButton.isEnabled = state.isLoading.not()
     }
 
     override fun handleSideEffects(sideEffect: SideEffect) = when (sideEffect) {
