@@ -10,7 +10,11 @@ interface RegisterContract {
         val confirmPassword: String = "",
         val isPasswordVisible: Boolean = false,
         val isLoading: Boolean = false
-    )
+    ) {
+        companion object {
+            fun loading() = State(isLoading = true)
+        }
+    }
 
     sealed interface Event {
         data class OnEmailChange(val text: String) : Event

@@ -1,7 +1,11 @@
 package com.example.tbc_android_2025.presentation.screen.profile
 
 interface ProfileContract {
-    data class State(val isLoading: Boolean = false)
+    data class State(val isLoading: Boolean = false) {
+        companion object {
+            fun loading() = State(isLoading = true)
+        }
+    }
 
     sealed interface Event {
         data object OnHomeClick : Event

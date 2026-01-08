@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(getUsersPageFromRemoteUseCase: GetUsersPageFromRemoteUseCase) :
-    BaseViewModel<State, Event, SideEffect>(initialState = State(isLoading = true)) {
+    BaseViewModel<State, Event, SideEffect>(initialState = State.loading()) {
 
     val usersFlow = getUsersPageFromRemoteUseCase().map { it.toPresentation() }.cachedIn(scope = viewModelScope)
 

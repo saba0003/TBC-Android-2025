@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RegisterViewModel @Inject constructor(private val registerUseCase: RegisterUseCase) :
-    BaseViewModel<State, Event, SideEffect>(initialState = State(isLoading = true)) {
+    BaseViewModel<State, Event, SideEffect>(initialState = State.loading()) {
 
     init {
         updateState { copy(isLoading = isLoading.not()) }

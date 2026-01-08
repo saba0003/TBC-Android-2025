@@ -4,7 +4,7 @@ import com.example.tbc_android_2025.presentation.common.BaseViewModel
 import com.example.tbc_android_2025.presentation.screen.profile.ProfileContract.*
 
 class ProfileViewModel :
-    BaseViewModel<State, Event, SideEffect>(initialState = State(isLoading = true)) {
+    BaseViewModel<State, Event, SideEffect>(initialState = State.loading()) {
 
     init {
         updateState { copy(isLoading = isLoading.not()) }

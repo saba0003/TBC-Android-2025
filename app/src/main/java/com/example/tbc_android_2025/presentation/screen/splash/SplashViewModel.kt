@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SplashViewModel @Inject constructor() :
-    BaseViewModel<State, Unit, SideEffect>(initialState = State(isLoading = true)) {
+    BaseViewModel<State, Unit, SideEffect>(initialState = State.loading()) {
 
     init {
         updateState { copy(isLoading = isLoading.not()) }
