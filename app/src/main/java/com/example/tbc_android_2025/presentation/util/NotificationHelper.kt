@@ -6,7 +6,6 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import android.util.Log.d
 import androidx.core.app.NotificationCompat
 import androidx.core.net.toUri
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -34,7 +33,6 @@ class NotificationHelper @Inject constructor(@param:ApplicationContext private v
     )
 
     fun showNotification(title: String, message: String, deepLink: String) {
-        d("NOTIFICATION_DEBUG", "Attempting to show notification: $title")
         val intent = Intent(Intent.ACTION_VIEW, deepLink.toUri())
         val pendingIntent = PendingIntent.getActivity(
             context, 0, intent, PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
