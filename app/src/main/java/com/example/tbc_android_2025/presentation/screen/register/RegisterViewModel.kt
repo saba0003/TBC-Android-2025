@@ -4,12 +4,15 @@ import com.example.tbc_android_2025.domain.model.request.RegisterRequestModel
 import com.example.tbc_android_2025.domain.use_case.remote.RegisterUseCase
 import com.example.tbc_android_2025.presentation.common.BaseViewModel
 import com.example.tbc_android_2025.presentation.screen.register.RegisterContract.*
+import com.example.tbc_android_2025.presentation.util.NotificationHelper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class RegisterViewModel @Inject constructor(private val registerUseCase: RegisterUseCase) :
-    BaseViewModel<State, Event, SideEffect>(initialState = State.loading()) {
+class RegisterViewModel @Inject constructor(
+    private val registerUseCase: RegisterUseCase,
+    private val notificationHelper: NotificationHelper
+) : BaseViewModel<State, Event, SideEffect>(initialState = State.loading()) {
 
     init {
         updateState { copy(isLoading = isLoading.not()) }
@@ -29,7 +32,10 @@ class RegisterViewModel @Inject constructor(private val registerUseCase: Registe
             )
             handleResponse(
                 apiCall = { registerUseCase(request = request) },
-                onSuccess = { emitSideEffect(sideEffect = SideEffect.NavigateToHome) },
+                onSuccess = {
+                    notificationHelper.showRegisterSuccess()
+                    emitSideEffect(sideEffect = SideEffect.NavigateToHome)
+                },
                 onError = { emitSideEffect(sideEffect = SideEffect.ShowError(error = it)) },
                 onLoading = { updateState { copy(isLoading = it.isLoading) } }
             )

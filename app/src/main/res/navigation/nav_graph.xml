@@ -8,6 +8,7 @@
         android:id="@+id/welcomeFragment"
         android:name="com.example.tbc_android_2025.presentation.screen.welcome.WelcomeFragment"
         android:label="Welcome Screen">
+        <deepLink app:uri="myapp://welcome" />
         <action
             android:id="@+id/action_welcomeFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
@@ -19,7 +20,7 @@
     <fragment
         android:id="@+id/registerFragment"
         android:name="com.example.tbc_android_2025.presentation.screen.register.RegisterFragment"
-        android:label="Register Screen" >
+        android:label="Register Screen">
         <action
             android:id="@+id/action_registerFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
@@ -38,6 +39,7 @@
         android:id="@+id/homeFragment"
         android:name="com.example.tbc_android_2025.presentation.screen.home.HomeFragment"
         android:label="Home Screen">
+        <deepLink app:uri="myapp://dashboard" />
         <action
             android:id="@+id/action_homeFragment_to_profileFragment"
             app:destination="@id/profileFragment" />

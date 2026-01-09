@@ -1,10 +1,12 @@
 package com.example.tbc_android_2025.presentation
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import com.example.tbc_android_2025.presentation.common.Ids
 import com.example.tbc_android_2025.presentation.screen.splash.SplashViewModel
 import com.example.tbc_android_2025.databinding.ActivityMainBinding as Binding
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,8 +28,11 @@ class MainActivity : AppCompatActivity() {
         splashScreen.setKeepOnScreenCondition { viewModel.state.value.isLoading }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent = intent)
+        val navHostFragment = supportFragmentManager
+            .findFragmentById(Ids.navHostFragment) as? androidx.navigation.fragment.NavHostFragment
+        val navController = navHostFragment?.navController
+        navController?.handleDeepLink(intent = intent)
     }
 }

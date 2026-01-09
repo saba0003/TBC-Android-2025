@@ -3,6 +3,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application
         android:name=".App"
@@ -20,10 +21,51 @@
         <activity
             android:name=".presentation.MainActivity"
             android:exported="true">
+
+            <!-- LAUNCHER FILTER -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+            <!-- DEEP LINK FILTERS -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="dashboard"
+                    android:scheme="myapp" />
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="welcome"
+                    android:scheme="myapp" />
+            </intent-filter>
         </activity>
+
+        <service
+            android:name=".presentation.service.MyFirebaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <!-- FIREBASE CONSOLE MESSAGING -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default.notification_icon"
+            android:resource="@drawable/ic_success" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default.notification_color"
+            android:resource="@color/cardview_shadow_end_color" />
     </application>
 </manifest>

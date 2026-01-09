@@ -15,7 +15,7 @@ abstract class BaseMviFragment<VB : Binding, STATE, SIDE_EFFECT, VM : BaseViewMo
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+        super.onViewCreated(view = view, savedInstanceState = savedInstanceState)
         collectObservers()
     }
 
