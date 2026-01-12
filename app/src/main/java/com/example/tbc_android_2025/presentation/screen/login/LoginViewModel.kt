@@ -2,7 +2,7 @@ package com.example.tbc_android_2025.presentation.screen.login
 
 import com.example.tbc_android_2025.domain.model.request.LoginRequestModel
 import com.example.tbc_android_2025.domain.use_case.remote.LoginUseCase
-import com.example.tbc_android_2025.presentation.common.BaseViewModel
+import com.example.tbc_android_2025.presentation.common.view_model.BaseViewModel
 import com.example.tbc_android_2025.presentation.screen.login.LoginContract.Event
 import com.example.tbc_android_2025.presentation.screen.login.LoginContract.SideEffect
 import com.example.tbc_android_2025.presentation.screen.login.LoginContract.State

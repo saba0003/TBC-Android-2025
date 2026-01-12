@@ -3,7 +3,7 @@ package com.example.tbc_android_2025.presentation.screen.home
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.example.tbc_android_2025.domain.use_case.remote.GetUsersPageFromRemoteUseCase
-import com.example.tbc_android_2025.presentation.common.BaseViewModel
+import com.example.tbc_android_2025.presentation.common.view_model.BaseViewModel
 import com.example.tbc_android_2025.presentation.mapper.toPresentation
 import com.example.tbc_android_2025.presentation.screen.home.HomeContract.*
 import dagger.hilt.android.lifecycle.HiltViewModel

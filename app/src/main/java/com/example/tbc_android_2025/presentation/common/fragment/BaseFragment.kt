@@ -1,4 +1,4 @@
-package com.example.tbc_android_2025.presentation.common
+package com.example.tbc_android_2025.presentation.common.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater as Inflater

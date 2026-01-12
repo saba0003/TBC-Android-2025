@@ -1,5 +1,6 @@
 package com.example.tbc_android_2025.presentation.screen.welcome
 
+import android.Manifest.permission.POST_NOTIFICATIONS
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -10,7 +11,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.tbc_android_2025.databinding.FragmentWelcomeBinding as Binding
-import com.example.tbc_android_2025.presentation.common.BaseMviFragment
+import com.example.tbc_android_2025.presentation.common.fragment.BaseMviFragment
 import com.example.tbc_android_2025.presentation.screen.welcome.WelcomeContract.*
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -88,11 +89,12 @@ class WelcomeFragment :
     private fun checkNotificationPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
             if (ContextCompat.checkSelfPermission(
-                    requireContext(), android.Manifest.permission.POST_NOTIFICATIONS
+                    requireContext(), POST_NOTIFICATIONS
                 ) != PackageManager.PERMISSION_GRANTED
             )
-                requestPermissionLauncher.launch(input = android.Manifest.permission.POST_NOTIFICATIONS)
+                requestPermissionLauncher.launch(input = POST_NOTIFICATIONS)
     }
+
     /** ========================================================================================= */
 
 

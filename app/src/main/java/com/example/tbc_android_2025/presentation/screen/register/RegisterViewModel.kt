@@ -2,7 +2,7 @@ package com.example.tbc_android_2025.presentation.screen.register
 
 import com.example.tbc_android_2025.domain.model.request.RegisterRequestModel
 import com.example.tbc_android_2025.domain.use_case.remote.RegisterUseCase
-import com.example.tbc_android_2025.presentation.common.BaseViewModel
+import com.example.tbc_android_2025.presentation.common.view_model.BaseViewModel
 import com.example.tbc_android_2025.presentation.screen.register.RegisterContract.*
 import com.example.tbc_android_2025.presentation.util.NotificationHelper
 import dagger.hilt.android.lifecycle.HiltViewModel

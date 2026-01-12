@@ -6,6 +6,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.navigation.fragment.NavHostFragment
 import com.example.tbc_android_2025.presentation.common.Ids
 import com.example.tbc_android_2025.presentation.screen.splash.SplashViewModel
 import com.example.tbc_android_2025.databinding.ActivityMainBinding as Binding
@@ -30,8 +31,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent = intent)
-        val navHostFragment = supportFragmentManager
-            .findFragmentById(Ids.navHostFragment) as? androidx.navigation.fragment.NavHostFragment
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(Ids.navHostFragment) as? NavHostFragment
         val navController = navHostFragment?.navController
         navController?.handleDeepLink(intent = intent)
     }

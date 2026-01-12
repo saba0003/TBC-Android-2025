@@ -1,4 +1,4 @@
-package com.example.tbc_android_2025.presentation.common
+package com.example.tbc_android_2025.presentation.common.view_model
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -17,7 +17,7 @@ abstract class BaseViewModel<STATE, EVENT, SIDE_EFFECT>(initialState: STATE) : V
     private val _state = MutableStateFlow(value = initialState)
     val state = _state.asStateFlow()
 
-    private val _sideEffect = Channel<SIDE_EFFECT>(capacity = Channel.CONFLATED)
+    private val _sideEffect = Channel<SIDE_EFFECT>(capacity = Channel.Factory.CONFLATED)
     val sideEffect = _sideEffect.receiveAsFlow()
 
 

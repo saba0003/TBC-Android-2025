@@ -1,6 +1,6 @@
 package com.example.tbc_android_2025.presentation.screen.splash
 
-import com.example.tbc_android_2025.presentation.common.BaseViewModel
+import com.example.tbc_android_2025.presentation.common.view_model.BaseViewModel
 import com.example.tbc_android_2025.presentation.screen.splash.SplashContract.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject

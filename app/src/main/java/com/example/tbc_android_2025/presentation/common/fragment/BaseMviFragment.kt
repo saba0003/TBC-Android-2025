@@ -1,7 +1,8 @@
-package com.example.tbc_android_2025.presentation.common
+package com.example.tbc_android_2025.presentation.common.fragment
 
 import android.os.Bundle
 import android.view.View
+import com.example.tbc_android_2025.presentation.common.view_model.BaseViewModel
 import com.example.tbc_android_2025.presentation.extension.launchAndRepeatOnStart
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch

@@ -3,8 +3,7 @@ package com.example.tbc_android_2025.presentation.screen.profile
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.tbc_android_2025.databinding.FragmentProfileBinding as Binding
-import com.example.tbc_android_2025.presentation.common.BaseMviFragment
-import com.example.tbc_android_2025.presentation.common.Strings
+import com.example.tbc_android_2025.presentation.common.fragment.BaseMviFragment
 import com.example.tbc_android_2025.presentation.screen.profile.ProfileContract.*
 import dagger.hilt.android.AndroidEntryPoint
 

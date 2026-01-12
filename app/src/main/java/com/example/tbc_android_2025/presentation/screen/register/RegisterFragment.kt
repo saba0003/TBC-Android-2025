@@ -8,7 +8,7 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.tbc_android_2025.databinding.FragmentRegisterBinding as Binding
-import com.example.tbc_android_2025.presentation.common.BaseMviFragment
+import com.example.tbc_android_2025.presentation.common.fragment.BaseMviFragment
 import com.example.tbc_android_2025.presentation.common.Colors
 import com.example.tbc_android_2025.presentation.extension.asString
 import com.example.tbc_android_2025.presentation.extension.popMessage

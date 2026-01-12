@@ -1,6 +1,6 @@
 package com.example.tbc_android_2025.presentation.model
 
-import com.example.tbc_android_2025.presentation.common.BasePagingAdapter
+import com.example.tbc_android_2025.presentation.common.adapter.HasId
 
 data class UserModel(
     override val id: Int,
@@ -8,4 +8,4 @@ data class UserModel(
     val firstName: String,
     val lastName: String,
     val avatar: String
-) : BasePagingAdapter.HasId<Int>
+) : HasId<Int>

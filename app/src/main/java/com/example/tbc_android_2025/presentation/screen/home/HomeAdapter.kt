@@ -1,8 +1,8 @@
 package com.example.tbc_android_2025.presentation.screen.home
 
 import com.example.tbc_android_2025.databinding.ItemUserBinding as Binding
-import com.example.tbc_android_2025.presentation.common.BasePagingAdapter
 import com.example.tbc_android_2025.presentation.common.Strings
+import com.example.tbc_android_2025.presentation.common.adapter.BasePagingAdapter
 import com.example.tbc_android_2025.presentation.extension.loadImage
 import com.example.tbc_android_2025.presentation.model.UserModel
 
