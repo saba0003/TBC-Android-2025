@@ -6,7 +6,7 @@ import com.example.tbc_android_2025.domain.network.ConnectivityObserver
 import com.example.tbc_android_2025.domain.use_case.remote.GetTemplateModelsFromRemoteUseCase
 import com.example.tbc_android_2025.domain.use_case.data_store.GetPreferenceUseCase
 import com.example.tbc_android_2025.domain.use_case.local.GetTemplateModelsFromLocalUseCase
-import com.example.tbc_android_2025.presentation.common.BaseViewModel
+import com.example.tbc_android_2025.presentation.common.view_model.BaseViewModel
 import com.example.tbc_android_2025.presentation.mapper.toPresentation
 import com.example.tbc_android_2025.presentation.screen.splash.SplashContract.*
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,7 +21,7 @@ class SplashViewModel @Inject constructor(
     private val getTemplateModelsFromRemoteUseCase: GetTemplateModelsFromRemoteUseCase,
     private val getTemplateModelsFromLocalUseCase: GetTemplateModelsFromLocalUseCase,
     private val connectivityObserver: ConnectivityObserver
-) : BaseViewModel<State, Event, SideEffect>(initialState = State(isLoading = true)) {
+) : BaseViewModel<State, Event, SideEffect>(initialState = State.loading()) {
 
 
     init {

@@ -1,4 +1,4 @@
-package com.example.tbc_android_2025.presentation.common
+package com.example.tbc_android_2025.presentation.common.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater as Inflater
@@ -6,12 +6,11 @@ import android.view.View
 import android.view.ViewGroup as Container
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.example.tbc_android_2025.presentation.extension.launchAndRepeatOnStart
+import com.example.tbc_android_2025.presentation.common.ViewBindingInflater
 import androidx.viewbinding.ViewBinding as Binding
 
-typealias ViewBindingInflater<VB> = (Inflater, Container?, Boolean) -> VB
-
-abstract class BaseFragment<VB : Binding>(private val inflater: ViewBindingInflater<VB>) : Fragment() {
+abstract class BaseFragment<VB : Binding>(private val inflater: ViewBindingInflater<VB>) :
+    Fragment() {
 
     private var _binding: VB? = null
     protected val binding get() = _binding!!
@@ -25,17 +24,16 @@ abstract class BaseFragment<VB : Binding>(private val inflater: ViewBindingInfla
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         bind()
-        listeners()
-        viewLifecycleOwner.launchAndRepeatOnStart { collectObservers() }
+        bindViewActionListeners()
     }
 
 
-    /** SETUP */
+    /** ===================================== PEAKY BINDERS ===================================== */
     protected open fun bind() = Unit
 
-    protected open fun listeners() = Unit
+    protected open fun bindViewActionListeners() = Unit
+    /** ========================================================================================= */
 
-    protected open suspend fun collectObservers() = Unit
 
     protected open fun navigateBack() {
         findNavController().popBackStack()

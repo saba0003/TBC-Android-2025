@@ -7,7 +7,11 @@ sealed interface TemplateContract {
         val data: List<TemplateModel> = emptyList(),
         val error: AppError? = null,
         val isLoading: Boolean = false
-    )
+    ) {
+        companion object {
+            fun loading() = State(isLoading = true)
+        }
+    }
 
     sealed interface Event {
     }
