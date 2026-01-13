@@ -2,11 +2,11 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/navGraph"
-    app:startDestination="@id/templateFragment">
+    app:startDestination="@id/photoFragment">
 
     <fragment
-        android:id="@+id/templateFragment"
-        android:name="com.example.tbc_android_2025.presentation.screen.template.TemplateFragment"
-        android:label="Template Screen" />
+        android:id="@+id/photoFragment"
+        android:name="com.example.tbc_android_2025.presentation.screen.photo.PhotoFragment"
+        android:label="Photo Screen" />
 
 </navigation>

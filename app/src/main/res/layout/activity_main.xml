@@ -11,4 +11,4 @@
     app:defaultNavHost="true"
     app:navGraph="@navigation/nav_graph"
     tools:context=".presentation.MainActivity"
-    tools:layout="@layout/fragment_template" />
+    tools:layout="@layout/fragment_photo" />
