@@ -1,7 +1,7 @@
 package com.example.tbc_android_2025.di.module
 
-import com.example.tbc_android_2025.data.repository.TemplateRemoteRepositoryImpl
-import com.example.tbc_android_2025.domain.repository.TemplateRepository
+import com.example.tbc_android_2025.data.repository.FirebasePhotoRepositoryImpl
+import com.example.tbc_android_2025.domain.repository.PhotoRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -14,6 +14,6 @@ interface RepositoryModule {
 
     @Binds
     @Singleton
-    fun bindTemplateRemoteRepository(impl: TemplateRemoteRepositoryImpl): TemplateRepository
+    fun bindPhotoRepository(impl: FirebasePhotoRepositoryImpl): PhotoRepository
 
 }

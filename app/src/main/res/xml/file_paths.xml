@@ -1,3 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
 <paths>
-    <external-path name="my_images" path="Android/data/com.example.tbc_android_2025/files/Pictures" />
+    <!-- 1. Add this to support requireContext().cacheDir -->
+    <cache-path
+        name="temp_images"
+        path="." />
+
+    <!-- 2. You can keep or remove external-path, but it's better to use "."
+         instead of hardcoding the package name -->
+    <external-path
+        name="external_images"
+        path="." />
 </paths>

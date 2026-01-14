@@ -9,6 +9,7 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.dagger.hilt.android)
     alias(libs.plugins.secrets.gradle.plugin)
+    alias(libs.plugins.google.services)
 }
 
 android {
@@ -32,9 +33,6 @@ android {
         debug {
             isMinifyEnabled = false
             isShrinkResources = false
-            buildConfigField(type = "String", name = "BASE_URL", value = "\"https://reqres.in/\"")
-            buildConfigField(type = "String", name = "API", value = "\"api/\"")
-            buildConfigField(type = "String", name = "API_HEADER_KEY", value = "\"x-api-key\"")
             buildConfigField(
                 type = "String",
                 name = "FILE_PROVIDER_SUFFIX",
@@ -72,6 +70,8 @@ android {
 }
 
 dependencies {
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.storage)
     implementation(libs.kotlinx.datetime)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.core.splashscreen)

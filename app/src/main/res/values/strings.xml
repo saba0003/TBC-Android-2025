@@ -5,6 +5,7 @@
     <string name="upload">Upload</string>
     <string name="take_picture">Take Picture</string>
     <string name="choose_from_gallery">Choose from Gallery</string>
+    <string name="camera_permission_is_required">Camera permission is required</string>
 
     <!-- ERRORS -->
     <string name="error_network">Network Error: Could not connect to the server. Please check your settings and try again.</string>

@@ -2,8 +2,6 @@ package com.example.tbc_android_2025.presentation.screen.photo
 
 import android.graphics.Bitmap
 import android.net.Uri
-import androidx.core.net.UriCompat
-import com.example.tbc_android_2025.domain.error.AppError
 
 interface PhotoContract {
     data class State(
@@ -24,6 +22,7 @@ interface PhotoContract {
 
     sealed interface SideEffect {
         data object ShowImagePickerOptions : SideEffect
+        data object ShowUploadSuccess : SideEffect
         data class ShowError(val message: String) : SideEffect
     }
 }
