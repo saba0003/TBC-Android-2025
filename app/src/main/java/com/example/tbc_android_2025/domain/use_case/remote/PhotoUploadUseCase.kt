@@ -7,9 +7,7 @@ import javax.inject.Inject
 class PhotoUploadUseCase @Inject constructor(
     private val repository: PhotoRepository
 ) {
-    suspend operator fun invoke(bitmap: Bitmap?): Result<String> {
-        if (bitmap == null)
-            return Result.failure(Exception("No photo selected"))
-        return repository.uploadPhoto(bitmap = bitmap)
-    }
+    suspend operator fun invoke(bitmap: Bitmap?): Result<String> =
+        bitmap?.let { repository.uploadPhoto(bitmap = it) }
+            ?: Result.failure(exception = Exception("No photo selected"))
 }

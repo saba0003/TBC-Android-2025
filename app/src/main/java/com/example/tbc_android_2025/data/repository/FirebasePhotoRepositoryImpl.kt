@@ -8,13 +8,16 @@ import com.google.firebase.storage.storageMetadata
 import kotlinx.coroutines.tasks.await
 import java.io.ByteArrayOutputStream
 import javax.inject.Inject
+import kotlin.uuid.ExperimentalUuidApi
+import kotlin.uuid.Uuid
 
 class FirebasePhotoRepositoryImpl @Inject constructor() : PhotoRepository {
 
     private val storage = Firebase.storage.reference
 
+    @OptIn(ExperimentalUuidApi::class)
     override suspend fun uploadPhoto(bitmap: Bitmap): Result<String> = try {
-        val fileName = "uploads/${System.currentTimeMillis()}.webp" // UUID.randomUUID()
+        val fileName = "uploads/${Uuid.random()}.webp"
         val ref = storage.child(fileName)
 
         // Convert bitmap to byte array

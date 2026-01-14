@@ -1,12 +1,11 @@
 package com.example.tbc_android_2025.presentation.screen.photo
 
-import android.graphics.Bitmap
-import android.net.Uri
+import com.example.tbc_android_2025.domain.error.AppError
 
 interface PhotoContract {
     data class State(
-        val photoUri: Uri? = null,
-        val processedBitmap: Bitmap? = null,
+        val photoUri: String? = null,
+        val processedPhotoUri: String? = null,
         val isLoading: Boolean = false
     ) {
         companion object {
@@ -17,12 +16,12 @@ interface PhotoContract {
     sealed interface Event {
         data object OnAddPhotoClicked : Event
         data object OnUploadClicked : Event
-        data class OnPhotoSelected(val uri: Uri) : Event
+        data class OnPhotoSelected(val uri: String) : Event
     }
 
     sealed interface SideEffect {
         data object ShowImagePickerOptions : SideEffect
         data object ShowUploadSuccess : SideEffect
-        data class ShowError(val message: String) : SideEffect
+        data class ShowError(val error: AppError) : SideEffect
     }
 }

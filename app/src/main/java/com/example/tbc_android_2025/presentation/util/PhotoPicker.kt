@@ -9,6 +9,8 @@ import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import com.example.tbc_android_2025.BuildConfig.FILE_PROVIDER_SUFFIX
 import java.io.File
+import kotlin.uuid.ExperimentalUuidApi
+import kotlin.uuid.Uuid
 
 class PhotoPicker(
     fragment: Fragment,
@@ -43,10 +45,11 @@ class PhotoPicker(
 
 
     /** AUX */
+    @OptIn(ExperimentalUuidApi::class)
     private fun openCamera(fragment: Fragment) {
         val file = File(
             fragment.requireContext().cacheDir,
-            PHOTO_PREFIX.plus(other = System.currentTimeMillis()).plus(other = PHOTO_EXTENSION)
+            PHOTO_PREFIX.plus(other = Uuid.random()).plus(other = PHOTO_EXTENSION)
         )
 
         tempImageUri = FileProvider.getUriForFile(
