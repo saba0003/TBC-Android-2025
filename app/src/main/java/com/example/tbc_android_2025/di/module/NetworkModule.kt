@@ -1,8 +1,6 @@
 package com.example.tbc_android_2025.di.module
 
 import com.example.tbc_android_2025.BuildConfig.BASE_URL
-import com.example.tbc_android_2025.BuildConfig.API_VERSION
-import com.example.tbc_android_2025.data.remote.network.interceptor.AuthInterceptor
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
@@ -26,10 +24,8 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideOkHttpClient(
-        authInterceptor: AuthInterceptor,
         loggingInterceptor: HttpLoggingInterceptor
     ) = OkHttpClient.Builder()
-        .addInterceptor(interceptor = authInterceptor)
         .addInterceptor(interceptor = loggingInterceptor)
         .build()
 
@@ -41,7 +37,7 @@ object NetworkModule {
     @Singleton
     fun provideRetrofit(okHttpClient: OkHttpClient, moshi: Moshi): Retrofit =
         Retrofit.Builder()
-            .baseUrl(BASE_URL.plus(other = API_VERSION))
+            .baseUrl(BASE_URL)
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .client(okHttpClient)
             .build()

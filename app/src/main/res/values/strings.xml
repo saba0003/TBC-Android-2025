@@ -1,6 +1,33 @@
 <resources>
     <string name="app_name">TBC-Android-2025</string>
 
+    <string name="photo">photo</string>
+    <string name="username">Pawel Czerwinski</string>
+    <string name="user_email">\@pawel_czerwinski</string>
+    <string name="login">Log in</string>
+    <string name="register">Register</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="next">Next</string>
+
+    <!-- hints -->
+    <string name="email_hint">Enter Email</string>
+    <string name="password_hint">Enter Password</string>
+
+    <!--  exception labels  -->
+    <string name="empty_email_input_label">Email field must be filled in!</string>
+    <string name="incorrect_email_input_format_label">Incorrect email format!</string>
+    <string name="insufficient_password_input_length_label">Password length must be at least 8 characters long!</string>
+
+    <!--  registration output labels  -->
+    <string name="successful_registration_label">Registration successful!</string>
+    <string name="unsuccessful_registration_label">Registration failed!</string>
+
+    <string name="content_description_home_screen_background_image">Home Screen Background Image</string>
+    <string name="content_description_home_screen_app_logo">Home Screen App Logo</string>
+    <string name="content_description_home_screen_user_profile_image">Home Screen User Profile Image</string>
+    <string name="content_description_back_button">Back Button</string>
+
     <!-- ERRORS -->
     <string name="error_network">Network Error: Could not connect to the server. Please check your settings and try again.</string>
     <string name="error_server">Internal Server Error: Our servers are currently under maintenance. Please try again later.</string>

@@ -10,4 +10,6 @@
     <color name="light_green">#70ED63</color>
     <color name="amaranth">#E52B50</color>
     <color name="viridian">#40826D</color>
+    <color name="logo_color_1">#FFFF00D6</color>
+    <color name="logo_color_2">#FFFF4D00</color>
 </resources>

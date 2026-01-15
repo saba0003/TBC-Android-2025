@@ -1,3 +1,0 @@
-package com.example.tbc_android_2025.presentation.screen.template
-
-data class TemplateModel(val id: Int)
