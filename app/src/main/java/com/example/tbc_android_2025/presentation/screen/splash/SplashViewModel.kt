@@ -10,7 +10,7 @@ class SplashViewModel @Inject constructor() :
     BaseViewModel<State, Unit, SideEffect>(initialState = State.loading()) {
 
     init {
-        updateState { copy(isLoading = !isLoading) }
+        updateState { copy(isLoading = isLoading.not()) }
         emitSideEffect(sideEffect = SideEffect.NavigateToHome)
     }
 }
