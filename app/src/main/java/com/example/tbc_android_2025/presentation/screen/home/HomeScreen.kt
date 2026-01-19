@@ -1,179 +1,183 @@
 package com.example.tbc_android_2025.presentation.screen.home
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.constraintlayout.compose.ChainStyle
-import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.constraintlayout.compose.Dimension
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.example.tbc_android_2025.presentation.common.Drawables
 import com.example.tbc_android_2025.presentation.common.Images
 import com.example.tbc_android_2025.presentation.common.Strings
-import com.example.tbc_android_2025.presentation.screen.home.HomeContract.*
+import com.example.tbc_android_2025.presentation.screen.component.AppButton
+import com.example.tbc_android_2025.presentation.screen.home.HomeContract.Event
+import com.example.tbc_android_2025.presentation.screen.home.HomeContract.SideEffect
 import com.example.tbc_android_2025.presentation.ui.theme.ComfortaaFamily
 import com.example.tbc_android_2025.presentation.ui.theme.FontSizeLarge
 import com.example.tbc_android_2025.presentation.ui.theme.FontSizeMedium
 
-private const val BORDER_RADIUS = 6
-private const val LOGIN_BUTTON_BORDER_STROKE_WIDTH = 2
+private const val SCREEN_HORIZONTAL_PADDING = 24
+private const val SCREEN_VERTICAL_SPACE_BETWEEN_CONTENTS = 32
+private const val TAKE_SPACE_EVENLY = 1F
+private const val PROFILE_PHOTO_BOTTOM_PADDING = 10
+private const val SPACE_BETWEEN_PAGE_LOGO_AND_TEXT = 32
+private const val SPACE_BETWEEN_USER_PROFILE_PHOTO_AND_USER_DETAILS = 5
+private const val SPACE_BETWEEN_BUTTONS = 24
+private const val SECONDARY_BUTTON = false
+private const val SHOW_BACKGROUND = true
 
 @Composable
 fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel(),
     onNavigateToLoginScreen: () -> Unit,
     onNavigateToRegisterScreen: () -> Unit
-) {
-    ConstraintLayout(modifier = Modifier.fillMaxSize()) {
-        val (background, logo, backgroundLabel, profile, username, email, loginButton, registerButton) = createRefs()
-        createHorizontalChain(loginButton, registerButton)
-        createHorizontalChain(logo, backgroundLabel, chainStyle = ChainStyle.Spread)
-//    createVerticalChain(background, loginButton, chainStyle = ChainStyle.Spread)
+) = with(receiver = viewModel) {
 
-        LaunchedEffect(Unit) {
-            viewModel.sideEffect.collect {
-                when (it) {
-                    is SideEffect.NavigateToLoginScreen -> onNavigateToLoginScreen()
-                    is SideEffect.NavigateToRegisterScreen -> onNavigateToRegisterScreen()
-                }
+    LaunchedEffect(key1 = Unit) {
+        sideEffect.collect {
+            when (it) {
+                is SideEffect.NavigateToLoginScreen -> onNavigateToLoginScreen()
+                is SideEffect.NavigateToRegisterScreen -> onNavigateToRegisterScreen()
             }
         }
+    }
 
-        Image(
-            painter = painterResource(id = Images.entry_page_background_foreground),
-            contentDescription = stringResource(id = Strings.content_description_home_screen_background_image),
-            modifier = Modifier
-                .fillMaxSize()
-                .constrainAs(background) {
-                    width = Dimension.matchParent
-                    height = Dimension.fillToConstraints
-                    top.linkTo(anchor = parent.top)
-                    bottom.linkTo(anchor = loginButton.top)
-                },
-            contentScale = ContentScale.Crop
-        )
+    HomeScreenContent(
+        onLoginClick = { onEvent(event = Event.OnLoginButtonClicked) },
+        onRegisterClick = { onEvent(event = Event.OnRegisterButtonClicked) }
+    )
+}
 
-        Image(
-            painter = painterResource(id = Drawables.ic_logo),
-            contentDescription = stringResource(id = Strings.content_description_home_screen_app_logo),
-            modifier = Modifier.constrainAs(ref = logo) {
-                width = Dimension.wrapContent
-                height = Dimension.wrapContent
-                centerTo(other = background)
-            }
-        )
+@Composable
+private fun HomeScreenContent(onLoginClick: () -> Unit, onRegisterClick: () -> Unit) = Column(
+    modifier = Modifier
+        .fillMaxSize()
+        .padding(bottom = SCREEN_VERTICAL_SPACE_BETWEEN_CONTENTS.dp),
+    verticalArrangement = Arrangement.spacedBy(space = SCREEN_VERTICAL_SPACE_BETWEEN_CONTENTS.dp)
+) {
+    HomeScreenHeaderSection()
+    HomeScreenActionButtons(onLoginClick = onLoginClick, onRegisterClick = onRegisterClick)
+}
 
-        Text(
-            text = stringResource(id = Strings.photo),
-            modifier = Modifier.constrainAs(backgroundLabel) {
-                width = Dimension.wrapContent
-                height = Dimension.wrapContent
-                top.linkTo(logo.top)
-                bottom.linkTo(logo.bottom)
-            },
-            fontFamily = ComfortaaFamily,
-            fontSize = FontSizeLarge
-        )
+@Composable
+private fun ColumnScope.HomeScreenHeaderSection() = Box(
+    modifier = Modifier
+        .fillMaxWidth()
+        .weight(weight = TAKE_SPACE_EVENLY)
+) {
+    HomeScreenBackgroundImage()
+    HomeScreenTitle()
+    HomeScreenProfileInfo()
+}
 
-        Image(
-            painter = painterResource(id = Images.ic_profile_photo_round),
-            contentDescription = stringResource(id = Strings.content_description_home_screen_user_profile_image),
-            modifier = Modifier.constrainAs(ref = profile) {
-                width = Dimension.wrapContent
-                height = Dimension.wrapContent
-                start.linkTo(anchor = background.start)
-                bottom.linkTo(anchor = background.bottom, margin = 32.dp)
-            }
-        )
+@Composable
+private fun BoxScope.HomeScreenBackgroundImage() = Image(
+    painter = painterResource(id = Drawables.entry_page_background),
+    contentDescription = stringResource(id = Strings.content_description_home_screen_background_image),
+    modifier = Modifier.matchParentSize(),
+    contentScale = ContentScale.Crop
+)
 
+@Composable
+private fun BoxScope.HomeScreenTitle() = Row(
+    modifier = Modifier
+        .fillMaxWidth()
+        .wrapContentHeight()
+        .align(alignment = Alignment.Center),
+    horizontalArrangement = Arrangement.spacedBy(
+        space = SPACE_BETWEEN_PAGE_LOGO_AND_TEXT.dp, alignment = Alignment.CenterHorizontally
+    ),
+    verticalAlignment = Alignment.CenterVertically
+) {
+    Image(
+        painter = painterResource(id = Drawables.ic_logo),
+        contentDescription = stringResource(id = Strings.content_description_home_screen_app_logo),
+        modifier = Modifier.wrapContentSize()
+    )
+
+    Text(
+        text = stringResource(id = Strings.photo),
+        modifier = Modifier.wrapContentSize(),
+        fontFamily = ComfortaaFamily,
+        fontSize = FontSizeLarge
+    )
+}
+
+@Composable
+private fun BoxScope.HomeScreenProfileInfo() = Row(
+    modifier = Modifier
+        .wrapContentSize()
+        .padding(start = SCREEN_HORIZONTAL_PADDING.dp, bottom = PROFILE_PHOTO_BOTTOM_PADDING.dp)
+        .align(alignment = Alignment.BottomStart),
+    horizontalArrangement = Arrangement.spacedBy(space = SPACE_BETWEEN_USER_PROFILE_PHOTO_AND_USER_DETAILS.dp),
+    verticalAlignment = Alignment.CenterVertically
+) {
+    Image(
+        painter = painterResource(id = Images.profile_photo_round),
+        contentDescription = stringResource(id = Strings.content_description_home_screen_user_profile_image),
+        modifier = Modifier.wrapContentSize()
+    )
+
+    Column(modifier = Modifier.wrapContentSize(), verticalArrangement = Arrangement.SpaceEvenly) {
         Text(
             text = stringResource(id = Strings.username),
-            modifier = Modifier.constrainAs(ref = username) {
-                width = Dimension.wrapContent
-                height = Dimension.wrapContent
-                start.linkTo(anchor = profile.end, margin = 10.dp)
-                top.linkTo(anchor = profile.top)
-                bottom.linkTo(anchor = email.top)
-            },
+            modifier = Modifier.wrapContentSize(),
             fontSize = FontSizeMedium
         )
 
         Text(
             text = stringResource(id = Strings.user_email),
-            modifier = Modifier.constrainAs(ref = email) {
-                width = Dimension.wrapContent
-                height = Dimension.wrapContent
-                start.linkTo(anchor = username.start)
-                top.linkTo(anchor = username.bottom)
-                bottom.linkTo(anchor = profile.bottom)
-            },
+            modifier = Modifier.wrapContentSize(),
             fontSize = FontSizeMedium
         )
-
-        Button(
-            onClick = { viewModel.onEvent(event = Event.OnLoginButtonClicked) },
-            modifier = Modifier
-                .constrainAs(ref = loginButton) {
-                    width = Dimension.value(167.dp)
-                    height = Dimension.value(48.dp)
-                    top.linkTo(background.bottom, margin = 32.dp)
-                    bottom.linkTo(parent.bottom, margin = 32.dp)
-                },
-            shape = RoundedCornerShape(BORDER_RADIUS.dp),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = Color.White,
-                contentColor = Color.Black
-            ),
-            border = BorderStroke(LOGIN_BUTTON_BORDER_STROKE_WIDTH.dp, Color.Black),
-        ) {
-            Text(
-                text = stringResource(id = Strings.login),
-                fontSize = FontSizeMedium,
-                fontWeight = FontWeight.Bold
-            )
-        }
-
-        Button(
-            onClick = { viewModel.onEvent(event = Event.OnRegisterButtonClicked) },
-            modifier = Modifier
-                .constrainAs(registerButton) {
-                    top.linkTo(loginButton.top)
-                    bottom.linkTo(loginButton.bottom)
-                    width = Dimension.value(167.dp)
-                    height = Dimension.value(48.dp)
-                },
-            shape = RoundedCornerShape(BORDER_RADIUS.dp),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = Color.Black,
-                contentColor = Color.White
-            ),
-        ) {
-            Text(
-                text = stringResource(id = Strings.register),
-                fontSize = FontSizeMedium,
-                fontWeight = FontWeight.Bold
-            )
-        }
     }
 }
 
 @Composable
-@Preview(showBackground = true)
-fun HomeScreenPreview() = HomeScreen(
-    onNavigateToLoginScreen = {},
-    onNavigateToRegisterScreen = {}
+private fun HomeScreenActionButtons(onLoginClick: () -> Unit, onRegisterClick: () -> Unit) = Row(
+    modifier = Modifier
+        .fillMaxWidth()
+        .wrapContentHeight()
+        .padding(horizontal = SCREEN_HORIZONTAL_PADDING.dp),
+    horizontalArrangement = Arrangement.spacedBy(space = SPACE_BETWEEN_BUTTONS.dp)
+) {
+    HomeScreenLoginButton(onClick = onLoginClick)
+    HomeScreenRegisterButton(onClick = onRegisterClick)
+}
+
+@Composable
+private fun RowScope.HomeScreenLoginButton(onClick: () -> Unit) = AppButton(
+    text = stringResource(id = Strings.login),
+    onClick = onClick,
+    modifier = Modifier.weight(weight = TAKE_SPACE_EVENLY),
+    isPrimary = SECONDARY_BUTTON
 )
+
+@Composable
+private fun RowScope.HomeScreenRegisterButton(onClick: () -> Unit) = AppButton(
+    text = stringResource(id = Strings.register),
+    onClick = onClick,
+    modifier = Modifier.weight(weight = TAKE_SPACE_EVENLY)
+)
+
+@Composable
+@Preview(showBackground = SHOW_BACKGROUND)
+private fun HomeScreenPreview() = HomeScreenContent(onLoginClick = {}, onRegisterClick = {})

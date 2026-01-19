@@ -1,4 +1,4 @@
-package com.example.tbc_android_2025.presentation.common.view_model
+package com.example.tbc_android_2025.presentation.common
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

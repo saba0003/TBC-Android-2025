@@ -5,7 +5,6 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.parcelize)
-    alias(libs.plugins.kotlin.safeargs)
     alias(libs.plugins.ksp)
     alias(libs.plugins.dagger.hilt.android)
     alias(libs.plugins.secrets.gradle.plugin)
@@ -31,9 +30,6 @@ android {
         debug {
             isMinifyEnabled = false
             isShrinkResources = false
-            buildConfigField(type = "String", name = "BASE_URL", value = "\"https://reqres.in/\"")
-            buildConfigField(type = "String", name = "API", value = "\"api/\"")
-            buildConfigField(type = "String", name = "API_HEADER_KEY", value = "\"x-api-key\"")
         }
 
         release {
@@ -67,14 +63,16 @@ android {
 
 dependencies {
     implementation(platform(libs.firebase.bom))
-    implementation(libs.firebase.messaging)
     implementation(libs.firebase.auth)
     implementation(libs.kotlinx.datetime)
+    implementation(libs.kotlinx.serialization.json)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.androidx.swiperefreshlayout)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation(libs.androidx.lifecycle.viewmodel.navigation3)
+    implementation(libs.androidx.hilt.lifecycle.viewmodel.compose)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.androidx.appcompat)
@@ -83,8 +81,8 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.constraintlayout.compose)
-    implementation(libs.androidx.navigation.fragment.ktx)
-    implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.androidx.navigation3.runtime)
+    implementation(libs.androidx.navigation3.ui)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.ui.graphics)
@@ -106,7 +104,6 @@ dependencies {
     implementation(libs.logging.interceptor)
     ksp(libs.hilt.compiler)
     implementation(libs.hilt.android)
-    implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.kizitonwose.calendar)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

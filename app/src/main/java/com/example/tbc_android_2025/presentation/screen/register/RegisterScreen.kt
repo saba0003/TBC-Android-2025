@@ -1,25 +1,15 @@
 package com.example.tbc_android_2025.presentation.screen.register
 
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.BasicSecureTextField
-import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
@@ -28,135 +18,123 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.example.tbc_android_2025.presentation.common.Strings
-import com.example.tbc_android_2025.presentation.screen.register.RegisterContract.*
+import com.example.tbc_android_2025.presentation.screen.component.AppButton
+import com.example.tbc_android_2025.presentation.screen.component.AppTextField
+import com.example.tbc_android_2025.presentation.screen.register.RegisterContract.Event
+import com.example.tbc_android_2025.presentation.screen.register.RegisterContract.SideEffect
 import com.example.tbc_android_2025.presentation.ui.theme.ComfortaaFamily
 import com.example.tbc_android_2025.presentation.ui.theme.FontSizeLarge
 
-private const val BORDER_RADIUS = 6
+private const val SCREEN_PADDING = 20
+private const val SPACE_IN_BETWEEN_COLUMN_ITEMS = 16
+private const val SECURE = true
+private const val SHOW_BACKGROUND = true
 
-// This wrapper keeps the VM logic separate from the UI logic
 @Composable
 fun RegisterScreen(
     viewModel: RegisterViewModel = hiltViewModel(), onNavigateToHomeScreen: () -> Unit
-) {
-    LaunchedEffect(Unit) {
-        viewModel.sideEffect.collect {
+) = with(receiver = viewModel) {
+
+    LaunchedEffect(key1 = Unit) {
+        sideEffect.collect {
             when (it) {
                 is SideEffect.NavigateToHomeScreen -> onNavigateToHomeScreen()
             }
         }
     }
 
-    RegisterContent(
-        emailState = viewModel.emailState,
-        passwordState = viewModel.passwordState,
-        onBackClick = { viewModel.onEvent(event = Event.OnBackButtonClicked) },
-        onLoginClick = { viewModel.onEvent(event = Event.OnNextButtonClicked) }
+    RegisterScreenContent(
+        emailState = emailState,
+        passwordState = passwordState,
+        onBackClick = { onEvent(event = Event.OnBackButtonClicked) },
+        onNextClick = { onEvent(event = Event.OnNextButtonClicked) }
     )
 }
 
 @Composable
-fun RegisterContent(
+private fun RegisterScreenContent(
     emailState: TextFieldState,
     passwordState: TextFieldState,
     onBackClick: () -> Unit,
-    onLoginClick: () -> Unit
-) = Box(modifier = Modifier.fillMaxSize()) {
-
-    // 2. The IconButton is now inside a Box, so TopStart works!
-    IconButton(
-        onClick = onBackClick,
-        modifier = Modifier
-            .padding(16.dp)
-            .align(Alignment.TopStart)
-    ) {
-        Icon(
-            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-            contentDescription = stringResource(Strings.content_description_back_button),
-            tint = Color.Black
-        )
-    }
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(20.dp),
-        verticalArrangement = Arrangement.Center
-    ) {
-        Text(
-            text = stringResource(id = Strings.register),
-            modifier = Modifier.wrapContentSize(),
-            fontFamily = ComfortaaFamily,
-            fontSize = FontSizeLarge
-        )
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        BasicTextField(
-            state = emailState,
-            modifier = Modifier
-                .fillMaxWidth()
-                .border(2.dp, Color.Black, RectangleShape),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
-            decorator = { innerTextField ->
-                Box(modifier = Modifier.padding(17.dp)) {
-                    if (emailState.text.isEmpty()) {
-                        Text(stringResource(Strings.email_hint), color = Color.Gray)
-                    }
-                    innerTextField()
-                }
-            }
-        )
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        BasicSecureTextField(
-            state = passwordState,
-            modifier = Modifier
-                .fillMaxWidth()
-                .border(2.dp, Color.Black, RectangleShape),
-            decorator = { innerTextField ->
-                Box(modifier = Modifier.padding(17.dp)) {
-                    // FIXED: Now checking passwordState
-                    if (passwordState.text.isEmpty()) {
-                        Text(stringResource(Strings.password_hint), color = Color.Gray)
-                    }
-                    innerTextField()
-                }
-            }
-        )
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        Button(
-            onClick = onLoginClick,
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(48.dp),
-            shape = RoundedCornerShape(BORDER_RADIUS.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = Color.Black)
-        ) {
-            Text(stringResource(Strings.next), fontWeight = FontWeight.Bold)
-        }
-    }
+    onNextClick: () -> Unit
+) {
+    RegisterScreenBackButton(onClick = onBackClick)
+    RegisterScreenBody(
+        emailState = emailState, passwordState = passwordState, onNextClick = onNextClick
+    )
 }
 
 @Composable
-@Preview(showBackground = true)
-fun RegisterScreenPreview() {
-    // Preview now works because we don't call hiltViewModel() here
-    RegisterContent(
-        emailState = rememberTextFieldState(),
-        passwordState = rememberTextFieldState(),
-        onBackClick = {},
-        onLoginClick = {}
+private fun RegisterScreenBackButton(onClick: () -> Unit) = IconButton(
+    onClick = onClick,
+    modifier = Modifier.padding(start = SCREEN_PADDING.dp, top = SCREEN_PADDING.dp)
+) {
+    Icon(
+        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+        contentDescription = stringResource(id = Strings.content_description_back_button),
+        tint = Color.Black
     )
 }
+
+@Composable
+private fun RegisterScreenBody(
+    emailState: TextFieldState,
+    passwordState: TextFieldState,
+    onNextClick: () -> Unit
+) = Column(
+    modifier = Modifier
+        .fillMaxSize()
+        .padding(all = SCREEN_PADDING.dp),
+    verticalArrangement = Arrangement.spacedBy(
+        space = SPACE_IN_BETWEEN_COLUMN_ITEMS.dp, alignment = Alignment.CenterVertically
+    )
+) {
+    RegisterScreenTitle()
+    RegisterScreenEmailInput(state = emailState)
+    RegisterScreenPasswordInput(state = passwordState)
+    RegisterScreenNextButton(onClick = onNextClick)
+}
+
+@Composable
+private fun RegisterScreenTitle() = Text(
+    text = stringResource(id = Strings.register),
+    modifier = Modifier.wrapContentSize(),
+    fontFamily = ComfortaaFamily,
+    fontSize = FontSizeLarge
+)
+
+@Composable
+private fun RegisterScreenEmailInput(state: TextFieldState) = AppTextField(
+    state = state,
+    hint = stringResource(id = Strings.email_hint),
+    keyboardType = KeyboardType.Email
+)
+
+@Composable
+private fun RegisterScreenPasswordInput(state: TextFieldState) = AppTextField(
+    state = state,
+    hint = stringResource(id = Strings.password_hint),
+    isSecure = SECURE
+)
+
+@Composable
+private fun RegisterScreenNextButton(onClick: () -> Unit) = AppButton(
+    text = stringResource(id = Strings.next),
+    onClick = onClick,
+    modifier = Modifier.fillMaxWidth()
+)
+
+@Composable
+@Preview(showBackground = SHOW_BACKGROUND)
+private fun RegisterScreenPreview() = RegisterScreenContent(
+    emailState = rememberTextFieldState(),
+    passwordState = rememberTextFieldState(),
+    onBackClick = {},
+    onNextClick = {}
+)

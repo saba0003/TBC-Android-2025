@@ -1,7 +1,7 @@
 package com.example.tbc_android_2025.presentation.screen.register
 
 import androidx.compose.foundation.text.input.TextFieldState
-import com.example.tbc_android_2025.presentation.common.view_model.BaseViewModel
+import com.example.tbc_android_2025.presentation.common.BaseViewModel
 import com.example.tbc_android_2025.presentation.screen.register.RegisterContract.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject

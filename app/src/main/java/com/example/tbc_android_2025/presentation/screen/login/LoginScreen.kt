@@ -1,25 +1,15 @@
 package com.example.tbc_android_2025.presentation.screen.login
 
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.BasicSecureTextField
-import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
@@ -28,133 +18,123 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.example.tbc_android_2025.presentation.common.Strings
-import com.example.tbc_android_2025.presentation.screen.login.LoginContract.*
+import com.example.tbc_android_2025.presentation.screen.component.AppButton
+import com.example.tbc_android_2025.presentation.screen.component.AppTextField
+import com.example.tbc_android_2025.presentation.screen.login.LoginContract.Event
+import com.example.tbc_android_2025.presentation.screen.login.LoginContract.SideEffect
 import com.example.tbc_android_2025.presentation.ui.theme.ComfortaaFamily
 import com.example.tbc_android_2025.presentation.ui.theme.FontSizeLarge
 
-private const val BORDER_RADIUS = 6
+private const val SCREEN_PADDING = 20
+private const val SPACE_IN_BETWEEN_COLUMN_ITEMS = 16
+private const val SECURE = true
+private const val SHOW_BACKGROUND = true
 
-// This wrapper keeps the VM logic separate from the UI logic
 @Composable
-fun LoginScreen(viewModel: LoginViewModel = hiltViewModel(), onNavigateToHomeScreen: () -> Unit) {
-    LaunchedEffect(Unit) {
-        viewModel.sideEffect.collect {
+fun LoginScreen(
+    viewModel: LoginViewModel = hiltViewModel(), onNavigateToHomeScreen: () -> Unit
+) = with(receiver = viewModel) {
+
+    LaunchedEffect(key1 = Unit) {
+        sideEffect.collect {
             when (it) {
-                SideEffect.NavigateToHomeScreen -> onNavigateToHomeScreen()
+                is SideEffect.NavigateToHomeScreen -> onNavigateToHomeScreen()
             }
         }
     }
 
-    LoginContent(
-        emailState = viewModel.emailState,
-        passwordState = viewModel.passwordState,
-        onBackClick = { viewModel.onEvent(event = Event.OnBackButtonClicked) },
-        onLoginClick = { viewModel.onEvent(event = Event.OnLoginButtonClicked) }
+    LoginScreenContent(
+        emailState = emailState,
+        passwordState = passwordState,
+        onBackClick = { onEvent(event = Event.OnBackButtonClicked) },
+        onLoginClick = { onEvent(event = Event.OnLoginButtonClicked) }
     )
 }
 
 @Composable
-fun LoginContent(
+private fun LoginScreenContent(
     emailState: TextFieldState,
     passwordState: TextFieldState,
     onBackClick: () -> Unit,
     onLoginClick: () -> Unit
-) = Box(modifier = Modifier.fillMaxSize()) {
-
-    // 2. The IconButton is now inside a Box, so TopStart works!
-    IconButton(
-        onClick = onBackClick,
-        modifier = Modifier
-            .padding(16.dp)
-            .align(Alignment.TopStart) // This works now
-    ) {
-        Icon(
-            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-            contentDescription = stringResource(Strings.content_description_back_button),
-            tint = Color.Black
-        )
-    }
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(20.dp),
-        verticalArrangement = Arrangement.Center // Adds space between items
-    ) {
-        Text(
-            text = stringResource(id = Strings.login),
-            modifier = Modifier.wrapContentSize(),
-            fontFamily = ComfortaaFamily,
-            fontSize = FontSizeLarge
-        )
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        BasicTextField(
-            state = emailState,
-            modifier = Modifier
-                .fillMaxWidth()
-                .border(2.dp, Color.Black, RectangleShape),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
-            decorator = { innerTextField ->
-                Box(modifier = Modifier.padding(17.dp)) {
-                    if (emailState.text.isEmpty()) {
-                        Text(stringResource(Strings.email_hint), color = Color.Gray)
-                    }
-                    innerTextField()
-                }
-            }
-        )
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        BasicSecureTextField(
-            state = passwordState,
-            modifier = Modifier
-                .fillMaxWidth()
-                .border(2.dp, Color.Black, RectangleShape),
-            decorator = { innerTextField ->
-                Box(modifier = Modifier.padding(17.dp)) {
-                    // FIXED: Now checking passwordState
-                    if (passwordState.text.isEmpty()) {
-                        Text(stringResource(Strings.password_hint), color = Color.Gray)
-                    }
-                    innerTextField()
-                }
-            }
-        )
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        Button(
-            onClick = onLoginClick,
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(48.dp),
-            shape = RoundedCornerShape(BORDER_RADIUS.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = Color.Black)
-        ) {
-            Text(stringResource(Strings.login), fontWeight = FontWeight.Bold)
-        }
-    }
+) {
+    LoginScreenBackButton(onClick = onBackClick)
+    LoginScreenBody(
+        emailState = emailState, passwordState = passwordState, onLoginClick = onLoginClick
+    )
 }
 
 @Composable
-@Preview(showBackground = true)
-fun LoginScreenPreview() {
-    // Preview now works because we don't call hiltViewModel() here
-    LoginContent(
-        emailState = rememberTextFieldState(),
-        passwordState = rememberTextFieldState(),
-        onBackClick = {},
-        onLoginClick = {}
+private fun LoginScreenBackButton(onClick: () -> Unit) = IconButton(
+    onClick = onClick,
+    modifier = Modifier.padding(start = SCREEN_PADDING.dp, top = SCREEN_PADDING.dp)
+) {
+    Icon(
+        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+        contentDescription = stringResource(id = Strings.content_description_back_button),
+        tint = Color.Black
     )
 }
+
+@Composable
+private fun LoginScreenBody(
+    emailState: TextFieldState,
+    passwordState: TextFieldState,
+    onLoginClick: () -> Unit
+) = Column(
+    modifier = Modifier
+        .fillMaxSize()
+        .padding(all = SCREEN_PADDING.dp),
+    verticalArrangement = Arrangement.spacedBy(
+        space = SPACE_IN_BETWEEN_COLUMN_ITEMS.dp, alignment = Alignment.CenterVertically
+    )
+) {
+    LoginScreenTitle()
+    LoginScreenEmailInput(state = emailState)
+    LoginScreenPasswordInput(state = passwordState)
+    LoginScreenLoginButton(onClick = onLoginClick)
+}
+
+@Composable
+private fun LoginScreenTitle() = Text(
+    text = stringResource(id = Strings.login),
+    modifier = Modifier.wrapContentSize(),
+    fontFamily = ComfortaaFamily,
+    fontSize = FontSizeLarge
+)
+
+@Composable
+private fun LoginScreenEmailInput(state: TextFieldState) = AppTextField(
+    state = state,
+    hint = stringResource(id = Strings.email_hint),
+    keyboardType = KeyboardType.Email
+)
+
+@Composable
+private fun LoginScreenPasswordInput(state: TextFieldState) = AppTextField(
+    state = state,
+    hint = stringResource(id = Strings.password_hint),
+    isSecure = SECURE
+)
+
+@Composable
+private fun LoginScreenLoginButton(onClick: () -> Unit) = AppButton(
+    text = stringResource(id = Strings.login),
+    onClick = onClick,
+    modifier = Modifier.fillMaxWidth()
+)
+
+@Composable
+@Preview(showBackground = SHOW_BACKGROUND)
+private fun LoginScreenPreview() = LoginScreenContent(
+    emailState = rememberTextFieldState(),
+    passwordState = rememberTextFieldState(),
+    onBackClick = {},
+    onLoginClick = {}
+)
