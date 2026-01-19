@@ -50,8 +50,8 @@ fun LoginScreen(
     }
 
     LoginScreenContent(
-        emailState = emailState,
-        passwordState = passwordState,
+        emailState = state.value.email,
+        passwordState = state.value.email,
         onBackClick = { onEvent(event = Event.OnBackButtonClicked) },
         onLoginClick = { onEvent(event = Event.OnLoginButtonClicked) }
     )

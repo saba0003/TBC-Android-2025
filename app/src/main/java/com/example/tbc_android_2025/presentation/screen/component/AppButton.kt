@@ -37,7 +37,7 @@ fun AppButton(
     val containerColor = if (isPrimary) Color.Black else Color.White
     val contentColor = if (isPrimary) Color.White else Color.Black
     val border =
-        if (!isPrimary) BorderStroke(width = BORDER_STROKE_WIDTH.dp, color = Color.Black) else null
+        if (isPrimary.not()) BorderStroke(width = BORDER_STROKE_WIDTH.dp, color = Color.Black) else null
 
     Button(
         onClick = onClick,

@@ -50,8 +50,8 @@ fun RegisterScreen(
     }
 
     RegisterScreenContent(
-        emailState = emailState,
-        passwordState = passwordState,
+        emailState = state.value.email,
+        passwordState = state.value.password,
         onBackClick = { onEvent(event = Event.OnBackButtonClicked) },
         onNextClick = { onEvent(event = Event.OnNextButtonClicked) }
     )
