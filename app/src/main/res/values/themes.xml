@@ -6,7 +6,8 @@
         <item name="postSplashScreenTheme">@style/Theme.TBCAndroid2025</item>
     </style>
 
-    <style name="Theme.TBCAndroid2025" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="Theme.TBCAndroid2025" parent="Theme.Material3.Dark.NoActionBar">
         <item name="android:windowBackground">@android:color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 </resources>

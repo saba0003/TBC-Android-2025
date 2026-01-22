@@ -1,7 +1,9 @@
 package com.example.tbc_android_2025.presentation.screen.home
 
 import com.example.tbc_android_2025.presentation.common.BaseViewModel
-import com.example.tbc_android_2025.presentation.screen.home.HomeContract.*
+import com.example.tbc_android_2025.presentation.screen.home.HomeContract.Event
+import com.example.tbc_android_2025.presentation.screen.home.HomeContract.SideEffect
+import com.example.tbc_android_2025.presentation.screen.home.HomeContract.State
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

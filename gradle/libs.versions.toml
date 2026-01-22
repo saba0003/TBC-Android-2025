@@ -20,6 +20,7 @@ composeBom = "2025.10.01"
 lifecycleViewmodelCompose = "2.10.0"
 lifecycleViewmodelNavigation3 = "2.10.0"
 loggingInterceptor = "5.3.0"
+material = "1.13.0"
 moshi = "1.15.2"
 moshiKotlinCodegen = "1.15.2"
 appcompat = "1.7.1"
@@ -78,6 +79,7 @@ androidx-activity = { group = "androidx.activity", name = "activity", version.re
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 androidx-constraintlayout-compose = { group = "androidx.constraintlayout", name = "constraintlayout-compose", version.ref = "constraintlayoutCompose" }
 converter-moshi = { module = "com.squareup.retrofit2:converter-moshi", version.ref = "retrofit" }
+material = { module = "com.google.android.material:material", version.ref = "material" }
 moshi-kotlin-codegen = { module = "com.squareup.moshi:moshi-kotlin-codegen", version.ref = "moshiKotlinCodegen" }
 moshi = { module = "com.squareup.moshi:moshi", version.ref = "moshi" }
 desugar_jdk_libs = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar_jdk_libs" }

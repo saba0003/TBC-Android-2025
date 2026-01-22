@@ -1,6 +1,7 @@
 package com.example.tbc_android_2025.presentation.screen.register
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -15,6 +16,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -23,9 +25,11 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.tbc_android_2025.presentation.common.Strings
-import com.example.tbc_android_2025.presentation.screen.component.AppButton
-import com.example.tbc_android_2025.presentation.screen.component.AppTextField
+import com.example.tbc_android_2025.presentation.component.AppButton
+import com.example.tbc_android_2025.presentation.component.AppLoader
+import com.example.tbc_android_2025.presentation.component.AppTextField
 import com.example.tbc_android_2025.presentation.screen.register.RegisterContract.Event
 import com.example.tbc_android_2025.presentation.screen.register.RegisterContract.SideEffect
 import com.example.tbc_android_2025.presentation.ui.theme.ComfortaaFamily
@@ -41,6 +45,8 @@ fun RegisterScreen(
     viewModel: RegisterViewModel = hiltViewModel(), onNavigateToHomeScreen: () -> Unit
 ) = with(receiver = viewModel) {
 
+    val state by state.collectAsStateWithLifecycle()
+
     LaunchedEffect(key1 = Unit) {
         sideEffect.collect {
             when (it) {
@@ -49,12 +55,16 @@ fun RegisterScreen(
         }
     }
 
-    RegisterScreenContent(
-        emailState = state.value.email,
-        passwordState = state.value.password,
-        onBackClick = { onEvent(event = Event.OnBackButtonClicked) },
-        onNextClick = { onEvent(event = Event.OnNextButtonClicked) }
-    )
+    Box(modifier = Modifier.fillMaxWidth()) {
+        RegisterScreenContent(
+            emailState = state.email,
+            passwordState = state.password,
+            onBackClick = { onEvent(event = Event.OnBackButtonClicked) },
+            onNextClick = { onEvent(event = Event.OnNextButtonClicked) }
+        )
+
+        AppLoader(isLoading = state.isLoading)
+    }
 }
 
 @Composable

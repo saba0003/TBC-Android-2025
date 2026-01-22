@@ -76,6 +76,7 @@ dependencies {
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.androidx.appcompat)
+    implementation(libs.material)
     implementation(libs.androidx.paging)
     implementation(libs.androidx.paging.compose)
     implementation(libs.androidx.activity)

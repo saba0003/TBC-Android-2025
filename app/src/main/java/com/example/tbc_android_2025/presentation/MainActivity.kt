@@ -7,7 +7,6 @@ import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.example.tbc_android_2025.presentation.navigation.AppNavigation
-import com.example.tbc_android_2025.presentation.navigation.Route
 import com.example.tbc_android_2025.presentation.screen.splash.SplashViewModel
 import com.example.tbc_android_2025.presentation.ui.theme.TBCAndroid2025Theme
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,7 +24,7 @@ class MainActivity : ComponentActivity() {
         splashScreen.setKeepOnScreenCondition { viewModel.state.value.isLoading }
         setContent {
             TBCAndroid2025Theme {
-                AppNavigation(initialRoute = Route.Home)
+                AppNavigation()
             }
         }
     }

@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -24,10 +25,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.tbc_android_2025.presentation.common.Drawables
 import com.example.tbc_android_2025.presentation.common.Images
 import com.example.tbc_android_2025.presentation.common.Strings
-import com.example.tbc_android_2025.presentation.screen.component.AppButton
+import com.example.tbc_android_2025.presentation.component.AppButton
+import com.example.tbc_android_2025.presentation.component.AppLoader
 import com.example.tbc_android_2025.presentation.screen.home.HomeContract.Event
 import com.example.tbc_android_2025.presentation.screen.home.HomeContract.SideEffect
 import com.example.tbc_android_2025.presentation.ui.theme.ComfortaaFamily
@@ -51,6 +54,8 @@ fun HomeScreen(
     onNavigateToRegisterScreen: () -> Unit
 ) = with(receiver = viewModel) {
 
+    val state by state.collectAsStateWithLifecycle()
+
     LaunchedEffect(key1 = Unit) {
         sideEffect.collect {
             when (it) {
@@ -60,10 +65,14 @@ fun HomeScreen(
         }
     }
 
-    HomeScreenContent(
-        onLoginClick = { onEvent(event = Event.OnLoginButtonClicked) },
-        onRegisterClick = { onEvent(event = Event.OnRegisterButtonClicked) }
-    )
+    Box(modifier = Modifier.fillMaxSize()) {
+        HomeScreenContent(
+            onLoginClick = { onEvent(Event.OnLoginButtonClicked) },
+            onRegisterClick = { onEvent(Event.OnRegisterButtonClicked) }
+        )
+
+        AppLoader(isLoading = state.isLoading)
+    }
 }
 
 @Composable

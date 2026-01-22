@@ -1,4 +1,4 @@
-package com.example.tbc_android_2025.presentation.screen.component
+package com.example.tbc_android_2025.presentation.component
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box

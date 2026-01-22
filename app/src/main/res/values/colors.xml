@@ -5,11 +5,9 @@
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
-    <color name="gray_500">#808080</color>
-    <color name="scrim_background">#99000000</color>
-    <color name="light_green">#70ED63</color>
-    <color name="amaranth">#E52B50</color>
-    <color name="viridian">#40826D</color>
+    <color name="gray_500">#FF808080</color>
     <color name="logo_color_1">#FFFF00D6</color>
     <color name="logo_color_2">#FFFF4D00</color>
+    <color name="heart_color">#FF565E</color>
+    <color name="default_navbar_icon_color">#FF96A7AF</color>
 </resources>

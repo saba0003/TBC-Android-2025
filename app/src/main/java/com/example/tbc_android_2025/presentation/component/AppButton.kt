@@ -1,4 +1,4 @@
-package com.example.tbc_android_2025.presentation.screen.component
+package com.example.tbc_android_2025.presentation.component
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.PaddingValues
