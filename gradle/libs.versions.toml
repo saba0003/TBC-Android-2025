@@ -4,7 +4,6 @@ calendar = "2.9.0"
 coil = "3.3.0"
 coreSplashscreen = "1.2.0"
 datastorePreferences = "1.1.7"
-firebaseBom = "34.7.0"
 hiltLifecycleViewmodelCompose = "1.3.0"
 kotlin = "2.2.21"
 coreKtx = "1.17.0"
@@ -21,6 +20,7 @@ lifecycleViewmodelCompose = "2.10.0"
 lifecycleViewmodelNavigation3 = "2.10.0"
 loggingInterceptor = "5.3.0"
 material = "1.13.0"
+mockk = "1.14.7"
 moshi = "1.15.2"
 moshiKotlinCodegen = "1.15.2"
 appcompat = "1.7.1"
@@ -29,7 +29,6 @@ constraintlayout = "2.2.1"
 constraintlayoutCompose = "1.1.1"
 navigation3 = "1.0.0"
 retrofit = "3.0.0"
-googleServices = "4.4.4"
 ksp = "2.2.21-2.0.4"
 hiltAndroid = "2.57.2"
 room = "2.8.4"
@@ -56,8 +55,6 @@ androidx-paging-compose = { module = "androidx.paging:paging-compose", version.r
 androidx-swiperefreshlayout = { module = "androidx.swiperefreshlayout:swiperefreshlayout", version.ref = "swiperefreshlayout" }
 coil-android = { module = "io.coil-kt.coil3:coil", version.ref = "coil" }
 coil-network-okhttp = { module = "io.coil-kt.coil3:coil-network-okhttp", version.ref = "coil" }
-firebase-auth = { module = "com.google.firebase:firebase-auth" }
-firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -80,6 +77,9 @@ androidx-constraintlayout = { group = "androidx.constraintlayout", name = "const
 androidx-constraintlayout-compose = { group = "androidx.constraintlayout", name = "constraintlayout-compose", version.ref = "constraintlayoutCompose" }
 converter-moshi = { module = "com.squareup.retrofit2:converter-moshi", version.ref = "retrofit" }
 material = { module = "com.google.android.material:material", version.ref = "material" }
+mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
+mockk-agent = { module = "io.mockk:mockk-agent", version.ref = "mockk" }
+mockk-android = { module = "io.mockk:mockk-android", version.ref = "mockk" }
 moshi-kotlin-codegen = { module = "com.squareup.moshi:moshi-kotlin-codegen", version.ref = "moshiKotlinCodegen" }
 moshi = { module = "com.squareup.moshi:moshi", version.ref = "moshi" }
 desugar_jdk_libs = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar_jdk_libs" }
@@ -96,7 +96,6 @@ android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-parcelize = { id = "kotlin-parcelize" }
-google-services = { id = "com.google.gms.google-services", version.ref = "googleServices" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 dagger-hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hiltAndroid" }
 secrets-gradle-plugin = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "secretsGradlePlugin" }

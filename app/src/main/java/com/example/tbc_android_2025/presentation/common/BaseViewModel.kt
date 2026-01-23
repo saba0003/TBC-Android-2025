@@ -36,7 +36,7 @@ abstract class BaseViewModel<STATE, EVENT, SIDE_EFFECT>(initialState: STATE) : V
     protected fun <T : Any> handleResponse(
         apiCall: () -> Flow<Resource<T>>,
         onSuccess: (T) -> Unit,
-        onError: ((AppError) -> Unit)? = null,
+        onError: (suspend (AppError) -> Unit)? = null,
         onLoading: (Resource.Loader) -> Unit
     ) {
         viewModelScope.launch {
@@ -53,14 +53,14 @@ abstract class BaseViewModel<STATE, EVENT, SIDE_EFFECT>(initialState: STATE) : V
 
 
     /** AUX */
-    private fun <T : Any> getResourceType(
+    private suspend inline fun <T : Any> getResourceType(
         resource: Resource<T>,
         onSuccess: (T) -> Unit,
-        onError: ((Resource.Error) -> Unit)? = null,
+        onError: suspend (Resource.Error) -> Unit,
         onLoading: (Resource.Loader) -> Unit
     ) = when (resource) {
         is Resource.Success -> onSuccess(resource.data)
-        is Resource.Error -> onError?.invoke(resource)
+        is Resource.Error -> onError(resource)
         is Resource.Loader -> onLoading(resource)
     }
 }

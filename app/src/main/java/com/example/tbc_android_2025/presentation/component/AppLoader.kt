@@ -16,7 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.tbc_android_2025.presentation.ui.theme.HoloBlueBright
+import com.example.tbc_android_2025.presentation.ui.theme.AppColors.HoloBlueBright
 
 private const val TRANSPARENCY = 0.7F
 private const val STROKE_WIDTH = 4

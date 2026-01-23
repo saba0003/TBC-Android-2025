@@ -11,6 +11,6 @@ interface SplashContract {
     }
 
     sealed interface SideEffect {
-        data object NavigateToHome : SideEffect
+        data object NavigateToOrders : SideEffect
     }
 }

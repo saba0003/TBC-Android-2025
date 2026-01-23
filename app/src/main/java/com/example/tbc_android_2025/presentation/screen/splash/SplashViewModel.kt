@@ -11,6 +11,6 @@ class SplashViewModel @Inject constructor() :
 
     init {
         updateState { copy(isLoading = isLoading.not()) }
-        emitSideEffect(sideEffect = SideEffect.NavigateToHome)
+        emitSideEffect(sideEffect = SideEffect.NavigateToOrders)
     }
 }
