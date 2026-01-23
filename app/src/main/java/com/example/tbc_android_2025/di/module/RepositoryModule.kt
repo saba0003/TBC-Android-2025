@@ -14,6 +14,6 @@ interface RepositoryModule {
 
     @Binds
     @Singleton
-    fun bindOrderRepository(impl: OrderRepositoryImpl): OrderRepository
+    fun bindChatRepository(impl: ChatRepositoryImpl): ChatRepository
 
 }

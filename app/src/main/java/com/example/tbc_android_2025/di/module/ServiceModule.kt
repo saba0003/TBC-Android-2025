@@ -14,7 +14,7 @@ object ServiceModule {
 
     @Provides
     @Singleton
-    fun provideOrderFetchService(retrofit: Retrofit): OrderFetchService =
-        retrofit.create(OrderFetchService::class.java)
+    fun provideChatFetchService(retrofit: Retrofit): ChatFetchService =
+        retrofit.create(ChatFetchService::class.java)
 
 }
