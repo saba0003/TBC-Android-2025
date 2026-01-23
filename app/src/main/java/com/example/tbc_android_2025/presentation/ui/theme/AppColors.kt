@@ -19,6 +19,10 @@ object AppColors {
     private const val AMARANTH = 0xFFE52B50
     private const val VIRIDIAN = 0xFF40826D
     private const val HOLO_BLUE_BRIGHT = 0xFF00DDFF
+    private const val BACKGROUND_DARK = 0xFF1F2C34
+    private const val SURFACE_DARK = 0xFF2A3942
+    private const val ACCENT_GREEN = 0xFF4ADE80
+    private const val TEXT_GREY = 0xFF4ADE80
 
 
     val Purple80 = Color(color = PURPLE_80)
@@ -36,5 +40,9 @@ object AppColors {
     val Amaranth = Color(color = AMARANTH)
     val Viridian = Color(color = VIRIDIAN)
     val HoloBlueBright = Color(color = HOLO_BLUE_BRIGHT)
+    val BackgroundDark = Color(color = BACKGROUND_DARK)
+    val SurfaceDark = Color(color = SURFACE_DARK)
+    val AccentGreen = Color(color = ACCENT_GREEN)
+    val TextGrey = Color(color = TEXT_GREY)
 
 }

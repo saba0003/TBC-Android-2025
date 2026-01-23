@@ -19,6 +19,8 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AttachFile
 import androidx.compose.material.icons.filled.Mic
@@ -46,6 +48,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -59,12 +62,7 @@ import com.example.tbc_android_2025.presentation.model.ChatModel
 import com.example.tbc_android_2025.presentation.screen.chats.ChatsContract.Event
 import com.example.tbc_android_2025.presentation.screen.chats.ChatsContract.SideEffect
 import com.example.tbc_android_2025.presentation.screen.chats.ChatsContract.State
-
-// UI Constants
-val BackgroundDark = Color(0xFF1F2C34)
-val SurfaceDark = Color(0xFF2A3942)
-val AccentGreen = Color(0xFF4ADE80)
-val TextGrey = Color(0xFF8696A0)
+import com.example.tbc_android_2025.presentation.ui.theme.AppColors
 
 @Composable
 fun ChatsScreen(viewModel: ChatsViewModel = hiltViewModel()) {
@@ -91,7 +89,7 @@ private fun ChatsScreenContent(
     onTriggerSearch: (String) -> Unit
 ) {
     Scaffold(
-        containerColor = BackgroundDark,
+        containerColor = AppColors.BackgroundDark,
         bottomBar = { CustomBottomBar() }
     ) { padding ->
         Column(
@@ -127,7 +125,6 @@ private fun ChatsScreenContent(
 private fun SearchArea(
     onSearchClick: (String) -> Unit
 ) {
-    // Local state to keep track of typing without triggering ViewModel updates
     var localQuery by remember { mutableStateOf("") }
 
     Row(
@@ -140,40 +137,49 @@ private fun SearchArea(
             modifier = Modifier
                 .weight(1f)
                 .height(56.dp)
-                .background(SurfaceDark, RoundedCornerShape(16.dp))
+                .background(AppColors.SurfaceDark, RoundedCornerShape(16.dp))
                 .padding(horizontal = 16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            // Mocking the Google "G" Icon
             Text(
                 text = "G",
-                color = TextGrey,
+                color = AppColors.TextGrey,
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold
             )
             Spacer(modifier = Modifier.width(12.dp))
             Box(contentAlignment = Alignment.CenterStart) {
                 if (localQuery.isEmpty()) {
-                    Text("Search", color = TextGrey, fontSize = 16.sp)
+                    Text("Search", color = AppColors.TextGrey, fontSize = 16.sp)
                 }
                 BasicTextField(
                     value = localQuery,
                     onValueChange = { localQuery = it },
                     textStyle = TextStyle(color = Color.White, fontSize = 16.sp),
-                    cursorBrush = SolidColor(AccentGreen),
-                    modifier = Modifier.fillMaxWidth()
+                    cursorBrush = SolidColor(AppColors.AccentGreen),
+                    modifier = Modifier.fillMaxWidth(),
+                    // Restrict to single line
+                    singleLine = true,
+                    maxLines = 1,
+                    // Configure keyboard to show "Search" icon instead of "Enter"
+                    keyboardOptions = KeyboardOptions(
+                        imeAction = ImeAction.Search
+                    ),
+                    // Trigger search logic when keyboard search button is pressed
+                    keyboardActions = KeyboardActions(
+                        onSearch = { onSearchClick(localQuery) }
+                    )
                 )
             }
         }
 
         Spacer(modifier = Modifier.width(12.dp))
 
-        // The Search Trigger Button
         IconButton(
             onClick = { onSearchClick(localQuery) },
             modifier = Modifier
                 .size(56.dp)
-                .background(AccentGreen, RoundedCornerShape(16.dp))
+                .background(AppColors.AccentGreen, RoundedCornerShape(16.dp))
         ) {
             Icon(
                 imageVector = Icons.Default.Tune,
@@ -231,22 +237,22 @@ private fun ChatItem(chat: ChatModel) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 when {
                     chat.isTyping -> {
-                        Text(chat.lastMessage, color = TextGrey, fontSize = 14.sp)
+                        Text(chat.lastMessage, color = AppColors.TextGrey, fontSize = 14.sp)
                     }
                     chat.lastMessageType == "voice" -> {
-                        Icon(Icons.Default.Mic, null, Modifier.size(16.dp), tint = TextGrey)
+                        Icon(Icons.Default.Mic, null, Modifier.size(16.dp), tint = AppColors.TextGrey)
                         Spacer(Modifier.width(6.dp))
-                        Text("Sent a voice message", color = TextGrey, fontSize = 14.sp)
+                        Text("Sent a voice message", color = AppColors.TextGrey, fontSize = 14.sp)
                     }
                     chat.lastMessageType == "file" -> {
-                        Icon(Icons.Default.AttachFile, null, Modifier.size(16.dp), tint = TextGrey)
+                        Icon(Icons.Default.AttachFile, null, Modifier.size(16.dp), tint = AppColors.TextGrey)
                         Spacer(Modifier.width(6.dp))
-                        Text("Sent an attachment", color = TextGrey, fontSize = 14.sp)
+                        Text("Sent an attachment", color = AppColors.TextGrey, fontSize = 14.sp)
                     }
                     else -> {
                         Text(
                             text = chat.lastMessage,
-                            color = TextGrey,
+                            color = AppColors.TextGrey,
                             fontSize = 14.sp,
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis
@@ -257,25 +263,25 @@ private fun ChatItem(chat: ChatModel) {
         }
 
         Column(horizontalAlignment = Alignment.End) {
-            Text(chat.lastActive, color = TextGrey, fontSize = 12.sp)
+            Text(chat.lastActive, color = AppColors.TextGrey, fontSize = 12.sp)
             Spacer(modifier = Modifier.height(8.dp))
 
             if (chat.unreadMessages > 0) {
                 Box(
                     modifier = Modifier
                         .size(20.dp)
-                        .background(AccentGreen, CircleShape),
+                        .background(AppColors.AccentGreen, CircleShape),
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
                         text = chat.unreadMessages.toString(),
-                        color = BackgroundDark,
+                        color = AppColors.BackgroundDark,
                         fontSize = 11.sp,
                         fontWeight = FontWeight.Bold
                     )
                 }
             } else if (chat.isTyping) {
-                Text("..", color = AccentGreen, fontWeight = FontWeight.Black, fontSize = 18.sp)
+                Text("..", color = AppColors.AccentGreen, fontWeight = FontWeight.Black, fontSize = 18.sp)
             }
         }
     }
@@ -284,7 +290,7 @@ private fun ChatItem(chat: ChatModel) {
 @Composable
 private fun CustomBottomBar() {
     Surface(
-        color = SurfaceDark,
+        color = AppColors.SurfaceDark,
         shape = RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp),
         modifier = Modifier.fillMaxWidth()
     ) {
@@ -296,9 +302,9 @@ private fun CustomBottomBar() {
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Icon(Icons.Rounded.FavoriteBorder, null, tint = TextGrey, modifier = Modifier.size(26.dp))
-            Icon(Icons.Rounded.Home, null, tint = TextGrey, modifier = Modifier.size(28.dp))
-            Icon(Icons.Rounded.ChatBubble, null, tint = AccentGreen, modifier = Modifier.size(26.dp))
+            Icon(Icons.Rounded.FavoriteBorder, null, tint = AppColors.TextGrey, modifier = Modifier.size(26.dp))
+            Icon(Icons.Rounded.Home, null, tint = AppColors.TextGrey, modifier = Modifier.size(28.dp))
+            Icon(Icons.Rounded.ChatBubble, null, tint = AppColors.AccentGreen, modifier = Modifier.size(26.dp))
         }
     }
 }
