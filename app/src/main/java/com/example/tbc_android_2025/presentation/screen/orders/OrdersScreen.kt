@@ -2,7 +2,6 @@ package com.example.tbc_android_2025.presentation.screen.orders
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -31,20 +30,22 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.tbc_android_2025.presentation.common.Strings
+import com.example.tbc_android_2025.presentation.component.CollectSideEffect
 import com.example.tbc_android_2025.presentation.model.OrderModel
-import com.example.tbc_android_2025.presentation.screen.orders.OrdersContract.*
+import com.example.tbc_android_2025.presentation.screen.orders.OrdersContract.Event
+import com.example.tbc_android_2025.presentation.screen.orders.OrdersContract.State
 
 private const val SHOW_BACKGROUND = true
 
@@ -53,29 +54,31 @@ fun OrdersScreen(viewModel: OrdersViewModel = hiltViewModel()) {
 
     val state by viewModel.state.collectAsStateWithLifecycle()
 
-    // We lift the filter state here so the Content remains stateless
-    var selectedFilter by remember { mutableStateOf(OrderModel.Status.PENDING) }
-
     OrdersScreenContent(
         state = state,
-        selectedFilter = selectedFilter,
-        onFilterSelected = { selectedFilter = it },
+        onFilterSelected = { viewModel.onEvent(event = Event.OnFilterChanged(filter = it)) },
         onRefresh = { viewModel.onEvent(event = Event.OnFetchOrders) },
         onDetailsClicked = { viewModel.onEvent(event = Event.OnDetailsClicked) }
     )
+
+    CollectSideEffect(flow = viewModel.sideEffect) {
+        when (it) {
+            OrdersContract.SideEffect.NavigateToDetails -> Unit
+            is OrdersContract.SideEffect.ShowError -> Unit
+        }
+    }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
+@OptIn(ExperimentalMaterial3Api::class)
 private fun OrdersScreenContent(
     state: State,
-    selectedFilter: OrderModel.Status,
     onFilterSelected: (OrderModel.Status) -> Unit,
     onRefresh: () -> Unit,
     onDetailsClicked: () -> Unit
 ) {
-    val filteredOrders = remember(state.orders, selectedFilter) {
-        state.orders.filter { it.status == selectedFilter }
+    val filteredOrders = remember(state.orders, state.selectedFilter) {
+        state.orders.filter { it.status == state.selectedFilter }
     }
 
     PullToRefreshBox(
@@ -86,7 +89,7 @@ private fun OrdersScreenContent(
                 CenterAlignedTopAppBar(
                     title = {
                         Text(
-                            "My Orders",
+                            text = stringResource(id = Strings.my_orders),
                             fontWeight = FontWeight.SemiBold,
                             fontSize = 20.sp
                         )
@@ -117,12 +120,11 @@ private fun OrdersScreenContent(
                         .padding(horizontal = 16.dp, vertical = 12.dp),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    OrderModel.Status.entries.forEach { status ->
-                        val isSelected = status == selectedFilter
+                    OrderModel.Status.entries.forEach {
                         FilterTab(
-                            text = status.name.lowercase().replaceFirstChar { it.uppercase() },
-                            isSelected = isSelected,
-                            onClick = { onFilterSelected(status) }
+                            text = stringResource(id = it.stringResId),
+                            isSelected = it == state.selectedFilter,
+                            onClick = { onFilterSelected(it) }
                         )
                     }
                 }
@@ -172,7 +174,7 @@ private fun OrderCard(order: OrderModel, onDetailsClick: () -> Unit) {
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
-                    text = "Order #${order.orderNumber}",
+                    text = stringResource(id = Strings.order_number, order.orderNumber),
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold
                 )
@@ -181,16 +183,24 @@ private fun OrderCard(order: OrderModel, onDetailsClick: () -> Unit) {
 
             Spacer(modifier = Modifier.height(12.dp))
 
-            OrderInfoRow("Tracking number:", order.trackingNumber, isValueBold = true)
+            OrderInfoRow(
+                label = stringResource(id = Strings.tracking_number),
+                value = order.trackingNumber
+            )
             Spacer(modifier = Modifier.height(8.dp))
 
-            Row(modifier = Modifier.fillMaxWidth()) {
-                Box(modifier = Modifier.weight(1f)) {
-                    OrderInfoRow("Quantity:", order.quantity.toString())
-                }
-                Box(modifier = Modifier.weight(1f)) {
-                    OrderInfoRow("Subtotal:", "$${order.subtotal}", isValueBold = true)
-                }
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                OrderInfoRow(
+                    label = stringResource(id = Strings.quantity),
+                    value = order.quantity.toString()
+                )
+                OrderInfoRow(
+                    label = stringResource(id = Strings.subtotal),
+                    value = order.subtotal.toString()
+                )
             }
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -201,7 +211,11 @@ private fun OrderCard(order: OrderModel, onDetailsClick: () -> Unit) {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = order.status.name,
+                    text = when (order.status) {
+                        OrderModel.Status.PENDING -> stringResource(id = Strings.pending).uppercase()
+                        OrderModel.Status.DELIVERED -> stringResource(id = Strings.delivered).uppercase()
+                        OrderModel.Status.CANCELED -> stringResource(id = Strings.canceled).uppercase()
+                    },
                     color = when (order.status) {
                         OrderModel.Status.PENDING -> Color(0xFFF2994A)
                         OrderModel.Status.DELIVERED -> Color(0xFF27AE60)
@@ -215,7 +229,7 @@ private fun OrderCard(order: OrderModel, onDetailsClick: () -> Unit) {
                     shape = RoundedCornerShape(20.dp),
                     border = ButtonDefaults.outlinedButtonBorder(enabled = true)
                 ) {
-                    Text("Details", color = Color.Black)
+                    Text(text = stringResource(id = Strings.details), color = Color.Black)
                 }
             }
         }
@@ -223,13 +237,13 @@ private fun OrderCard(order: OrderModel, onDetailsClick: () -> Unit) {
 }
 
 @Composable
-private fun OrderInfoRow(label: String, value: String, isValueBold: Boolean = false) {
+private fun OrderInfoRow(label: String, value: String) {
     Row {
-        Text(text = "$label ", color = Color.Gray, fontSize = 14.sp)
+        Text(text = label, color = Color.Gray, fontSize = 14.sp)
         Text(
             text = value,
             fontSize = 14.sp,
-            fontWeight = if (isValueBold) FontWeight.Bold else FontWeight.Normal
+            fontWeight = FontWeight.Bold
         )
     }
 }
@@ -241,7 +255,7 @@ private fun OrdersScreenPreview() {
         OrderModel(
             id = 1,
             orderNumber = "1524",
-            date = "13/05/2021",
+            date = "13/05/2025",
             trackingNumber = "IK287368838",
             quantity = 2,
             subtotal = 110,
@@ -250,7 +264,7 @@ private fun OrdersScreenPreview() {
         OrderModel(
             id = 2,
             orderNumber = "1525",
-            date = "14/05/2021",
+            date = "14/05/2025",
             trackingNumber = "IK287368839",
             quantity = 1,
             subtotal = 50,
@@ -259,17 +273,16 @@ private fun OrdersScreenPreview() {
         OrderModel(
             id = 3,
             orderNumber = "1526",
-            date = "15/05/2021",
+            date = "15/05/2025",
             trackingNumber = "IK287368840",
             quantity = 5,
             subtotal = 450,
-            status = OrderModel.Status.DELIVERED
+            status = OrderModel.Status.PENDING
         )
     )
 
     OrdersScreenContent(
-        state = State(orders = mockOrders, isLoading = false),
-        selectedFilter = OrderModel.Status.PENDING,
+        state = State(orders = mockOrders),
         onFilterSelected = {},
         onRefresh = {},
         onDetailsClicked = {}

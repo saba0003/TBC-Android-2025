@@ -5,7 +5,9 @@ import com.example.tbc_android_2025.presentation.model.OrderModel
 
 interface OrdersContract {
     data class State(
-        val orders: List<OrderModel> = emptyList(), val isLoading: Boolean = NOT_YET_STARTED
+        val orders: List<OrderModel> = emptyList(),
+        val selectedFilter: OrderModel.Status = OrderModel.Status.PENDING,
+        val isLoading: Boolean = NOT_YET_STARTED
     ) {
         companion object {
             private const val NOT_YET_STARTED = false
@@ -17,6 +19,7 @@ interface OrdersContract {
 
     sealed interface Event {
         data object OnFetchOrders : Event
+        data class OnFilterChanged(val filter: OrderModel.Status) : Event
         data object OnDetailsClicked : Event
     }
 
