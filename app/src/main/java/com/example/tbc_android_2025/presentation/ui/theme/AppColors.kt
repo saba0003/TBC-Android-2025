@@ -22,7 +22,7 @@ object AppColors {
     private const val BACKGROUND_DARK = 0xFF1F2C34
     private const val SURFACE_DARK = 0xFF2A3942
     private const val ACCENT_GREEN = 0xFF4ADE80
-    private const val TEXT_GREY = 0xFF4ADE80
+    private const val TEXT_GREY = 0xFF8696A0
 
 
     val Purple80 = Color(color = PURPLE_80)

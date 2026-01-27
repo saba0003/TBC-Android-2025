@@ -8,13 +8,13 @@ import androidx.navigation3.ui.NavDisplay
 import com.example.tbc_android_2025.presentation.screen.chats.ChatsScreen
 
 @Composable
-fun AppNavigation(initialRoute: Route = Route.Orders) {
-    val backStack = remember { mutableStateListOf(initialRoute) }
+fun AppNavigation(initialAppRoute: AppRoute = AppRoute.Orders) {
+    val backStack = remember { mutableStateListOf(initialAppRoute) }
 
     NavDisplay(backStack = backStack) { key ->
         NavEntry(key) {
             when (it) {
-                Route.Orders -> ChatsScreen()
+                AppRoute.Orders -> ChatsScreen()
             }
         }
     }
