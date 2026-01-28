@@ -33,7 +33,7 @@ android {
             buildConfigField(
                 type = "String",
                 name = "BASE_URL",
-                value = "\"https://c37108e6-8faf-4a15-a91c-7d1bc9b48d8a.mock.pstmn.io/\""
+                value = "\"https://b3a5ff42-2e26-463e-ab7a-408f34e7b408.mock.pstmn.io/\""
             )
         }
 
@@ -97,6 +97,7 @@ dependencies {
     implementation(libs.androidx.room.ktx)
     ksp(libs.androidx.room.compiler)
     implementation(libs.coil.android)
+    implementation(libs.coil.compose)
     implementation(libs.coil.network.okhttp)
     implementation(libs.moshi)
     ksp(libs.moshi.kotlin.codegen)

@@ -14,6 +14,10 @@ interface RepositoryModule {
 
     @Binds
     @Singleton
-    fun bindChatRepository(impl: ChatRepositoryImpl): ChatRepository
+    fun bindLocationRepository(impl: LocationRepositoryImpl): LocationRepository
+
+    @Binds
+    @Singleton
+    fun bindSettingsRepository(impl: SettingsRepositoryImpl): SettingsRepository
 
 }
