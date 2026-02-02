@@ -3,13 +3,16 @@ package com.example.tbc_android_2025.data.remote.mapper
 import com.example.tbc_android_2025.data.remote.dto.FieldDto
 import com.example.tbc_android_2025.domain.model.FieldModel
 
+private const val TO_DOMAIN_LIST = "toDomainList"
+private const val TO_DOMAIN_NESTED_LIST = "toDomainNestedList"
+
 private inline fun <reified T : Enum<T>> String.toEnum(): T =
     enumValues<T>().first { it.name.equals(other = this, ignoreCase = true) }
 
 private inline fun <reified T : Enum<T>> String?.toEnumOrNull(): T? =
     enumValues<T>().firstOrNull { it.name.equals(other = this, ignoreCase = true) }
 
-fun FieldDto.toDomain(): FieldModel = FieldModel(
+private fun FieldDto.toDomain(): FieldModel = FieldModel(
     fieldId = fieldId,
     hint = hint,
     fieldType = fieldType.toEnum<FieldModel.FieldType>(),
@@ -19,6 +22,8 @@ fun FieldDto.toDomain(): FieldModel = FieldModel(
     icon = icon
 )
 
-fun List<FieldDto>.toDomain(): List<FieldModel> = map { it.toDomain() }
+@JvmName(name = TO_DOMAIN_LIST)
+private fun List<FieldDto>.toDomain(): List<FieldModel> = map { it.toDomain() }
 
+@JvmName(name = TO_DOMAIN_NESTED_LIST)
 fun List<List<FieldDto>>.toDomain(): List<List<FieldModel>> = map { it.toDomain() }
