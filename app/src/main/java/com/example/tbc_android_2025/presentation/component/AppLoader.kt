@@ -16,9 +16,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.tbc_android_2025.presentation.ui.theme.AppColors.HoloBlueBright
+import com.example.tbc_android_2025.design.global.AppColors
 
-private const val TRANSPARENCY = 0.7F
 private const val STROKE_WIDTH = 4
 private const val LOADING = true
 private const val BLOCK_USER_INPUT = true
@@ -28,8 +27,8 @@ private const val SHOW_BACKGROUND = true
 fun AppLoader(
     modifier: Modifier = Modifier,
     isLoading: Boolean = LOADING,
-    scrimColor: Color = Color.Black.copy(alpha = TRANSPARENCY),
-    indicatorColor: Color = HoloBlueBright
+    scrimColor: Color = AppColors.LoaderScrim,
+    indicatorColor: Color = AppColors.HoloBlueBright
 ) = AnimatedVisibility(visible = isLoading, enter = fadeIn(), exit = fadeOut()) {
     if (isLoading)
         LoaderOverlay(modifier = modifier, scrimColor = scrimColor, indicatorColor = indicatorColor)

@@ -4,5 +4,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface SettingsRepository {
     fun isDarkMode(): Flow<Boolean>
-    suspend fun setThemeMode(isDark: Boolean)
+    suspend fun setThemeMode(isDarkMode: Boolean)
 }

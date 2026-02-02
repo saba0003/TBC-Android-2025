@@ -14,8 +14,8 @@ class SettingsRepositoryImpl @Inject constructor(private val dataStoreManager: D
             key = DataStoreKeys.DARK_MODE_KEY, defaultValue = DARK_MODE_AS_DEFAULT
         )
 
-    override suspend fun setThemeMode(isDark: Boolean) =
-        dataStoreManager.setPreference(key = DataStoreKeys.DARK_MODE_KEY, value = isDark)
+    override suspend fun setThemeMode(isDarkMode: Boolean) =
+        dataStoreManager.setPreference(key = DataStoreKeys.DARK_MODE_KEY, value = isDarkMode)
 
     private companion object {
         const val DARK_MODE_AS_DEFAULT = true

@@ -6,6 +6,7 @@
     <!-- CONTENT DESCRIPTIONS -->
     <string name="light_mode">Light Mode</string>
     <string name="dark_mode">Dark Mode</string>
+    <string name="five_star_rating_bar">5 Star Rating Bar</string>
 
     <!-- ERRORS -->
     <string name="error_network">Network Error: Could not connect to the server. Please check your settings and try again.</string>

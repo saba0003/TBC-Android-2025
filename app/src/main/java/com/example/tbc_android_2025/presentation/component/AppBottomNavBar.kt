@@ -23,29 +23,33 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.tbc_android_2025.presentation.screen.NavBarIcons
-import com.example.tbc_android_2025.presentation.ui.theme.DesignTokens
+import androidx.compose.ui.unit.dp
+import com.example.tbc_android_2025.design.navbar.NavBarColors
+import com.example.tbc_android_2025.design.navbar.NavBarInsets
+import com.example.tbc_android_2025.design.navbar.NavBarRadii
+import com.example.tbc_android_2025.navigation.NavBarIcons
+import com.example.tbc_android_2025.presentation.ui.theme.TBCAndroid2025Theme
 
+private const val SIZE = 28
 private const val SHOW_BACKGROUND = true
+private const val IS_IN_LIGHT_MODE = false
+private const val IS_IN_DARK_MODE = true
+private const val LIGHT_MODE = "Light Mode"
+private const val DARK_MODE = "Dark Mode"
 
 @Composable
 fun AppBottomNavBar(
     selectedIcon: NavBarIcons = NavBarIcons.HOME, onIconSelected: (NavBarIcons) -> Unit
 ) = Surface(
     modifier = Modifier.fillMaxWidth(),
-    shape = RoundedCornerShape(
-        topStart = DesignTokens.Radii.NavBar.Corner, topEnd = DesignTokens.Radii.NavBar.Corner
-    ),
-    color = DesignTokens.Colors.NavBar.Background
+    shape = RoundedCornerShape(topStart = NavBarRadii.Corner, topEnd = NavBarRadii.Corner),
+    color = NavBarColors.Background
 ) {
     Row(
         modifier = Modifier
             .navigationBarsPadding()
             .fillMaxWidth()
-            .padding(
-                horizontal = DesignTokens.Insets.NavBar.Horizontal,
-                vertical = DesignTokens.Insets.NavBar.Vertical
-            ),
+            .padding(horizontal = NavBarInsets.Horizontal, vertical = NavBarInsets.Vertical),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -69,12 +73,7 @@ fun AppBottomNavBar(
 private fun NavBarIcon(icon: ImageVector, isSelected: Boolean, onClick: () -> Unit) = Box(
     modifier = Modifier
         .clip(shape = CircleShape)
-        .size(
-            size = if (isSelected)
-                DesignTokens.Radii.NavBar.IconSelected
-            else
-                DesignTokens.Radii.NavBar.IconDefault
-        )
+        .size(size = if (isSelected) NavBarRadii.IconSelected else NavBarRadii.IconDefault)
         .clickable { onClick() },
     contentAlignment = Alignment.Center
 ) {
@@ -82,20 +81,23 @@ private fun NavBarIcon(icon: ImageVector, isSelected: Boolean, onClick: () -> Un
         Surface(
             modifier = Modifier.fillMaxSize(),
             shape = CircleShape,
-            color = DesignTokens.Colors.NavBar.IconSelectedSurface
+            color = NavBarColors.IconSelectedSurface
         ) {}
 
     Icon(
         imageVector = icon,
         contentDescription = null,
-        modifier = Modifier.size(size = DesignTokens.Icons.NavBar.Size),
-        tint = if (isSelected)
-            DesignTokens.Colors.NavBar.IconSelected
-        else
-            DesignTokens.Colors.NavBar.IconDefault
+        modifier = Modifier.size(size = SIZE.dp),
+        tint = if (isSelected) NavBarColors.IconSelected else NavBarColors.IconDefault
     )
 }
 
 @Composable
-@Preview(showBackground = SHOW_BACKGROUND)
-private fun AppBottomNavBarPreview() = AppBottomNavBar {}
+@Preview(name = LIGHT_MODE, showBackground = SHOW_BACKGROUND)
+private fun AppBottomNavBarLightModePreview() =
+    TBCAndroid2025Theme(darkTheme = IS_IN_LIGHT_MODE) { AppBottomNavBar {} }
+
+@Composable
+@Preview(name = DARK_MODE, showBackground = SHOW_BACKGROUND)
+private fun AppBottomNavBarDarkModePreview() =
+    TBCAndroid2025Theme(darkTheme = IS_IN_DARK_MODE) { AppBottomNavBar {} }

@@ -1,4 +1,4 @@
-package com.example.tbc_android_2025.presentation.navigation
+package com.example.tbc_android_2025.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf

@@ -19,27 +19,36 @@ class LocationsViewModel @Inject constructor(
 ) : BaseViewModel<State, Event, SideEffect>(initialState = State.loading()) {
 
     init {
+        observeTheme()
         onEvent(event = Event.OnFetchLocations)
     }
 
+
     override fun onEvent(event: Event) {
         when (event) {
-            Event.OnFetchLocations -> handleResponse(
-                apiCall = { getLocationsUseCase() },
-                onSuccess = { updateState { copy(locations = it.toPresentation()) } },
-                onError = { sendSideEffect(sideEffect = SideEffect.ShowError(error = it)) },
-                onLoading = { updateState { copy(isLoading = it.isLoading) } }
-            )
-
-            is Event.OnThemeToggle -> viewModelScope.launch { setThemeUseCase(isDark = event.isDark) }
+            Event.OnFetchLocations -> handleFetchLocations()
+            is Event.OnThemeToggle -> handleThemeToggle(isDarkMode = event.isDark)
         }
     }
 
+
+    /** ======================================= OBSERVERS ======================================= */
     private fun observeTheme() {
-        viewModelScope.launch {
-            getThemeUseCase().collect { isDark ->
-                updateState { copy(isDarkMode = isDark) }
-            }
-        }
+        viewModelScope.launch { getThemeUseCase().collect { updateState { copy(isDarkMode = it) } } }
     }
+    /** ========================================================================================= */
+
+
+    /** ======================================= HANDLERS ======================================== */
+    private fun handleFetchLocations() = handleResponse(
+        apiCall = { getLocationsUseCase() },
+        onSuccess = { updateState { copy(locations = it.toPresentation()) } },
+        onError = { sendSideEffect(sideEffect = SideEffect.ShowError(error = it)) },
+        onLoading = { updateState { copy(isLoading = it.isLoading) } }
+    )
+
+    private fun handleThemeToggle(isDarkMode: Boolean) {
+        viewModelScope.launch { setThemeUseCase(isDarkMode = isDarkMode) }
+    }
+    /** ========================================================================================= */
 }

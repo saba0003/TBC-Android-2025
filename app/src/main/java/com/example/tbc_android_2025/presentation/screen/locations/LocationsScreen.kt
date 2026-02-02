@@ -1,7 +1,6 @@
 package com.example.tbc_android_2025.presentation.screen.locations
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -13,7 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
@@ -25,8 +24,10 @@ import androidx.compose.material.icons.rounded.WbSunny
 import androidx.compose.material.icons.rounded.Whatshot
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -52,63 +53,81 @@ import com.example.tbc_android_2025.presentation.component.AppImage
 import com.example.tbc_android_2025.presentation.component.AppRatingBar
 import com.example.tbc_android_2025.presentation.extension.CollectSideEffect
 import com.example.tbc_android_2025.presentation.model.LocationModel
-import com.example.tbc_android_2025.presentation.screen.NavBarIcons
+import com.example.tbc_android_2025.navigation.NavBarIcons
+import com.example.tbc_android_2025.presentation.screen.locations.LocationsContract.Event
 import com.example.tbc_android_2025.presentation.screen.locations.LocationsContract.SideEffect
 import com.example.tbc_android_2025.presentation.screen.locations.LocationsContract.State
+import com.example.tbc_android_2025.presentation.ui.theme.AppTheme
+import com.example.tbc_android_2025.presentation.ui.theme.TBCAndroid2025Theme
 import kotlin.math.absoluteValue
 
 private const val SHOW_BACKGROUND = true
+private const val IS_IN_LIGHT_MODE = false
+private const val IS_IN_DARK_MODE = true
+private const val LIGHT_MODE = "Light Mode"
+private const val DARK_MODE = "Dark Mode"
 
 @Composable
 fun LocationsScreen(viewModel: LocationsViewModel = hiltViewModel()) {
     val state by viewModel.state.collectAsStateWithLifecycle()
+    val snackbarHostState = AppTheme.SnackbarHostState
+    val unknownError = stringResource(id = Strings.error_unknown)
 
     viewModel.sideEffect.CollectSideEffect {
         when (it) {
-            is SideEffect.ShowError -> { /* Handle Error UI */
+            is SideEffect.ShowError -> {
+                snackbarHostState.showSnackbar(message = it.error.message ?: unknownError)
             }
         }
     }
 
-    LocationsScreenContent(state = state)
+    LocationsScreenContent(
+        state = state,
+        snackbarHostState = snackbarHostState,
+        onEvent = { viewModel.onEvent(event = it) }
+    )
 }
 
 @Composable
-private fun LocationsScreenContent(state: State) {
+private fun LocationsScreenContent(
+    state: State,
+    snackbarHostState: SnackbarHostState,
+    onEvent: (Event) -> Unit
+) {
     var selectedNav by remember { mutableStateOf(NavBarIcons.HOME) }
     val pagerState = rememberPagerState(pageCount = { state.locations.size })
 
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFF1D262B)) // Dark background from image
-            .systemBarsPadding(),
+            .background(color = AppTheme.Colors.background),
         bottomBar = {
             AppBottomNavBar(
                 selectedIcon = selectedNav,
                 onIconSelected = { selectedNav = it }
             )
         },
-        containerColor = Color(0xFF1D262B)
+        snackbarHost = { snackbarHostState },
+        containerColor = AppTheme.Colors.background
     ) { paddingValues ->
         Column(
             modifier = Modifier
                 .padding(paddingValues)
                 .fillMaxSize()
         ) {
-// Header Row
+            // Header Row
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
+                    .statusBarsPadding()
                     .padding(horizontal = 32.dp, vertical = 24.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
                     text = stringResource(id = Strings.statistics),
-                    style = MaterialTheme.typography.headlineMedium,
-                    color = Color.White,
-                    fontWeight = FontWeight.Bold
+                    style = AppTheme.Typography.headlineLarge,
+                    color = AppTheme.Colors.onSurface
                 )
 
                 // Day/Night Theme Switcher (Non-functional for now)
@@ -116,22 +135,23 @@ private fun LocationsScreenContent(state: State) {
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
-                    Icon(
-                        imageVector = Icons.Rounded.WbSunny,
-                        contentDescription = stringResource(id = Strings.light_mode),
-                        tint = Color.White,
-                        modifier = Modifier
-                            .size(24.dp)
-                            .clickable(enabled = false) { /* TODO */ }
-                    )
-                    Icon(
-                        imageVector = Icons.Rounded.NightsStay,
-                        contentDescription = stringResource(id = Strings.dark_mode),
-                        tint = Color.White.copy(alpha = 0.5f), // Slightly dimmed to show it's "inactive"
-                        modifier = Modifier
-                            .size(24.dp)
-                            .clickable(enabled = false) { /* TODO */ }
-                    )
+                    IconButton(onClick = { onEvent(Event.OnThemeToggle(isDark = false)) }) {
+                        Icon(
+                            imageVector = Icons.Rounded.WbSunny,
+                            contentDescription = stringResource(id = Strings.light_mode),
+                            tint = if (!state.isDarkMode) AppTheme.Colors.primary else AppTheme.Colors.onSurfaceSecondary,
+                            modifier = Modifier.size(24.dp)
+                        )
+                    }
+
+                    IconButton(onClick = { onEvent(Event.OnThemeToggle(isDark = true)) }) {
+                        Icon(
+                            imageVector = Icons.Rounded.NightsStay,
+                            contentDescription = stringResource(id = Strings.dark_mode),
+                            tint = if (state.isDarkMode) AppTheme.Colors.primary else AppTheme.Colors.onSurfaceSecondary,
+                            modifier = Modifier.size(24.dp)
+                        )
+                    }
                 }
             }
 
@@ -264,19 +284,45 @@ fun LocationItem(
 }
 
 @Composable
-@Preview(showBackground = SHOW_BACKGROUND)
-private fun LocationsScreenPreview() = LocationsScreenContent(
-    state = State(
-        locations = listOf(
-            element = LocationModel(
-                id = 1,
-                title = "Natural Walk To The Top",
-                location = "Barcelona",
-                number = "2500",
-                photo = "https://picsum.photos/seed/tour1/800/1200",
-                price = 120,
-                stars = 4
+@Preview(name = LIGHT_MODE, showBackground = SHOW_BACKGROUND)
+private fun LocationsScreenLightModePreview() = TBCAndroid2025Theme(darkTheme = IS_IN_LIGHT_MODE) {
+    LocationsScreenContent(
+        state = State(
+            locations = listOf(
+                element = LocationModel(
+                    id = 1,
+                    title = "Natural Walk To The Top",
+                    location = "Barcelona",
+                    number = "2500",
+                    photo = "https://picsum.photos/seed/tour1/800/1200",
+                    price = 120,
+                    stars = 4
+                )
             )
-        )
+        ),
+        snackbarHostState = AppTheme.SnackbarHostState,
+        onEvent = {}
     )
-)
+}
+
+@Composable
+@Preview(name = DARK_MODE, showBackground = SHOW_BACKGROUND)
+private fun LocationsScreenDarkModePreview() = TBCAndroid2025Theme(darkTheme = IS_IN_DARK_MODE) {
+    LocationsScreenContent(
+        state = State(
+            locations = listOf(
+                element = LocationModel(
+                    id = 1,
+                    title = "Natural Walk To The Top",
+                    location = "Barcelona",
+                    number = "2500",
+                    photo = "https://picsum.photos/seed/tour1/800/1200",
+                    price = 120,
+                    stars = 4
+                )
+            )
+        ),
+        snackbarHostState = AppTheme.SnackbarHostState,
+        onEvent = {}
+    )
+}
