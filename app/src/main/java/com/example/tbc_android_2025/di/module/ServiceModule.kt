@@ -14,7 +14,7 @@ object ServiceModule {
 
     @Provides
     @Singleton
-    fun provideLocationFetchService(retrofit: Retrofit): LocationFetchService =
-        retrofit.create(LocationFetchService::class.java)
+    fun provideFieldFetchService(retrofit: Retrofit): FieldFetchService =
+        retrofit.create(FieldFetchService::class.java)
 
 }

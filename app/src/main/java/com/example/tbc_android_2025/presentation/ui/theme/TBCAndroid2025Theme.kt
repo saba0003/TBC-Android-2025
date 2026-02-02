@@ -25,8 +25,7 @@ fun TBCAndroid2025Theme(
 ) {
     val customColorScheme = if (darkTheme) AppColors.DarkThemeScheme else AppColors.LightThemeScheme
 
-    val supportsDynamicColor =
-        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
+    val supportsDynamicColor = dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
 
     val colorScheme = when {
         supportsDynamicColor -> {

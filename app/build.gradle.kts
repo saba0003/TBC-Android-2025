@@ -33,7 +33,7 @@ android {
             buildConfigField(
                 type = "String",
                 name = "BASE_URL",
-                value = "\"https://b3a5ff42-2e26-463e-ab7a-408f34e7b408.mock.pstmn.io/\""
+                value = "\"https://e97b2d97-2949-4fd7-8e15-be64c65ab561.mock.pstmn.io/\""
             )
         }
 

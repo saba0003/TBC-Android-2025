@@ -14,7 +14,7 @@ interface RepositoryModule {
 
     @Binds
     @Singleton
-    fun bindLocationRepository(impl: LocationRepositoryImpl): LocationRepository
+    fun bindFieldRepository(impl: FieldRepositoryImpl): FieldRepository
 
     @Binds
     @Singleton
