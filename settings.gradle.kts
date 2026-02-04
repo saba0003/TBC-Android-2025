@@ -16,5 +16,12 @@ dependencyResolutionManagement {
     }
 }
 
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+
 rootProject.name = "TBC-Android-2025"
 include(":app")
+include(":core:data")
+include(":core:domain")
+include(":core:presentation")
+include(":feature:register")
+include(":navigation")

@@ -4,15 +4,11 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-    alias(libs.plugins.kotlin.parcelize)
-    alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.ksp)
     alias(libs.plugins.dagger.hilt.android)
-    alias(libs.plugins.secrets.gradle.plugin)
 }
 
 android {
-
     namespace = "com.example.tbc_android_2025"
     compileSdk = 36
 
@@ -30,12 +26,6 @@ android {
         debug {
             isMinifyEnabled = false
             isShrinkResources = false
-
-            buildConfigField(
-                type = "String",
-                name = "BASE_URL",
-                value = "\"https://e97b2d97-2949-4fd7-8e15-be64c65ab561.mock.pstmn.io/\""
-            )
         }
 
         release {
@@ -68,11 +58,7 @@ android {
 }
 
 dependencies {
-    implementation(libs.kotlinx.datetime)
-    implementation(libs.kotlinx.serialization.json)
-    implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.core.splashscreen)
-    implementation(libs.androidx.swiperefreshlayout)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.lifecycle.viewmodel.navigation3)
@@ -81,11 +67,6 @@ dependencies {
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
-    implementation(libs.androidx.paging)
-    implementation(libs.androidx.paging.compose)
-    implementation(libs.androidx.activity)
-    implementation(libs.androidx.constraintlayout)
-    implementation(libs.androidx.constraintlayout.compose)
     implementation(libs.androidx.navigation3.runtime)
     implementation(libs.androidx.navigation3.ui)
     implementation(platform(libs.androidx.compose.bom))
@@ -97,15 +78,10 @@ dependencies {
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
     ksp(libs.androidx.room.compiler)
-    implementation(libs.coil.android)
-    implementation(libs.coil.compose)
-    implementation(libs.coil.network.okhttp)
-    implementation(libs.retrofit)
-    implementation(libs.retrofit2.kotlinx.serialization.converter)
-    implementation(libs.logging.interceptor)
     ksp(libs.hilt.compiler)
     implementation(libs.hilt.android)
-    implementation(libs.kizitonwose.calendar)
+    implementation(projects.core.presentation)
+    implementation(projects.navigation)
     testImplementation(libs.junit)
     testImplementation(libs.mockk)
     testImplementation(libs.mockk.android)

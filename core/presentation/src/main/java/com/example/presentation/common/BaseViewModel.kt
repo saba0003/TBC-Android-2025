@@ -1,0 +1,66 @@
+package com.example.presentation.common
+
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.domain.common.Resource
+import com.example.domain.error.AppError
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+
+abstract class BaseViewModel<STATE, EVENT, SIDE_EFFECT>(initialState: STATE) : ViewModel() {
+
+    private val _state = MutableStateFlow(value = initialState)
+    val state = _state.asStateFlow()
+
+    private val _sideEffect = Channel<SIDE_EFFECT>(capacity = Channel.Factory.CONFLATED)
+    val sideEffect = _sideEffect.receiveAsFlow()
+
+
+    open fun onEvent(event: EVENT) = Unit
+
+
+    protected fun updateState(reducer: STATE.() -> STATE) = _state.update { it.reducer() }
+
+    protected fun emitSideEffect(sideEffect: SIDE_EFFECT) {
+        viewModelScope.launch { _sideEffect.send(element = sideEffect) }
+    }
+
+    protected suspend fun sendSideEffect(sideEffect: SIDE_EFFECT) =
+        _sideEffect.send(element = sideEffect)
+
+    protected fun <T : Any> handleResponse(
+        apiCall: () -> Flow<Resource<T>>,
+        onSuccess: (T) -> Unit,
+        onError: (suspend (AppError) -> Unit)? = null,
+        onLoading: (Resource.Loader) -> Unit
+    ) {
+        viewModelScope.launch {
+            apiCall().collect { resource ->
+                getResourceType(
+                    resource = resource,
+                    onSuccess = { onSuccess(it) },
+                    onError = { onError?.invoke(it.value) },
+                    onLoading = { onLoading(it) }
+                )
+            }
+        }
+    }
+
+
+    /** AUX */
+    private suspend inline fun <T : Any> getResourceType(
+        resource: Resource<T>,
+        onSuccess: (T) -> Unit,
+        onError: suspend (Resource.Error) -> Unit,
+        onLoading: (Resource.Loader) -> Unit
+    ) = when (resource) {
+        is Resource.Success -> onSuccess(resource.data)
+        is Resource.Error -> onError(resource)
+        is Resource.Loader -> onLoading(resource)
+    }
+}

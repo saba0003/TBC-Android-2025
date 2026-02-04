@@ -1,20 +1,3 @@
 <resources>
     <string name="app_name">TBC-Android-2025</string>
-
-    <string name="e_auth">E-AUTH</string>
-    <string name="register">Register</string>
-
-    <!-- CONTENT DESCRIPTIONS -->
-    <string name="light_mode">Light Mode</string>
-    <string name="dark_mode">Dark Mode</string>
-
-    <!-- ERRORS -->
-    <string name="error_network">Network Error: Could not connect to the server. Please check your settings and try again.</string>
-    <string name="error_server">Internal Server Error: Our servers are currently under maintenance. Please try again later.</string>
-    <string name="error_api">API Error: Received an unexpected response code.</string>
-    <string name="error_unknown">An unknown error occurred: No details available.</string>
-    <string name="error_not_found">404: The requested information could not be found.</string>
-    <string name="error_forbidden">403: Access denied. This action is restricted.</string>
-    <string name="error_login_required">401: Your session has expired. Please log in again to continue.</string>
-    <string name="error_technical">Something went wrong on our end. Our team has been notified.</string>
 </resources>

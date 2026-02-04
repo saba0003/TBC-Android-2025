@@ -16,5 +16,3 @@ local.properties
 
 .idea
 .kotlin
-/app/src/androidTest
-/app/src/test

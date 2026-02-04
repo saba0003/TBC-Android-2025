@@ -6,9 +6,9 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import com.example.tbc_android_2025.navigation.AppNavigation
-import com.example.tbc_android_2025.presentation.screen.splash.SplashViewModel
-import com.example.tbc_android_2025.presentation.ui.theme.TBCAndroid2025Theme
+import com.example.navigation.AppNavigation
+import com.example.presentation.screen.splash.SplashViewModel
+import com.example.presentation.ui.theme.TBCAndroid2025Theme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
