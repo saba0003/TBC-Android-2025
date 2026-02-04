@@ -19,6 +19,7 @@ class RegisterViewModel @Inject constructor(private val getFieldsUseCase: GetFie
     override fun onEvent(event: Event) {
         when (event) {
             Event.OnFetchFields -> handleFetchLocations()
+            Event.OnRegisterClicked -> {}
         }
     }
 

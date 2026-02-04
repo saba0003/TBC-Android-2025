@@ -18,6 +18,7 @@ interface RegisterContract {
 
     sealed interface Event {
         data object OnFetchFields : Event
+        data object OnRegisterClicked : Event
     }
 
     sealed interface SideEffect {
